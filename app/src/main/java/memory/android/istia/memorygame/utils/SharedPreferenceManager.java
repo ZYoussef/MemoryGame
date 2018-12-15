@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * SharedPreferenceManager--- Gestion des données de l'application
+ *
+ * @author Sébastien, Thomas, Youssef
+ * @version 1.0
+ */
 public class SharedPreferenceManager {
 
     private static SharedPreferences mSharedPreference;
