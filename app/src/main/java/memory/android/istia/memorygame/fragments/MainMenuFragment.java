@@ -62,7 +62,7 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);
                 break;
             case R.id.scoreButton:
-                //TODO
+                FragmentController.getInstance().openFragment(FragmentController.Fragments.SCORES);
                 break;
             case R.id.creditButton:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.CREDITS);

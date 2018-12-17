@@ -11,6 +11,7 @@ import java.util.List;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.fragments.CreditsFragment;
 import memory.android.istia.memorygame.fragments.MainMenuFragment;
+import memory.android.istia.memorygame.fragments.ScoreFragment;
 import memory.android.istia.memorygame.fragments.SettingsFragment;
 
 /**
@@ -100,7 +101,7 @@ public class FragmentController {
         switch(frag){
             case MAIN_MENU: return new MainMenuFragment();
             case SETTINGS: return new SettingsFragment();
-            //case SCORES: return new ScoresFragment();
+            case SCORES: return new ScoreFragment();
             case CREDITS: return new CreditsFragment();
             //case GAME_PARAMETERS: return new GameParametersFragment();
             //case GAME: return new GameFragment();
