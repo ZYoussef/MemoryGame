@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity   android:name=".activities.MainActivity"
+        <activity   android:name=".MainActivity"
                     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
                     android:screenOrientation="landscape">
             <intent-filter>

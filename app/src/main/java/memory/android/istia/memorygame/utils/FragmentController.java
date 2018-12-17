@@ -3,11 +3,13 @@ package memory.android.istia.memorygame.utils;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.fragments.SettingsFragment;
 
 /**
  * FragmentController--- Gère l'ensemble des fragment du jeu (Singleton)
@@ -65,6 +67,7 @@ public class FragmentController {
     public void openFragment(Fragments screen) {
         Fragment fragment = getFragment(screen);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        Log.d("DEBOG", "res : " + fragment);
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
         openedFragments.add(screen);
@@ -94,7 +97,7 @@ public class FragmentController {
     private Fragment getFragment(Fragments frag){
         switch(frag){
            // case MAIN_MENU: return new MainMenuFragment();
-            //case SETTINGS: return new SettingsFragment();
+            case SETTINGS: return new SettingsFragment();
            // case SCORES: return new ScoresFragment();
             //case CREDITS: return new CreditsFragment();
             //case GAME_PARAMETERS: return new GameParametersFragment();

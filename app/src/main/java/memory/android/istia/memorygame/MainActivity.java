@@ -1,4 +1,4 @@
-package memory.android.istia.memorygame.activities;
+package memory.android.istia.memorygame;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
         NotificationServiceManager.init(getApplicationContext());
 
         //Affichage du menu principal
-        //FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+        FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);
     }
 
 

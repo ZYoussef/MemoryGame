@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.SettingsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <CheckBox
+        android:id="@+id/checkBoxSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="206dp"
+        android:layout_marginTop="116dp"
+        android:text="@string/sound_settings" />
+
+    <CheckBox
+        android:id="@+id/checkBoxVibration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="203dp"
+        android:layout_marginTop="169dp"
+        android:text="@string/vibration_settings" />
+
+    <Spinner
+        android:id="@+id/spinnerLanguages"
+        android:layout_width="206dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="39dp" />
+
+    <Button
+        android:id="@+id/button_settings_validate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-93dp"
+        android:layout_marginBottom="38dp"
+        android:layout_toEndOf="@+id/checkBoxSound"
+        android:text="@string/validate" />
+</RelativeLayout>

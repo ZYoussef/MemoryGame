@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import memory.android.istia.memorygame.activities.MainActivity;
+import memory.android.istia.memorygame.MainActivity;
 
 /**
  * NotificationServiceManager--- Permet d'envoyer des notifications
