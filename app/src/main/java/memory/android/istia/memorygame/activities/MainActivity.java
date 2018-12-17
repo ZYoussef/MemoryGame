@@ -1,22 +1,20 @@
 package memory.android.istia.memorygame.activities;
 
-import android.app.Activity;
-import android.os.Bundle;
+        import android.os.Bundle;
+        import android.support.v4.app.FragmentActivity;
 
-import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.utils.SharedPreferenceManager;
+        import memory.android.istia.memorygame.R;
+        import memory.android.istia.memorygame.utils.FragmentController;
+        import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
- * MainActivity--- Affichage du menu principal de l'application :
- *  - Jouer (lance une nouvelle partie)
- *  - Options (accès aux options de l'application)
- *  - Scores (accès aux X plus gros scores réalisé)
- *  - Crédits (accès aux crédits de l'application)
+ * MainActivity--- Activité de l'application (UNIQUE)
+ * Initialisation du SharedPreferenceManager et du FragmentController
  *
  * @author Sébastien, Thomas, Youssef
  * @version 1.0
  */
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +23,16 @@ public class MainActivity extends Activity {
 
         //Initialisation du SharedPreference qui sera globale pour toute l'application
         SharedPreferenceManager.init(getApplicationContext());
+
+        //Initialisation du FragmentController
+        FragmentController.init(getSupportFragmentManager());
+
+        //Affichage du menu principal
+        FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentController.getInstance().onBack();
     }
 }
