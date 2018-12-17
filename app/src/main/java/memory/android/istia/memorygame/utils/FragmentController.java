@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.fragments.CreditsFragment;
+import memory.android.istia.memorygame.fragments.MainMenuFragment;
 import memory.android.istia.memorygame.fragments.SettingsFragment;
 
 /**
@@ -96,10 +98,10 @@ public class FragmentController {
 
     private Fragment getFragment(Fragments frag){
         switch(frag){
-           // case MAIN_MENU: return new MainMenuFragment();
+            case MAIN_MENU: return new MainMenuFragment();
             case SETTINGS: return new SettingsFragment();
-           // case SCORES: return new ScoresFragment();
-            //case CREDITS: return new CreditsFragment();
+            //case SCORES: return new ScoresFragment();
+            case CREDITS: return new CreditsFragment();
             //case GAME_PARAMETERS: return new GameParametersFragment();
             //case GAME: return new GameFragment();
             //case END_GAME: return new EndGameFragment();

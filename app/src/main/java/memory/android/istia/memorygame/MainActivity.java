@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
         NotificationServiceManager.init(getApplicationContext());
 
         //Affichage du menu principal
-        FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);
+        FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
     }
 
 
