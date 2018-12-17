@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MemoryGame</string>
-    <string name="play_uppercase">JOUER</string>
-    <string name="settings_uppercase">OPTIONS</string>
-    <string name="credits_uppercase">CRÉDITS</string>
+    <string name="play_uppercase">играть</string>
+    <string name="option_uppercase">ВАРИАНТЫ</string>
+    <string name="credits_uppercase">КРЕДИТЫ</string>
+    <string name="score_uppercase">ГОЛ</string>
+    <string name="settings_uppercase">настройки</string>
 </resources>

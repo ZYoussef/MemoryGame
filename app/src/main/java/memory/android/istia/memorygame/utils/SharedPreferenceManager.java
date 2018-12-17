@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 public class SharedPreferenceManager {
 
     private static SharedPreferences mSharedPreference;
-
     //Données disponible dans le SharedPreference
     public enum Settings {
         FIRST_START{
