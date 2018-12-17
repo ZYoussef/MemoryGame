@@ -1,11 +1,11 @@
 package memory.android.istia.memorygame.activities;
 
-        import android.os.Bundle;
-        import android.support.v4.app.FragmentActivity;
-
-        import memory.android.istia.memorygame.R;
-        import memory.android.istia.memorygame.utils.FragmentController;
-        import memory.android.istia.memorygame.utils.SharedPreferenceManager;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import memory.android.istia.memorygame.utils.NotificationServiceManager;
+import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
  * MainActivity--- Activité de l'application (UNIQUE)
@@ -27,9 +27,13 @@ public class MainActivity extends FragmentActivity {
         //Initialisation du FragmentController
         FragmentController.init(getSupportFragmentManager());
 
+        //Initialisation du notificationsManager
+        NotificationServiceManager.init(getApplicationContext());
+
         //Affichage du menu principal
-        FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+        //FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
     }
+
 
     @Override
     public void onBackPressed() {
