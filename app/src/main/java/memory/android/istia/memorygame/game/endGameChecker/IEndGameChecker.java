@@ -21,4 +21,14 @@ public interface IEndGameChecker {
      * les informations de la partie (nb de coups joués)
      */
     void update();
+
+    /**
+     * Calcul du score selon le mode de jeu.
+     * Coups limités : Le score correspond au % des coups joués par rapport au nombre limite des coups.
+     * Contre la montre : le score correspond au % du temps effectué.
+     * Si celui ci est <= 30%, le score est considéré comme parfait.
+     * @return le score calculé
+     */
+    int CalculateScore();
+
 }

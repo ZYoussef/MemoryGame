@@ -4,16 +4,24 @@ import memory.android.istia.memorygame.game.GameManager;
 
 /**
  * MovesDefeatEndGameChecker--- implémente IEndGameChecker
- *  Condition de défaite selon un nombte de coups limité
- *  Appelera le GameManager lorsque le nombre des coups joués atteint le nombre de coups limite
+ * Condition de défaite selon un nombre de coups limité
+ * Appelera le GameManager lorsque le nombre des coups joués atteint le nombre de coups limite
  *
  * @author Sébastien, Thomas, Youssef
  * @version 1.0
  */
 public class MovesDefeatEndGameChecker implements IEndGameChecker {
 
+    public static final int MAX_SCORE = 50;
     private GameManager mGameManager;
+    /**
+     * Nombre de coups max à jouer
+     */
     private int mMovesLimit;
+
+    /**
+     * Nombre de coups joués
+     */
     private int mMovesPlayed;
 
     public MovesDefeatEndGameChecker(GameManager gameManager, int movesLimit){
@@ -36,5 +44,11 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
         if(this.mMovesPlayed >= this.mMovesLimit){
             notifyGameManager();
         }
+    }
+
+    @Override
+    public int CalculateScore()
+    {
+        return (this.mMovesPlayed * MAX_SCORE)/this.mMovesLimit;
     }
 }
