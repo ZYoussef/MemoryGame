@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.MainMenuFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="104dp"
+        android:layout_height="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="@string/play_uppercase"/>
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="101dp"
+        android:layout_height="38dp"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="120dp"
+        android:text="@string/settings_uppercase"/>
+
+    <Button
+        android:id="@+id/scoreButton"
+        android:layout_width="103dp"
+        android:layout_height="36dp"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="102dp"
+        android:text="@string/score_uppercase" />
+
+    <Button
+        android:id="@+id/creditButton"
+        android:layout_width="104dp"
+        android:layout_height="37dp"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="49dp"
+        android:text="@string/credits_uppercase" />
+</RelativeLayout>

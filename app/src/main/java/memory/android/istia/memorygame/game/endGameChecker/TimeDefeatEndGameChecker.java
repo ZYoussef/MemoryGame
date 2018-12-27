@@ -14,12 +14,24 @@ import memory.android.istia.memorygame.game.GameManager;
  */
 public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> implements IEndGameChecker {
 
+    /**
+     * Score max possible
+     */
+    public static final int MAX_SCORE = 50;
     private GameManager mGameManager;
+    /**
+     * La limite du temps en seconde
+     */
     private int mTimeLimit;
+    /**
+     * Décompteur
+     */
+    private int mCountDown;
 
     public TimeDefeatEndGameChecker(GameManager gm, int timeLimit){
         this.mGameManager = gm;
         this.mTimeLimit = timeLimit;
+        this.mCountDown = timeLimit;
     }
 
     @Override
@@ -32,6 +44,19 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
         //N'a pas besoin  de recevoir les données de la partie
     }
 
+    @Override
+    public int CalculateScore() {
+
+        // calcul de la marge
+        int marge = (30*this.mTimeLimit)/100;
+        // Cas d'un score parfait , avec une marge de 30%
+        if(this.mCountDown >= this.mTimeLimit-marge)
+            return MAX_SCORE;
+        else
+            // Le pourcentage sur le score max. la marge est prise en compte aussi
+            return ((this.mCountDown-marge)*MAX_SCORE/this.mTimeLimit);
+    }
+
     /**
      * Lance un chronomère en background qui avertira le GameManager quand le temps
      * sera écoulé
@@ -41,11 +66,20 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
     @Override
     protected Void doInBackground(Void... voids) {
 
+
         //Chronomètre
-        while(this.mTimeLimit > 0){
+        /*while(this.mTimeLimit > 0){
             try {
                 Thread.sleep(1000);
                 this.mTimeLimit -= 1;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }*/
+        while(this.mCountDown> 0){
+            try {
+                Thread.sleep(1000);
+                this.mCountDown-= 1;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -61,4 +95,6 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
 
         //TODO Avertir le GameManager pour l'affichage du chronomètre visuellement
     }
+
+
 }
