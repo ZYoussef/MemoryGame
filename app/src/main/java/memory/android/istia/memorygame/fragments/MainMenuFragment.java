@@ -56,7 +56,7 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.playButton:
-                //TODO
+                FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
                 break;
             case R.id.settingsButton:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);

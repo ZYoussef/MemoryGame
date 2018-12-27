@@ -34,4 +34,10 @@ public class VictoryEndGameChecker implements IEndGameChecker {
             notifyGameManager();
         }
     }
+
+    @Override
+    public int CalculateScore() {
+        //TODO calcul score victoire
+        return 100;
+    }
 }
