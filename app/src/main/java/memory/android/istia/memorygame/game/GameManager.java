@@ -24,7 +24,9 @@ public class GameManager implements IGameManager {
 
     private List<IEndGameChecker> mEndGameCheckers;
     private List<CardFragment> mCardFragments;
+
     private CardFragment mLastCard;
+    private CardFragment mBeforeLastCard; //l'avant dernière
 
     public GameManager(int cardsPair){
         mCardsPair = cardsPair;
@@ -67,24 +69,39 @@ public class GameManager implements IGameManager {
 
     public void cardClicked(int cardID){
         CardFragment newCard = getCardByID(cardID);
-        newCard.setCardVisibility(true, 0);
 
         //1ère carte, on enregistre et met visible
-        if(this.mLastCard == null){
-            mLastCard = newCard;
+        if(this.mBeforeLastCard == null){
+            mBeforeLastCard = newCard;
+            mBeforeLastCard.setCardVisibility(true);
             return;
         }
+        //2nd carte, pareil + vérif des paires
+        else if(this.mLastCard == null){
+            this.mLastCard = newCard;
+
+            this.mLastCard.setCardVisibility(true);
+
+            if(mLastCard.getPairNumber() == mBeforeLastCard.getPairNumber()){
+                //TODO pair trouvé, incrémenter compteur etc ... + les appels en EndGameChecker à chaque coup
+                mLastCard.setPairFound(true);
+                mBeforeLastCard.setPairFound(true);
+            }
+        }
+        //On reprend une carte,
         else{
-            //1. pas une paire
-            if(mLastCard.getPairNumber() != newCard.getPairNumber()){
-                mLastCard.setCardVisibility(false, 0);
-                newCard.setCardVisibility(false, 0);
-                mLastCard = null;
-                // mettre timer
+            //Si pas paire, on cache les anciennes cartes
+            if(!mLastCard.getPairFound()){
+                this.mLastCard.setCardVisibility(false);
+                this.mBeforeLastCard.setCardVisibility(false);
             }
-            else{
-                mLastCard = null;
-            }
+
+            //Puis celle retournée devient la beforeLastCard
+            this.mBeforeLastCard = newCard;
+            this.mLastCard = null;
+
+            //Qu'on met visible
+            this.mBeforeLastCard.setCardVisibility(true);
         }
     }
 

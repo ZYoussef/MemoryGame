@@ -20,6 +20,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     private int mImageId;
     private int mBackImageId;
     private boolean mCardVisible;
+    private boolean mPairFound;
 
     private ImageView mCardImage;
 
@@ -65,7 +66,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void setCardVisibility(boolean visible, int time){
+    public void setCardVisibility(boolean visible){
         if(visible){
             Log.e("SetVisible", "card " + mID + " shoudl be visible");
             this.mCardImage.setImageResource(this.mImageId);
@@ -75,26 +76,6 @@ public class CardFragment extends Fragment implements View.OnClickListener {
             this.mCardImage.setImageResource(this.mBackImageId);
             this.mCardVisible = false;
             Log.e("SetVisible", "card " + mID + " should not be visible");
-        }
-    }
-
-    private void setCardVisibilityAfterTime(boolean visible, int time){
-        while(true){
-            try {
-                Thread.sleep(time * 1000);
-                if(visible){
-                    Log.e("SetVisible", "card " + mID + " shoudl be visible");
-                    this.mCardImage.setImageResource(this.mImageId);
-                    this.mCardVisible = true;
-                }
-                else{
-                    this.mCardImage.setImageResource(this.mBackImageId);
-                    this.mCardVisible = false;
-                    Log.e("SetVisible", "card " + mID + " should not be visible");
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -108,5 +89,13 @@ public class CardFragment extends Fragment implements View.OnClickListener {
 
     public int getPairNumber(){
         return this.mPairNumber;
+    }
+
+    public void setPairFound(boolean found){
+        this.mPairFound = found;
+    }
+
+    public boolean getPairFound(){
+        return this.mPairFound;
     }
 }
