@@ -40,7 +40,9 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.buttonGameParameterPlay:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME);
+                Bundle args = new Bundle();
+                args.putString("difficulty", "easy");
+                FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
                 break;
         }
     }

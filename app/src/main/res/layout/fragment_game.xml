@@ -38,54 +38,13 @@
     </LinearLayout>
 
     <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayoutGame"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_weight="1"
         app:columnCount="3"
-        app:rowCount="2"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
-
-        <ImageView
-            android:id="@+id/imageView23"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
-
-        <ImageView
-            android:id="@+id/imageView24"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
-
-        <ImageView
-            android:id="@+id/imageView25"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
-
-        <ImageView
-            android:id="@+id/imageView26"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
-
-        <ImageView
-            android:id="@+id/imageView27"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/main_background" />
+        app:rowCount="2">
 
     </android.support.v7.widget.GridLayout>
 

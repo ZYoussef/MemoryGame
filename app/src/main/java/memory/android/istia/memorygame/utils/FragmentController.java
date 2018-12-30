@@ -1,5 +1,6 @@
 package memory.android.istia.memorygame.utils;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -72,7 +73,15 @@ public class FragmentController {
     public void openFragment(Fragments screen) {
         Fragment fragment = getFragment(screen);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        Log.d("DEBOG", "res : " + fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+        openedFragments.add(screen);
+    }
+
+    public void openFragmentWithData(Fragments screen, Bundle bundle){
+        Fragment fragment = getFragment(screen);
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
         openedFragments.add(screen);
