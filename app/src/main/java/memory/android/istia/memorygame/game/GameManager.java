@@ -80,6 +80,7 @@ public class GameManager implements IGameManager {
                 mLastCard.setCardVisibility(false, 0);
                 newCard.setCardVisibility(false, 0);
                 mLastCard = null;
+                // mettre timer
             }
             else{
                 mLastCard = null;
