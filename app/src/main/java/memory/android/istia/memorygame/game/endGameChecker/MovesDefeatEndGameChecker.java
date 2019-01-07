@@ -1,5 +1,7 @@
 package memory.android.istia.memorygame.game.endGameChecker;
 
+import android.widget.TextView;
+
 import memory.android.istia.memorygame.game.GameManager;
 
 /**
@@ -24,22 +26,26 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
      */
     private int mMovesPlayed;
 
-    public MovesDefeatEndGameChecker(GameManager gameManager, int movesLimit){
+    private TextView movesLeftUI;
+
+    public MovesDefeatEndGameChecker(GameManager gameManager, int movesLimit, TextView movesLeftUI){
         this.mGameManager = gameManager;
         this.mMovesLimit = movesLimit;
         this.mMovesPlayed = 0;
+        this.movesLeftUI = movesLeftUI;
     }
 
     @Override
     public void notifyGameManager() {
         //Défaite
-        this.mGameManager.endOfGame(false);
+        this.mGameManager.endOfGame(false, calculateScore());
     }
 
     @Override
     public void update() {
         //Rajoute un coup joué + vérification victoire ou défaite
         this.mMovesPlayed++;
+        this.movesLeftUI.setText("Coups restants : " + (this.mMovesLimit - this.mMovesPlayed));
 
         if(this.mMovesPlayed >= this.mMovesLimit){
             notifyGameManager();
@@ -47,7 +53,7 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
     }
 
     @Override
-    public int CalculateScore()
+    public int calculateScore()
     {
         return (this.mMovesPlayed * MAX_SCORE)/this.mMovesLimit;
     }

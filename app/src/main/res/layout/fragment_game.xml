@@ -31,7 +31,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="30dp"
             android:gravity="end"
-            android:text="Nombre paire trouvée :"
+            android:text="Nombre coup restant :"
             android:textAlignment="viewEnd"
             android:textSize="14sp" />
 

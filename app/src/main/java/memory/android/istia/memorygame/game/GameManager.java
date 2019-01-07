@@ -1,5 +1,8 @@
 package memory.android.istia.memorygame.game;
 
+import android.util.Log;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +42,7 @@ public class GameManager implements IGameManager {
         IEndGameChecker victoryChecker = new VictoryEndGameChecker(this);
         attach(victoryChecker);
 
+
         //Création des cartes
         createCards();
     }
@@ -62,7 +66,8 @@ public class GameManager implements IGameManager {
             case 0: return R.drawable.blue_button00;
             case 1: return R.drawable.green_button00;
             case 2: return R.drawable.red_button00;
-            case 3: return R.drawable.green_button00;
+            case 3: return R.drawable.grey_button00;
+            case 4: return R.drawable.yellow_button00;
             default: return R.drawable.blue_button00;
         }
     }
@@ -83,9 +88,9 @@ public class GameManager implements IGameManager {
             this.mLastCard.setCardVisibility(true);
 
             if(mLastCard.getPairNumber() == mBeforeLastCard.getPairNumber()){
-                //TODO pair trouvé, incrémenter compteur etc ... + les appels en EndGameChecker à chaque coup
                 mLastCard.setPairFound(true);
                 mBeforeLastCard.setPairFound(true);
+                mCardsPairFound++;
             }
         }
         //On reprend une carte,
@@ -103,14 +108,17 @@ public class GameManager implements IGameManager {
             //Qu'on met visible
             this.mBeforeLastCard.setCardVisibility(true);
         }
+
+        //Signaler à tous les endGameChecker qu'un coup a été joué
+        notifyEndGameCheckers();
     }
 
     /**
      * Rajoute une condition de défaite pour le jeu avec une limite de temps
      * @param timeLimit limite de temps en seconde
      */
-    public void setTimeLimit(int timeLimit){
-        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, timeLimit);
+    public void setTimeLimit(int timeLimit, TextView timeUI){
+        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, timeLimit, timeUI);
         attach(timeChecker);
         ((TimeDefeatEndGameChecker) timeChecker).execute();
     }
@@ -118,9 +126,10 @@ public class GameManager implements IGameManager {
     /**
      * Rajoute une condition de défaite suivant un nombre de coups limite à jouer
      * @param movesLimit Limite du nombre de coup
+     * @param mTextViewNbPairFound
      */
-    public void setMovesLimit(int movesLimit){
-        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, movesLimit);
+    public void setMovesLimit(int movesLimit, TextView movesLeftUI){
+        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, movesLimit, movesLeftUI);
         attach(moveLimit);
     }
 
@@ -128,8 +137,8 @@ public class GameManager implements IGameManager {
      * Sera appelée par un des EndGameChecker pour spécifier la fin de la partie
      * @param victory
      */
-    public void endOfGame(boolean victory){
-
+    public void endOfGame(boolean victory, int score){
+        Log.d("TEST", "END OF GAME - VICTOIRE="+victory+", score="+score);
     }
 
     ////////////////////////////////////////////////////////////

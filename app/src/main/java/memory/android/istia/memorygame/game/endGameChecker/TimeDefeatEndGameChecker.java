@@ -1,6 +1,9 @@
 package memory.android.istia.memorygame.game.endGameChecker;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import memory.android.istia.memorygame.game.GameManager;
 
@@ -28,15 +31,19 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
      */
     private int mCountDown;
 
-    public TimeDefeatEndGameChecker(GameManager gm, int timeLimit){
+    private TextView editTextTime;
+
+    public TimeDefeatEndGameChecker(GameManager gm, int timeLimit, TextView editTextTime){
         this.mGameManager = gm;
         this.mTimeLimit = timeLimit;
         this.mCountDown = timeLimit;
+        this.editTextTime = editTextTime;
+        Log.d("TEST", "init time checker");
     }
 
     @Override
     public void notifyGameManager() {
-        mGameManager.endOfGame(false);
+        mGameManager.endOfGame(false, calculateScore());
     }
 
     @Override
@@ -45,7 +52,7 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
     }
 
     @Override
-    public int CalculateScore() {
+    public int calculateScore() {
 
         // calcul de la marge
         int marge = (30*this.mTimeLimit)/100;
@@ -65,7 +72,7 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
      */
     @Override
     protected Void doInBackground(Void... voids) {
-
+        Log.d("TEST", "chrono started");
 
         //Chronomètre
         /*while(this.mTimeLimit > 0){
@@ -80,6 +87,7 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
             try {
                 Thread.sleep(1000);
                 this.mCountDown-= 1;
+                publishProgress(this.mCountDown);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -91,9 +99,9 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        publishProgress(values);
 
         //TODO Avertir le GameManager pour l'affichage du chronomètre visuellement
+        editTextTime.setText("Temps restant : " + this.mCountDown);
     }
 
 

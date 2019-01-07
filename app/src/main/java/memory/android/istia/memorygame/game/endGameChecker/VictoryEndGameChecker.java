@@ -1,5 +1,7 @@
 package memory.android.istia.memorygame.game.endGameChecker;
 
+import android.util.Log;
+
 import memory.android.istia.memorygame.game.GameManager;
 
 /**
@@ -25,7 +27,7 @@ public class VictoryEndGameChecker implements IEndGameChecker {
 
     @Override
     public void notifyGameManager() {
-        this.mGameManager.endOfGame(true);
+        this.mGameManager.endOfGame(true, calculateScore());
     }
 
     @Override
@@ -36,7 +38,7 @@ public class VictoryEndGameChecker implements IEndGameChecker {
     }
 
     @Override
-    public int CalculateScore() {
+    public int calculateScore() {
         //TODO calcul score victoire
         return 100;
     }

@@ -29,6 +29,6 @@ public interface IEndGameChecker {
      * Si celui ci est <= 30%, le score est considéré comme parfait.
      * @return le score calculé
      */
-    int CalculateScore();
+    int calculateScore();
 
 }

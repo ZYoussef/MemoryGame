@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.game.GameManager;
@@ -18,6 +20,8 @@ public class GameFragment extends Fragment {
 
     private GridLayout mGridLayout;
     private GameManager mGameManager;
+    private TextView mTextViewTime;
+    private TextView mTextViewNbPairFound;
 
     public GameFragment() {
         //Todo enlever le bouchon
@@ -32,9 +36,15 @@ public class GameFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_game, container, false);
 
         mGridLayout = view.findViewById(R.id.gridLayoutGame);
+        mTextViewTime = view.findViewById(R.id.textViewTime);
+        mTextViewNbPairFound = view.findViewById(R.id.textViewNbPairFound);
 
         setGridSize(getArguments().getString("difficulty"));
         fillGridWithCards();
+
+        mGameManager.setTimeLimit(10, mTextViewTime);
+        mGameManager.setMovesLimit(3, mTextViewNbPairFound);
+
         return view;
     }
 
@@ -65,7 +75,6 @@ public class GameFragment extends Fragment {
 
 
     public void clickOnCard(int mID) {
-        Log.d("DEBUG", "click on " + mID);
         mGameManager.cardClicked(mID);
 
     }
