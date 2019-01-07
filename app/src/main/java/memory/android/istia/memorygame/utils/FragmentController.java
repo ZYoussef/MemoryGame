@@ -11,6 +11,7 @@ import java.util.List;
 
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.fragments.CreditsFragment;
+import memory.android.istia.memorygame.fragments.EndGameFragment;
 import memory.android.istia.memorygame.fragments.GameFragment;
 import memory.android.istia.memorygame.fragments.GameParametersFragment;
 import memory.android.istia.memorygame.fragments.MainMenuFragment;
@@ -87,6 +88,12 @@ public class FragmentController {
         openedFragments.add(screen);
     }
 
+    public void openFragmentAsPopup(Fragments screen, Bundle bundle){
+        EndGameFragment fragment = (EndGameFragment) getFragment(screen);
+        fragment.setArguments(bundle);
+        fragment.show(mFragmentManager, "test");
+    }
+
     /**
      * Override de onBack
      * Permet d'afficher l'ancien fragment
@@ -116,7 +123,7 @@ public class FragmentController {
             case CREDITS: return new CreditsFragment();
             case GAME_PARAMETERS: return new GameParametersFragment();
             case GAME: return new GameFragment();
-            //case END_GAME: return new EndGameFragment();
+            case END_GAME: return new EndGameFragment();
         }
 
         return null;

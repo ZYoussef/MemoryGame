@@ -13,6 +13,7 @@ import memory.android.istia.memorygame.game.endGameChecker.IEndGameChecker;
 import memory.android.istia.memorygame.game.endGameChecker.MovesDefeatEndGameChecker;
 import memory.android.istia.memorygame.game.endGameChecker.TimeDefeatEndGameChecker;
 import memory.android.istia.memorygame.game.endGameChecker.VictoryEndGameChecker;
+import memory.android.istia.memorygame.utils.FragmentController;
 
 /**
  * GameManager--- Gère l'ensemble de la logique du jeu
@@ -126,7 +127,7 @@ public class GameManager implements IGameManager {
     /**
      * Rajoute une condition de défaite suivant un nombre de coups limite à jouer
      * @param movesLimit Limite du nombre de coup
-     * @param mTextViewNbPairFound
+     * @param movesLeftUI
      */
     public void setMovesLimit(int movesLimit, TextView movesLeftUI){
         IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, movesLimit, movesLeftUI);
@@ -139,6 +140,7 @@ public class GameManager implements IGameManager {
      */
     public void endOfGame(boolean victory, int score){
         Log.d("TEST", "END OF GAME - VICTOIRE="+victory+", score="+score);
+        FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, null);
     }
 
     ////////////////////////////////////////////////////////////
