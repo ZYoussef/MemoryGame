@@ -4,29 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MainMenuFragment">
+    android:background="@drawable/main_background"
+    tools:context=".fragments.MainMenuFragment"
+    tools:layout_editor_absoluteY="73dp">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/window_18"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="371dp"
+        android:layout_height="215dp"
+        android:background="@drawable/window_18"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <ImageView
-        android:id="@+id/buttonPlay"
-        android:layout_width="66dp"
-        android:layout_height="77dp"
-        android:src="@drawable/button_47"
-        tools:layout_editor_absoluteX="233dp"
-        tools:layout_editor_absoluteY="85dp" />
+        android:id="@+id/imageView9"
+        android:layout_width="102dp"
+        android:layout_height="104dp"
+        android:src="@drawable/green_button_47"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="86dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:src="@drawable/green_button_30"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="86dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:src="@drawable/green_button_59"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:src="@drawable/green_button_67"
+        tools:layout_editor_absoluteX="372dp"
+        tools:layout_editor_absoluteY="86dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:src="@drawable/green_button_71"
+        tools:layout_editor_absoluteX="372dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="184dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Memory Game"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:autoSizeTextType="uniform"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="24dp" />
+
 </android.support.constraint.ConstraintLayout>

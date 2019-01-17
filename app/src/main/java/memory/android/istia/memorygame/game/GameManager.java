@@ -64,12 +64,12 @@ public class GameManager implements IGameManager {
 
     public int getCardImage(int nb){
         switch(nb){
-            case 0: return R.drawable.blue_button00;
-            case 1: return R.drawable.green_button00;
-            case 2: return R.drawable.red_button00;
-            case 3: return R.drawable.grey_button00;
-            case 4: return R.drawable.yellow_button00;
-            default: return R.drawable.blue_button00;
+            case 0: return R.drawable.blue_button_05;
+            case 1: return R.drawable.green_button_06;
+            case 2: return R.drawable.red_button_07;
+            case 3: return R.drawable.green_button_30;
+            case 4: return R.drawable.red_button_31;
+            default: return R.drawable.blue_button_17;
         }
     }
 

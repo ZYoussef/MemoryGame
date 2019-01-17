@@ -12,4 +12,5 @@
     <string name="hard">Difficile</string>
     <string name="time_limit">Limite de temps</string>
     <string name="move_limit">Limite de coups</string>
+    <string name="appName">Memory Game</string>
 </resources>
