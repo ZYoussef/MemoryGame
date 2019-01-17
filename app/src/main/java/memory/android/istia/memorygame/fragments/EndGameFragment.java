@@ -28,7 +28,6 @@ public class EndGameFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_end_game, container, false);
 
-        DisplayMetrics dm= new DisplayMetrics();
         return rootview;
     }
 

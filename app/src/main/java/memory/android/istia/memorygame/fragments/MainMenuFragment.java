@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import memory.android.istia.memorygame.utils.FragmentController;
 
 import memory.android.istia.memorygame.R;
@@ -18,7 +20,7 @@ import memory.android.istia.memorygame.R;
  */
 public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
-    private Button mPlayButton, mSettingButton, mScoreButton, mCreditButton;
+    private ImageView mPlayButton, mSettingButton, mScoreButton, mCreditButton;
 
     public MainMenuFragment() {
         // Required empty public constructor
@@ -35,17 +37,17 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-
-        mPlayButton = (Button) view.findViewById(R.id.playButton);
-        mSettingButton = (Button) view.findViewById(R.id.settingsButton);
-        mScoreButton= (Button) view.findViewById(R.id.scoreButton);
-        mCreditButton= (Button) view.findViewById(R.id.creditButton);
+/*
+        mPlayButton = view.findViewById(R.id.buttonPlay);
+        mSettingButton = view.findViewById(R.id.buttonSettings);
+        mScoreButton = view.findViewById(R.id.buttonRank);
+        mCreditButton = view.findViewById(R.id.buttonCredit);
 
         mPlayButton.setOnClickListener(this);
         mSettingButton.setOnClickListener(this);
         mScoreButton.setOnClickListener(this);
         mCreditButton.setOnClickListener(this);
-
+*/
         return view;
     }
 
@@ -54,22 +56,23 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        /*
         switch (v.getId()) {
-            case R.id.playButton:
+            case R.id.buttonPlay:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
                 break;
-            case R.id.settingsButton:
+            case R.id.buttonSettings:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);
                 break;
-            case R.id.scoreButton:
+            case R.id.buttonRank:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.SCORES);
                 break;
-            case R.id.creditButton:
+            case R.id.buttonCredit:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.CREDITS);
                 break;
 
 
-        }
+        }*/
     }
 
 
