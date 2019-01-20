@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.78" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineLeftSettings"
@@ -126,7 +126,7 @@
         android:layout_height="0dp"
         android:scaleType="fitXY"
         android:src="@drawable/window_18_top"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineTopTitle"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomTitle"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
@@ -140,27 +140,26 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundTop" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineBottomTitle" />
 
     <Button
         android:id="@+id/buttonPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
         android:background="@drawable/green_button_47"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomPlay"
         app:layout_constraintEnd_toStartOf="@+id/guidelineCredits"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftPlay"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopPlay" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopTitle" />
 
     <Button
         android:id="@+id/buttonSettings"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/green_button_30"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomButtons"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftRank"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftPlay"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftSettings"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopButtons" />
 
@@ -195,14 +194,13 @@
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/title_image"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomTitle"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightTitle"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftTitle"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineLeftTitle"
