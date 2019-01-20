@@ -1,49 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/main_background"
     tools:context=".fragments.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <CheckBox
-        android:id="@+id/checkBoxSound"
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineStartHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="206dp"
-        android:layout_marginTop="116dp"
-        android:text="@string/sound_settings" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineEndHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineStartVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineEndVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftArrowStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftArrowEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineStartArrowTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineStartArrowEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightArrowEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineFlagLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.42" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineFlagRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.58" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightArrowStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineStartCheckboxRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTopCheckboxes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineBottomCheckboxes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineEndCheckboxLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/window_19"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineEndVertical"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndHorizontal"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineStartVertical" />
+
+    <Button
+        android:id="@+id/buttonLanguageLeft"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/green_button_63"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineStartArrowEnd"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftArrowEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftArrowStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineStartArrowTop" />
+
+    <ImageView
+        android:id="@+id/imageViewFlag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/french_flag"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineStartArrowEnd"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineFlagRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineFlagLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineStartArrowTop" />
+
+    <Button
+        android:id="@+id/buttonLanguageRight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/green_button_47"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineStartArrowEnd"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightArrowEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightArrowStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineStartArrowTop" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSound"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="1dp"
+        android:text="@string/sound_settings"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomCheckboxes"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEndCheckboxLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftArrowStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopCheckboxes" />
 
     <CheckBox
         android:id="@+id/checkBoxVibration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="203dp"
-        android:layout_marginTop="169dp"
-        android:text="@string/vibration_settings" />
-
-    <Spinner
-        android:id="@+id/spinnerLanguages"
-        android:layout_width="206dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="202dp"
-        android:layout_marginTop="39dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/vibration_settings"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomCheckboxes"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightArrowEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartCheckboxRight"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopCheckboxes" />
 
     <Button
         android:id="@+id/button_settings_validate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/green_button_14"
+        android:text="@string/validate"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomButton"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightArrowStart"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftArrowEnd"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopButton" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTitleTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-93dp"
-        android:layout_marginBottom="38dp"
-        android:layout_toEndOf="@+id/checkBoxSound"
-        android:text="@string/validate" />
-</RelativeLayout>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTitleBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/settings_uppercase"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTitleBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightArrowEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftArrowStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTitleTop" />
+
+</android.support.constraint.ConstraintLayout>

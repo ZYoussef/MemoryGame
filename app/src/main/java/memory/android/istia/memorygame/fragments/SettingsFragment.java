@@ -29,7 +29,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     private List<String> mAvailableLanguages;
     private CheckBox mCheckBoxSound;
     private CheckBox mCheckBoxVibration;
-    private Spinner mSpinnerLanguage;
     private Button mButtonValidate;
 
     public SettingsFragment() {
@@ -40,15 +39,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mAvailableLanguages = new ArrayList<String>(){
-            {
-                add("A");
-                add("B");
-                add("C");
-                add("D");
-            }
-        };
     }
 
     @Override
@@ -59,17 +49,11 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
         mCheckBoxSound = view.findViewById(R.id.checkBoxSound);
         mCheckBoxVibration = view.findViewById(R.id.checkBoxVibration);
-        mSpinnerLanguage = view.findViewById(R.id.spinnerLanguages);
         mButtonValidate = view.findViewById(R.id.button_settings_validate);
 
         mCheckBoxSound.setOnCheckedChangeListener(this);
         mCheckBoxVibration.setOnCheckedChangeListener(this);
         mButtonValidate.setOnClickListener(this);
-
-        //Spinner adapter
-        String[] t = new String[]{"A", "B"};
-        ArrayAdapter<String> adapter = new CustomSpinnerAdapter(getActivity(), R.layout.custom_dropdown_image, t);
-        mSpinnerLanguage.setAdapter(adapter);
 
         return view;
     }
@@ -121,36 +105,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         if(v.getId() == R.id.button_settings_validate){
             //Retour au menu principal
             FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
-        }
-    }
-
-    public class CustomSpinnerAdapter extends ArrayAdapter<String>{
-
-        public CustomSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
-            super(context, textViewResourceId, objects);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView,ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        public View getCustomView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater=getLayoutInflater();
-            View row=inflater.inflate(R.layout.custom_dropdown_image, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.textViewCountryName);
-            label.setText("Test");
-
-            ImageView icon=(ImageView)row.findViewById(R.id.imageViewFlag);
-            icon.setImageResource(android.R.drawable.ic_menu_add);
-
-            return row;
         }
     }
 }

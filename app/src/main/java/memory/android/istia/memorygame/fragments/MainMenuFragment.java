@@ -20,7 +20,7 @@ import memory.android.istia.memorygame.R;
  */
 public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView mPlayButton, mSettingButton, mScoreButton, mCreditButton;
+    private Button mPlayButton, mSettingButton, mScoreButton, mCreditButton;
 
     public MainMenuFragment() {
         // Required empty public constructor
@@ -37,7 +37,7 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-/*
+
         mPlayButton = view.findViewById(R.id.buttonPlay);
         mSettingButton = view.findViewById(R.id.buttonSettings);
         mScoreButton = view.findViewById(R.id.buttonRank);
@@ -47,7 +47,7 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
         mSettingButton.setOnClickListener(this);
         mScoreButton.setOnClickListener(this);
         mCreditButton.setOnClickListener(this);
-*/
+
         return view;
     }
 
@@ -56,7 +56,6 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        /*
         switch (v.getId()) {
             case R.id.buttonPlay:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
@@ -70,9 +69,7 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
             case R.id.buttonCredit:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.CREDITS);
                 break;
-
-
-        }*/
+        }
     }
 
 
