@@ -200,7 +200,7 @@
         app:layout_constraintGuide_percent="0.62" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonDeckPrevious"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_63"
@@ -227,10 +227,11 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewDeck"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        android:src="@drawable/deck_card_incredible"
         app:layout_constraintBottom_toTopOf="@+id/guidelineItemFirstLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineDifficultyEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightTitle"
@@ -254,20 +255,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.78" />
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <Button
+        android:id="@+id/buttonDeckNext"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/green_button_47"
         android:src="@drawable/green_button_47"
         app:layout_constraintBottom_toTopOf="@+id/guidelineItemFirstLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightArrowsStart"
         app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/green_button_47"
         android:src="@drawable/green_button_47"
         app:layout_constraintBottom_toTopOf="@+id/guidelineSecondLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightEnd"

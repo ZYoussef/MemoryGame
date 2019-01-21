@@ -38,7 +38,14 @@ public class SharedPreferenceManager {
             public String toString() {
                 return "LANGUAGE_SELECTED";
             }
-        }}
+        },
+        DECK_SELECTED{
+            @Override
+            public String toString() {
+                return "DECK_SELECTED";
+            }
+        }
+    }
 
     private SharedPreferenceManager() {}
 
@@ -66,6 +73,7 @@ public class SharedPreferenceManager {
         write(Settings.FIRST_START, false);
         write(Settings.SOUND_IS_ON, true);
         write(Settings.VIBRATION_IS_ON, true);
+        write(Settings.DECK_SELECTED, "incredibles");
         write(Settings.LANGUAGE_SELECTED, "fr");
     }
 

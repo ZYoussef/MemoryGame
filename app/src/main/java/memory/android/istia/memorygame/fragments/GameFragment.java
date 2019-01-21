@@ -40,8 +40,8 @@ public class GameFragment extends Fragment {
         setGridSize(getArguments().getString("difficulty"));
         fillGridWithCards();
 
-        mGameManager.setTimeLimit(10, mTextViewTime);
-        mGameManager.setMovesLimit(3, mTextViewNbPairFound);
+        mGameManager.setTimeLimit(100, mTextViewTime);
+        mGameManager.setMovesLimit(300, mTextViewNbPairFound);
 
         return view;
     }

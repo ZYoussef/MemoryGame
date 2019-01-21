@@ -14,6 +14,7 @@ import memory.android.istia.memorygame.game.endGameChecker.MovesDefeatEndGameChe
 import memory.android.istia.memorygame.game.endGameChecker.TimeDefeatEndGameChecker;
 import memory.android.istia.memorygame.game.endGameChecker.VictoryEndGameChecker;
 import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
  * GameManager--- Gère l'ensemble de la logique du jeu
@@ -51,9 +52,9 @@ public class GameManager implements IGameManager {
     private void createCards() {
         int cardCount = 0;
         for(int i = 0; i < mCardsPair; i++){
-            CardFragment cf1 = CardFragment.newInstance(cardCount, i, getCardImage(i), R.drawable.main_background);
+            CardFragment cf1 = CardFragment.newInstance(cardCount, i, getCardImage(i), getBackCard());
             cardCount++;
-            CardFragment cf2 = CardFragment.newInstance(cardCount, i, getCardImage(i), R.drawable.main_background);
+            CardFragment cf2 = CardFragment.newInstance(cardCount, i, getCardImage(i), getBackCard());
             cardCount++;
             mCardFragments.add(cf1);
             mCardFragments.add(cf2);
@@ -62,14 +63,56 @@ public class GameManager implements IGameManager {
         Collections.shuffle(mCardFragments);
     }
 
+    public int getBackCard(){
+        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "incredibles"){
+            return R.drawable.incredible_back;
+        }
+
+        return R.drawable.incredible_back;
+    }
+
     public int getCardImage(int nb){
-        switch(nb){
-            case 0: return R.drawable.blue_button_05;
-            case 1: return R.drawable.green_button_06;
-            case 2: return R.drawable.red_button_07;
-            case 3: return R.drawable.green_button_30;
-            case 4: return R.drawable.red_button_31;
-            default: return R.drawable.blue_button_17;
+        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "incredibles"){
+            switch(nb){
+                case 0:return R.drawable.card_incredible_frozone;
+                case 1: return R.drawable.card_incredible_kid;
+                case 2: return R.drawable.card_indredib_edna;
+                case 3: return R.drawable.card_indredible_baby;
+                case 4: return R.drawable.card_indredible_father;
+                case 5: return R.drawable.card_indredible_mother;
+                case 6: return R.drawable.card_indredible_screenslaver;
+                case 7: return R.drawable.card_indredible_sister;
+                case 8: return R.drawable.card_indredible_syndrome;
+                default: return R.drawable.card_indredible_syndrome;
+            }
+        }
+        else if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "kid"){
+            switch(nb){
+                case 0:return R.drawable.card_kid_angry;
+                case 1: return R.drawable.card_kid_full_stretch;
+                case 2: return R.drawable.card_kid_kiss;
+                case 3: return R.drawable.card_kid_shoked;
+                case 4: return R.drawable.card_kid_smile;
+                case 5: return R.drawable.card_kid_smile_eye_opened;
+                case 6: return R.drawable.card_kid_squash;
+                case 7: return R.drawable.card_kid_worry;
+                case 8: return R.drawable.card_kid_stretch;
+                default: return R.drawable.card_kid_stretch;
+            }
+        }
+        else{
+            switch(nb){
+                case 0:return R.drawable.card_incredible_frozone;
+                case 1: return R.drawable.card_incredible_kid;
+                case 2: return R.drawable.card_indredib_edna;
+                case 3: return R.drawable.card_indredible_baby;
+                case 4: return R.drawable.card_indredible_father;
+                case 5: return R.drawable.card_indredible_mother;
+                case 6: return R.drawable.card_indredible_screenslaver;
+                case 7: return R.drawable.card_indredible_sister;
+                case 8: return R.drawable.card_indredible_syndrome;
+                default: return R.drawable.card_indredible_syndrome;
+            }
         }
     }
 
