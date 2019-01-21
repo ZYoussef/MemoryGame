@@ -1,7 +1,11 @@
 package memory.android.istia.memorygame;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
@@ -15,6 +19,8 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
  * @version 1.0
  */
 public class MainActivity extends FragmentActivity {
+
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,27 @@ public class MainActivity extends FragmentActivity {
 
         //Affichage du menu principal
         FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.back_music);
+        mediaPlayer.setLooping(true);
+
+        //Musique
+        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true)){
+            setMusic(true);
+        }
     }
 
+    public void setMusic(boolean state){
+
+        if(state){
+            mediaPlayer.start();
+        }
+        else{
+            mediaPlayer.pause();
+        }
+
+    }
 
     @Override
     public void onBackPressed() {

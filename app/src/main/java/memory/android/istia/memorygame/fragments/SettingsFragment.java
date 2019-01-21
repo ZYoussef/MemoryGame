@@ -1,6 +1,7 @@
 package memory.android.istia.memorygame.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
@@ -54,6 +56,14 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         mCheckBoxSound.setOnCheckedChangeListener(this);
         mCheckBoxVibration.setOnCheckedChangeListener(this);
         mButtonValidate.setOnClickListener(this);
+
+        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true)){
+            mCheckBoxSound.setChecked(true);
+        }
+
+        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.VIBRATION_IS_ON, true)){
+            mCheckBoxVibration.setChecked(true);
+        }
 
         return view;
     }
@@ -104,7 +114,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     public void onClick(View v) {
         if(v.getId() == R.id.button_settings_validate){
             //Retour au menu principal
+            ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true));
             FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+
         }
     }
 }

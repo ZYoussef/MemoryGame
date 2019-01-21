@@ -58,6 +58,11 @@ public class GameFragment extends Fragment {
                 mGridLayout.setColumnCount(6);
                 mGridLayout.setRowCount(2);
                 break;
+            case "hard":
+                // 9 paires sur 3 lignes
+                mGridLayout.setColumnCount(6);
+                mGridLayout.setRowCount(3);
+                break;
         }
     }
 

@@ -2,6 +2,7 @@ package memory.android.istia.memorygame.fragments;
 
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,6 +57,8 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.button_click);
+        mp.start();
         switch (v.getId()) {
             case R.id.buttonPlay:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
