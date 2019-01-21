@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 
 public class GameParametersFragment extends Fragment implements View.OnClickListener {
@@ -42,6 +43,8 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
 
 
         mButtonPlay.setOnClickListener(this);
+        buttonPreviousDeck.setOnClickListener(this);
+        buttonNextDeck.setOnClickListener(this);
         return view;
     }
 
@@ -54,6 +57,49 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
                 Bundle args = new Bundle();
                 args.putString("difficulty", "easy");
                 FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
+                break;
+            case R.id.buttonDeckNext:
+                setNextDeck();
+                break;
+            case R.id.buttonDeckPrevious:
+                setPreviousDeck();
+                break;
+        }
+
+        updateDeckImageView();
+    }
+
+    private void setNextDeck(){
+        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
+            case "incredibles" :
+                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "kid");
+                break;
+            case "kid" :
+                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "incredibles");
+                break;
+        }
+
+        updateDeckImageView();
+    }
+
+    private void updateDeckImageView(){
+        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
+            case "incredibles" :
+                imageViewDeck.setImageResource(R.drawable.deck_card_incredible);
+                break;
+            case "kid" :
+                imageViewDeck.setImageResource(R.drawable.deck_card_kid);
+                break;
+        }
+    }
+
+    private void setPreviousDeck(){
+        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
+            case "incredibles" :
+                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "kid");
+                break;
+            case "kid" :
+                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "incredibles");
                 break;
         }
     }
