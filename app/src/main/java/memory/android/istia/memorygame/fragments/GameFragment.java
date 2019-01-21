@@ -1,10 +1,12 @@
 package memory.android.istia.memorygame.fragments;
 
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,8 @@ public class GameFragment extends Fragment {
     private TextView mTextViewNbPairFound;
 
     public GameFragment() {
-        //Todo enlever le bouchon
-        mGameManager = new GameManager(3);
+
+
     }
 
 
@@ -31,46 +33,83 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+        int nbPair = 0;
+        Log.d("test", "" + getArguments().isEmpty());
+        switch(getArguments().getString("difficulty")){
+            case "easy": nbPair = 2; break;
+            case "medium": nbPair = 4; break;
+            case "hard": nbPair = 8; break;
+        }
+        mGameManager = new GameManager(nbPair);
+
+
+
         View view =  inflater.inflate(R.layout.fragment_game, container, false);
 
         mGridLayout = view.findViewById(R.id.gridLayoutGame);
         mTextViewTime = view.findViewById(R.id.textViewTime);
         mTextViewNbPairFound = view.findViewById(R.id.textViewNbPairFound);
 
-        setGridSize(getArguments().getString("difficulty"));
-        fillGridWithCards();
 
-        mGameManager.setTimeLimit(100, mTextViewTime);
-        mGameManager.setMovesLimit(300, mTextViewNbPairFound);
+
+        setGridSize(getArguments().getString("difficulty"));
+        Point cardSize = getCardSize(getArguments().getString("difficulty"));
+
+
+        fillGridWithCards(cardSize);
+
+        //mGameManager.setTimeLimit(100, mTextViewTime);
+        //mGameManager.setMovesLimit(300, mTextViewNbPairFound);
 
         return view;
+    }
+
+    private Point getCardSize(String difficulty) {
+
+        int width = mGridLayout.getWidth();
+        int height = mGridLayout.getHeight();
+
+        if(difficulty == "easy"){
+            return new Point(width / 3, height / 3);
+        }
+        else if(difficulty == "medium"){
+            return new Point(width / 5, height / 3);
+        }
+        else{
+            return new Point(width / 5, height / 5);
+        }
     }
 
     private void setGridSize(String difficulty){
         switch(difficulty){
             case "easy":
-                // 3 colonnes, deux lignes = 6 cartes | 3 paires
-                mGridLayout.setColumnCount(3);
+                // 2 paires
+                mGridLayout.setColumnCount(2);
                 mGridLayout.setRowCount(2);
                 break;
             case "medium":
-                // 6 paires sur 2 lignes
-                mGridLayout.setColumnCount(6);
+                // 4 paires
+                mGridLayout.setColumnCount(4);
                 mGridLayout.setRowCount(2);
                 break;
             case "hard":
-                // 9 paires sur 3 lignes
-                mGridLayout.setColumnCount(6);
-                mGridLayout.setRowCount(3);
+                // 8 paires
+                mGridLayout.setColumnCount(4);
+                mGridLayout.setRowCount(4);
                 break;
         }
     }
 
-    private void fillGridWithCards(){
+    private void fillGridWithCards(Point cardSize){
         FragmentTransaction fragmentTransaction;
         mGridLayout.removeAllViews();
 
+
         for(CardFragment cf : this.mGameManager.getCardFragments()){
+            cf.resizeCard(0, 0);
+
             fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.gridLayoutGame,cf,null).commit();
         }

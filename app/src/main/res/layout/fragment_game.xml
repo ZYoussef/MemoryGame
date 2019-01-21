@@ -15,12 +15,13 @@
         android:layout_height="0dp"
         android:textAlignment="center"
         app:alignmentMode="alignBounds"
-        app:columnCount="3"
+        app:columnCount="4"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGrid"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightGrid"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftGrid"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopGrid"
-        app:rowCount="2">
+        app:rowCount="6"
+        app:useDefaultMargins="true">
 
     </android.support.v7.widget.GridLayout>
 

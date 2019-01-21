@@ -1,12 +1,15 @@
 package memory.android.istia.memorygame.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import memory.android.istia.memorygame.R;
 
@@ -45,18 +48,22 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_card, container, false);
 
-        mCardImage = view.findViewById(R.id.imageViewCard);
-
         this.mID = getArguments().getInt("id");
         this.mBackImageId = getArguments().getInt("backImage");
         this.mImageId = getArguments().getInt("image");
         this.mPairNumber = getArguments().getInt("pairNumber");
 
+        return view;
+    }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mCardImage = view.findViewById(R.id.imageViewCard);
         mCardImage.setImageResource(this.mBackImageId);
         mCardImage.setOnClickListener(this);
-
-        return view;
     }
 
     @Override
@@ -68,14 +75,21 @@ public class CardFragment extends Fragment implements View.OnClickListener {
 
     public void setCardVisibility(boolean visible){
         if(visible){
-            Log.e("SetVisible", "card " + mID + " shoudl be visible");
             this.mCardImage.setImageResource(this.mImageId);
             this.mCardVisible = true;
         }
         else{
             this.mCardImage.setImageResource(this.mBackImageId);
             this.mCardVisible = false;
-            Log.e("SetVisible", "card " + mID + " should not be visible");
+        }
+    }
+
+    public void resizeCard(int newWidth, int newHeight) {
+        if (getView() != null) {
+            View view = getView();
+            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(newWidth, newHeight);
+            view.setLayoutParams(p);
+            view.requestLayout();
         }
     }
 

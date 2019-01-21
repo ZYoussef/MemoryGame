@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentController;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import memory.android.istia.memorygame.R;
@@ -24,6 +26,8 @@ import memory.android.istia.memorygame.R;
 public class EndGameFragment extends DialogFragment {
 
 
+    private Button buttonHome;
+
     public EndGameFragment() {
         // Required empty public constructor
     }
@@ -33,12 +37,19 @@ public class EndGameFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_end_game, container, false);
 
-
-
+        buttonHome = view.findViewById(R.id.buttonHome);
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().cancel();
+                memory.android.istia.memorygame.utils.FragmentController.getInstance().openFragment(memory.android.istia.memorygame.utils.FragmentController.Fragments.MAIN_MENU);
+            }
+        });
         setCancelable(false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.fragment_end_game, container, false);
+        return view;
     }
 
     @Override

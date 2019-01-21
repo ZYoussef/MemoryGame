@@ -44,7 +44,6 @@ public class GameManager implements IGameManager {
         IEndGameChecker victoryChecker = new VictoryEndGameChecker(this);
         attach(victoryChecker);
 
-
         //Création des cartes
         createCards();
     }
@@ -56,11 +55,13 @@ public class GameManager implements IGameManager {
             cardCount++;
             CardFragment cf2 = CardFragment.newInstance(cardCount, i, getCardImage(i), getBackCard());
             cardCount++;
+
             mCardFragments.add(cf1);
             mCardFragments.add(cf2);
         }
 
         Collections.shuffle(mCardFragments);
+
     }
 
     public int getBackCard(){

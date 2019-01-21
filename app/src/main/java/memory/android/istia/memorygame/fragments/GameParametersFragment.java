@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
@@ -19,7 +20,14 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     private Button mButtonPlay;
     private Button buttonNextDeck;
     private Button buttonPreviousDeck;
+    private Button buttonNextDificulty;
+    private Button buttonPreviousDifficulty;
+
+
     private ImageView imageViewDeck;
+    private TextView textViewDifficulty;
+
+    private String selectedDifficulty;
 
     public GameParametersFragment() {
         // Required empty public constructor
@@ -40,11 +48,18 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         buttonNextDeck = view.findViewById(R.id.buttonDeckNext);
         buttonPreviousDeck = view.findViewById(R.id.buttonDeckPrevious);
         imageViewDeck = view.findViewById(R.id.imageViewDeck);
+        buttonNextDificulty = view.findViewById(R.id.buttonNextDifficulty);
+        buttonPreviousDifficulty = view.findViewById(R.id.buttonPreviousDifficulty);
+        textViewDifficulty = view.findViewById(R.id.textViewDifficulty);
 
 
         mButtonPlay.setOnClickListener(this);
         buttonPreviousDeck.setOnClickListener(this);
         buttonNextDeck.setOnClickListener(this);
+        buttonPreviousDifficulty.setOnClickListener(this);
+        buttonNextDificulty.setOnClickListener(this);
+
+        selectedDifficulty = "easy";
         return view;
     }
 
@@ -55,7 +70,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         switch(v.getId()){
             case R.id.buttonGameParameterPlay:
                 Bundle args = new Bundle();
-                args.putString("difficulty", "easy");
+                args.putString("difficulty", selectedDifficulty);
                 FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
                 break;
             case R.id.buttonDeckNext:
@@ -64,9 +79,39 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
             case R.id.buttonDeckPrevious:
                 setPreviousDeck();
                 break;
+            case R.id.buttonNextDifficulty:
+                setNextDifficulty();
+                break;
+            case R.id.buttonPreviousDifficulty:
+                setPreviousDifficulty();
+                break;
         }
+    }
 
-        updateDeckImageView();
+    private void setNextDifficulty(){
+        switch(selectedDifficulty){
+            case "easy":
+                selectedDifficulty = "medium";
+                textViewDifficulty.setText(R.string.medium);
+                break;
+            case "medium":
+                selectedDifficulty = "hard";
+                textViewDifficulty.setText(R.string.hard);
+                break;
+        }
+    }
+
+    private void setPreviousDifficulty(){
+        switch(selectedDifficulty){
+            case "hard":
+                selectedDifficulty = "medium";
+                textViewDifficulty.setText(R.string.medium);
+                break;
+            case "medium":
+                selectedDifficulty = "easy";
+                textViewDifficulty.setText(R.string.easy);
+                break;
+        }
     }
 
     private void setNextDeck(){
@@ -102,5 +147,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
                 SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "incredibles");
                 break;
         }
+
+        updateDeckImageView();
     }
 }

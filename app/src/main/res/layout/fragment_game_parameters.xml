@@ -80,12 +80,15 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="TextView"
+        android:text="@string/settings_uppercase"
         android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto_bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomTitle"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightTitle"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftTitle"
@@ -110,7 +113,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_14"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/play_uppercase"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomValidate"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightTitle"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftTitle"
@@ -210,7 +216,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/buttonPreviousDifficulty"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_63"
@@ -237,12 +243,15 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineRightTitle"
         app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewDifficulty"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/easy"
         android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto_bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineSecondLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineDifficultyEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineRightTitle"
@@ -267,7 +276,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
 
     <Button
-        android:id="@+id/imageView4"
+        android:id="@+id/buttonNextDifficulty"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_47"
