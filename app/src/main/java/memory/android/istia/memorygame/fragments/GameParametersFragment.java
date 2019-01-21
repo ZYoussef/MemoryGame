@@ -29,21 +29,21 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_game_parameters, container, false);
-        //mButtonPlay = view.findViewById(R.id.buttonGameParameterPlay);
+        mButtonPlay = view.findViewById(R.id.buttonGameParameterPlay);
 
 
-        //mButtonPlay.setOnClickListener(this);
+        mButtonPlay.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        /*switch(v.getId()){
+        switch(v.getId()){
             case R.id.buttonGameParameterPlay:
                 Bundle args = new Bundle();
                 args.putString("difficulty", "easy");
                 FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
                 break;
-        }*/
+        }
     }
 }

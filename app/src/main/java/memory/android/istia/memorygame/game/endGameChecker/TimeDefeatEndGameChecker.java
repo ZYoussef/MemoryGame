@@ -38,7 +38,6 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
         this.mTimeLimit = timeLimit;
         this.mCountDown = timeLimit;
         this.editTextTime = editTextTime;
-        Log.d("TEST", "init time checker");
     }
 
     @Override
@@ -72,17 +71,8 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
      */
     @Override
     protected Void doInBackground(Void... voids) {
-        Log.d("TEST", "chrono started");
 
         //Chronomètre
-        /*while(this.mTimeLimit > 0){
-            try {
-                Thread.sleep(1000);
-                this.mTimeLimit -= 1;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
         while(this.mCountDown> 0){
             try {
                 Thread.sleep(1000);
@@ -101,7 +91,9 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
         super.onProgressUpdate(values);
 
         //TODO Avertir le GameManager pour l'affichage du chronomètre visuellement
-        editTextTime.setText("Temps restant : " + this.mCountDown);
+        Log.d("test", this.mCountDown + "");
+        Log.d("test", this.editTextTime + "");
+        this.editTextTime.setText("" + this.mCountDown);
     }
 
 

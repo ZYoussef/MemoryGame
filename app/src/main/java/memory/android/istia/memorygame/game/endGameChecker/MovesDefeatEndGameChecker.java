@@ -33,6 +33,8 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
         this.mMovesLimit = movesLimit;
         this.mMovesPlayed = 0;
         this.movesLeftUI = movesLeftUI;
+
+        this.movesLeftUI.setText("Coups restants : " + (this.mMovesLimit - this.mMovesPlayed));
     }
 
     @Override
