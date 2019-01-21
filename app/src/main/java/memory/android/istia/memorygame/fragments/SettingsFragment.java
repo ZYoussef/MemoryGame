@@ -3,6 +3,7 @@ package memory.android.istia.memorygame.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -112,6 +113,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     @Override
     public void onClick(View v) {
+        final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.button_click);
+        mp.start();
         if(v.getId() == R.id.button_settings_validate){
             //Retour au menu principal
             ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true));
