@@ -1,5 +1,11 @@
 package memory.android.istia.memorygame.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -85,15 +94,31 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void setCardVisibility(boolean visible){
-        if(visible){
-            this.mCardImage.setImageResource(this.mImageId);
-            this.mCardVisible = true;
-        }
-        else{
-            this.mCardImage.setImageResource(this.mBackImageId);
-            this.mCardVisible = false;
-        }
+    public void setCardVisibility(final boolean visible){
+        ObjectAnimator animation = ObjectAnimator.ofFloat(mCardImage, "rotationY", 0.0f, 90f);
+        animation.setDuration(360);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();
+
+        animation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if(visible){
+                    mCardImage.setImageResource(mImageId);
+                    mCardVisible = true;
+                }
+                else{
+                    mCardImage.setImageResource(mBackImageId);
+                    mCardVisible = false;
+                }
+
+                ObjectAnimator animation2 = ObjectAnimator.ofFloat(mCardImage, "rotationY", 90f, 180f);
+                animation2.setDuration(360);
+                animation2.setInterpolator(new AccelerateDecelerateInterpolator());
+                animation2.start();
+            }
+        });
     }
 
     public void resizeCard(int newWidth, int newHeight) {
