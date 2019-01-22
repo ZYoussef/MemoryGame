@@ -1,13 +1,13 @@
 package memory.android.istia.memorygame;
 
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
-import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
@@ -59,7 +59,6 @@ public class MainActivity extends FragmentActivity {
         else{
             mediaPlayer.pause();
         }
-
     }
 
     public void startTimer() {
@@ -69,16 +68,16 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
-                    // NOTIFICATION
+                        NotificationServiceManager.getInstance().sendNewNotification(getString(R.string.timer),getString(R.string.notif_timer), R.drawable.timer_icon);
                     }
                 });
             }
         };
         // 1800000 milliseconds = 30minutes
-        timer.scheduleAtFixedRate(timerTask, 1800000, 1800000);
+//        timer.scheduleAtFixedRate(timerTask, 1800000, 1800000);
+        timer.scheduleAtFixedRate(timerTask, 1000, 100000);
     }
 
     @Override

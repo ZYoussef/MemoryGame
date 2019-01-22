@@ -15,4 +15,6 @@
     <string name="appName">Memory Game</string>
     <string name="Victory">VICTOIRE</string>
     <string name="defeat">DEFAITE</string>
+    <string name="timer">Not tired yet?</string>
+    <string name="notif_timer">You play for 30min, think about taking a break!</string>
 </resources>
