@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
