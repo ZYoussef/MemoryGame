@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,6 @@ public class GameFragment extends Fragment {
     private TextView mTextViewNbPairFound;
 
 
-
-
     public GameFragment() {
 
 
@@ -39,7 +38,6 @@ public class GameFragment extends Fragment {
 
 
         int nbPair = 0;
-        Log.d("test", "" + getArguments().isEmpty());
         switch(getArguments().getString("difficulty")){
             case "easy": nbPair = 2; break;
             case "medium": nbPair = 4; break;
@@ -58,11 +56,8 @@ public class GameFragment extends Fragment {
 
         setGridSize(getArguments().getString("difficulty"));
         Point cardSize = getCardSize(getArguments().getString("difficulty"));
-
-
+        Log.d("test", "taille calculée : " + cardSize.x + " / " + cardSize.y);
         fillGridWithCards(cardSize);
-
-
 
         //mGameManager.setTimeLimit(100, mTextViewTime);
         //mGameManager.setMovesLimit(300, mTextViewNbPairFound);
@@ -72,8 +67,10 @@ public class GameFragment extends Fragment {
 
     private Point getCardSize(String difficulty) {
 
-        int width = mGridLayout.getWidth();
-        int height = mGridLayout.getHeight();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
 
         if(difficulty == "easy"){
             return new Point(width / 3, height / 3);
@@ -111,18 +108,18 @@ public class GameFragment extends Fragment {
         mGridLayout.removeAllViews();
 
         for(CardFragment cf : this.mGameManager.getCardFragments()){
-
-            cf.resizeCard(cardSize.x, cardSize.y);
             fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.gridLayoutGame,cf,null).commit();
+            cf.resizeCard(cardSize.x, cardSize.y);
         }
 
+        Log.d("test", "nb element : " + mGridLayout.getChildCount());
 
     }
 
 
     public void clickOnCard(int mID) {
         mGameManager.cardClicked(mID);
-
+        Log.d("test", "nb element : " + mGridLayout.getChildCount());
     }
 }

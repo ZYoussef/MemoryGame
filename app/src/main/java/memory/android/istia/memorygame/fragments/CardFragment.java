@@ -72,11 +72,10 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         mCardImage.setOnClickListener(this);
 
 
-        if(this.width > 0 && this.height >0){
 
-            this.mCardImage.getLayoutParams().height = height;
-            this.mCardImage.getLayoutParams().width = width;
-        }
+        this.mCardImage.getLayoutParams().height = this.height;
+        this.mCardImage.getLayoutParams().width = this.width;
+
     }
 
     @Override
