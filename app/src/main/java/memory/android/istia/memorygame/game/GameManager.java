@@ -85,7 +85,7 @@ public class GameManager implements IGameManager {
             switch(nb){
                 case 0:return R.drawable.card_incredible_frozone;
                 case 1: return R.drawable.card_incredible_kid;
-                case 2: return R.drawable.card_indredib_edna;
+                case 2: return R.drawable.card_indredible_edna;
                 case 3: return R.drawable.card_indredible_baby;
                 case 4: return R.drawable.card_indredible_father;
                 case 5: return R.drawable.card_indredible_mother;
@@ -113,7 +113,7 @@ public class GameManager implements IGameManager {
             switch(nb){
                 case 0:return R.drawable.card_incredible_frozone;
                 case 1: return R.drawable.card_incredible_kid;
-                case 2: return R.drawable.card_indredib_edna;
+                case 2: return R.drawable.card_indredible_edna;
                 case 3: return R.drawable.card_indredible_baby;
                 case 4: return R.drawable.card_indredible_father;
                 case 5: return R.drawable.card_indredible_mother;

@@ -3,22 +3,15 @@ package memory.android.istia.memorygame.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import memory.android.istia.memorygame.R;
 
@@ -96,7 +89,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
 
     public void setCardVisibility(final boolean visible){
         ObjectAnimator animation = ObjectAnimator.ofFloat(mCardImage, "rotationY", 0.0f, 90f);
-        animation.setDuration(360);
+        animation.setDuration(180);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.start();
 
@@ -114,7 +107,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
                 }
 
                 ObjectAnimator animation2 = ObjectAnimator.ofFloat(mCardImage, "rotationY", 90f, 180f);
-                animation2.setDuration(360);
+                animation2.setDuration(180);
                 animation2.setInterpolator(new AccelerateDecelerateInterpolator());
                 animation2.start();
             }
