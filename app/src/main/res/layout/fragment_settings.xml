@@ -75,14 +75,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineFlagRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.58" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineRightArrowStart"
@@ -145,7 +145,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineStartVertical" />
 
     <Button
-        android:id="@+id/buttonLanguageLeft"
+        android:id="@+id/buttonLanguagePrevious"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_63"
@@ -159,14 +159,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        android:src="@drawable/french_flag"
+        android:src="@drawable/flag_fr"
         app:layout_constraintBottom_toTopOf="@+id/guidelineStartArrowEnd"
         app:layout_constraintEnd_toStartOf="@+id/guidelineFlagRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineFlagLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineStartArrowTop" />
 
     <Button
-        android:id="@+id/buttonLanguageRight"
+        android:id="@+id/buttonLanguageNext"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_button_47"

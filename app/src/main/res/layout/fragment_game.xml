@@ -13,15 +13,14 @@
         android:id="@+id/gridLayoutGame"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         app:alignmentMode="alignBounds"
         app:columnCount="4"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGrid"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightGrid"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftGrid"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopGrid"
-        app:rowCount="6"
-        app:useDefaultMargins="true">
+        app:useDefaultMargins="false">
 
     </android.support.v7.widget.GridLayout>
 

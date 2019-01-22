@@ -25,7 +25,13 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     private boolean mCardVisible;
     private boolean mPairFound;
 
+    private int width;
+    private int height;
+
     private ImageView mCardImage;
+
+
+
 
     public CardFragment() {
     }
@@ -64,6 +70,13 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         mCardImage = view.findViewById(R.id.imageViewCard);
         mCardImage.setImageResource(this.mBackImageId);
         mCardImage.setOnClickListener(this);
+
+
+        if(this.width > 0 && this.height >0){
+
+            this.mCardImage.getLayoutParams().height = height;
+            this.mCardImage.getLayoutParams().width = width;
+        }
     }
 
     @Override
@@ -85,12 +98,8 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     }
 
     public void resizeCard(int newWidth, int newHeight) {
-        if (getView() != null) {
-            View view = getView();
-            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(newWidth, newHeight);
-            view.setLayoutParams(p);
-            view.requestLayout();
-        }
+        this.height = newHeight;
+        this.width = newWidth;
     }
 
     public boolean isCardVisible(){

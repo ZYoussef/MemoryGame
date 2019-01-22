@@ -23,6 +23,9 @@ public class GameFragment extends Fragment {
     private TextView mTextViewTime;
     private TextView mTextViewNbPairFound;
 
+
+
+
     public GameFragment() {
 
 
@@ -53,12 +56,13 @@ public class GameFragment extends Fragment {
         mTextViewNbPairFound = view.findViewById(R.id.textViewNbPairFound);
 
 
-
         setGridSize(getArguments().getString("difficulty"));
         Point cardSize = getCardSize(getArguments().getString("difficulty"));
 
 
         fillGridWithCards(cardSize);
+
+
 
         //mGameManager.setTimeLimit(100, mTextViewTime);
         //mGameManager.setMovesLimit(300, mTextViewNbPairFound);
@@ -106,13 +110,14 @@ public class GameFragment extends Fragment {
         FragmentTransaction fragmentTransaction;
         mGridLayout.removeAllViews();
 
-
         for(CardFragment cf : this.mGameManager.getCardFragments()){
-            cf.resizeCard(0, 0);
 
+            cf.resizeCard(cardSize.x, cardSize.y);
             fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.gridLayoutGame,cf,null).commit();
         }
+
+
     }
 
 

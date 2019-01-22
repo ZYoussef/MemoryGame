@@ -4,13 +4,13 @@
     <string name="settings_uppercase">SETTINGS</string>
     <string name="score_uppercase">SCORE</string>
     <string name="credits_uppercase">CREDITS</string>
-    <string name="sound_settings">Activer le son</string>
-    <string name="vibration_settings">Activer le vibreur</string>
-    <string name="validate">Valider</string>
-    <string name="easy">Facile</string>
-    <string name="medium">Normal</string>
-    <string name="hard">Difficile</string>
-    <string name="time_limit">Limite de temps</string>
-    <string name="move_limit">Limite de coups</string>
+    <string name="sound_settings">Enable sound</string>
+    <string name="vibration_settings">Enable vibration</string>
+    <string name="validate">Validate</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="time_limit">Time limit</string>
+    <string name="move_limit">Hit limit</string>
     <string name="appName">Memory Game</string>
 </resources>
