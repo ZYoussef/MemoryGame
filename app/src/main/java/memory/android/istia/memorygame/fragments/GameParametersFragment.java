@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,19 +17,22 @@ import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 
-public class GameParametersFragment extends Fragment implements View.OnClickListener {
+public class GameParametersFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private Button mButtonPlay;
     private Button buttonNextDeck;
     private Button buttonPreviousDeck;
     private Button buttonNextDificulty;
     private Button buttonPreviousDifficulty;
-
+    private CheckBox checkBoxTimeLimit;
+    private CheckBox checkBoxHitLimit;
 
     private ImageView imageViewDeck;
     private TextView textViewDifficulty;
 
     private String selectedDifficulty;
+    private boolean timeLimitSet;
+    private boolean hitLimitSet;
 
     public GameParametersFragment() {
         // Required empty public constructor
@@ -51,6 +56,8 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         buttonNextDificulty = view.findViewById(R.id.buttonNextDifficulty);
         buttonPreviousDifficulty = view.findViewById(R.id.buttonPreviousDifficulty);
         textViewDifficulty = view.findViewById(R.id.textViewDifficulty);
+        checkBoxHitLimit = view.findViewById(R.id.checkBoxHitLimit);
+        checkBoxTimeLimit = view.findViewById(R.id.checkBoxTimeLimit);
 
 
         mButtonPlay.setOnClickListener(this);
@@ -58,6 +65,9 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         buttonNextDeck.setOnClickListener(this);
         buttonPreviousDifficulty.setOnClickListener(this);
         buttonNextDificulty.setOnClickListener(this);
+
+        checkBoxTimeLimit.setOnCheckedChangeListener(this);
+        checkBoxHitLimit.setOnCheckedChangeListener(this);
 
         selectedDifficulty = "easy";
         return view;
@@ -71,6 +81,9 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
             case R.id.buttonGameParameterPlay:
                 Bundle args = new Bundle();
                 args.putString("difficulty", selectedDifficulty);
+                args.putBoolean("timeLimit", timeLimitSet);
+                args.putBoolean("hitLimit", hitLimitSet);
+
                 FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
                 break;
             case R.id.buttonDeckNext:
@@ -149,5 +162,19 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         }
 
         updateDeckImageView();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch(buttonView.getId()){
+            case R.id.checkBoxHitLimit:
+                if(checkBoxHitLimit.isChecked()) hitLimitSet = true;
+                else hitLimitSet = false;
+                break;
+            case R.id.checkBoxTimeLimit:
+                if(checkBoxTimeLimit.isChecked()) timeLimitSet = true;
+                else timeLimitSet = false;
+                break;
+        }
     }
 }

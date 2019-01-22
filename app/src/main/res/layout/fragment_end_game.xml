@@ -104,21 +104,22 @@
         app:layout_constraintGuide_percent="0.56" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewResult"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="VICTOIRE"
+        android:text="@string/defeat"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto_bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineTitleBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineTitleRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineTitleLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineTitleTop" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imageViewStar1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/window_67"
@@ -142,7 +143,7 @@
         app:layout_constraintGuide_percent="0.6" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imageViewStar2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -153,7 +154,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineStar2LineTop" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/imageViewStar3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/window_67"
@@ -163,7 +164,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineStar2LineTop" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewScore"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="850"

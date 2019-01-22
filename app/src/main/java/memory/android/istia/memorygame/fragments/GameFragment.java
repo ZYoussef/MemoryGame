@@ -59,8 +59,13 @@ public class GameFragment extends Fragment {
         Log.d("test", "taille calculée : " + cardSize.x + " / " + cardSize.y);
         fillGridWithCards(cardSize);
 
-        //mGameManager.setTimeLimit(100, mTextViewTime);
-        //mGameManager.setMovesLimit(300, mTextViewNbPairFound);
+        if(getArguments().getBoolean("timeLimit")){
+            mGameManager.setTimeLimit(100, mTextViewTime);
+        }
+
+        if(getArguments().getBoolean("hitLimit")){
+            mGameManager.setMovesLimit(300, mTextViewNbPairFound);
+        }
 
         return view;
     }
@@ -112,8 +117,6 @@ public class GameFragment extends Fragment {
             fragmentTransaction.add(R.id.gridLayoutGame,cf,null).commit();
             cf.resizeCard(cardSize.x, cardSize.y);
         }
-
-        Log.d("test", "nb element : " + mGridLayout.getChildCount());
 
     }
 

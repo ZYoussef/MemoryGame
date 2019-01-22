@@ -13,4 +13,6 @@
     <string name="time_limit">Time limit</string>
     <string name="move_limit">Hit limit</string>
     <string name="appName">Memory Game</string>
+    <string name="Victory">VICTOIRE</string>
+    <string name="defeat">DEFAITE</string>
 </resources>
