@@ -38,7 +38,8 @@ public class GameFragment extends Fragment {
 
 
         int nbPair = 0;
-        switch(getArguments().getString("difficulty")){
+        String difficulty = getArguments().getString("difficulty");
+        switch(difficulty){
             case "easy": nbPair = 2; break;
             case "medium": nbPair = 4; break;
             case "hard": nbPair = 8; break;
@@ -60,11 +61,11 @@ public class GameFragment extends Fragment {
         fillGridWithCards(cardSize);
 
         if(getArguments().getBoolean("timeLimit")){
-            mGameManager.setTimeLimit(100, mTextViewTime);
+            mGameManager.setTimeLimit(difficulty, mTextViewTime);
         }
 
         if(getArguments().getBoolean("hitLimit")){
-            mGameManager.setMovesLimit(300, mTextViewNbPairFound);
+            mGameManager.setMovesLimit(difficulty, mTextViewNbPairFound);
         }
 
         return view;
@@ -84,7 +85,7 @@ public class GameFragment extends Fragment {
             return new Point(width / 5, height / 3);
         }
         else{
-            return new Point(width / 5, height / 5);
+            return new Point(width / 5, height / 6);
         }
     }
 
@@ -123,6 +124,5 @@ public class GameFragment extends Fragment {
 
     public void clickOnCard(int mID) {
         mGameManager.cardClicked(mID);
-        Log.d("test", "nb element : " + mGridLayout.getChildCount());
     }
 }

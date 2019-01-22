@@ -27,7 +27,7 @@ public class VictoryEndGameChecker implements IEndGameChecker {
 
     @Override
     public void notifyGameManager() {
-        this.mGameManager.endOfGame(true, calculateScore());
+        this.mGameManager.endOfGame(true);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class VictoryEndGameChecker implements IEndGameChecker {
 
     @Override
     public int calculateScore() {
-        //TODO calcul score victoire
-        return 100;
+        return MAX_SCORE;
     }
 }

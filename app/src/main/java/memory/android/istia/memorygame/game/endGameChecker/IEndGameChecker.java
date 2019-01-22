@@ -11,6 +11,8 @@ package memory.android.istia.memorygame.game.endGameChecker;
  */
 public interface IEndGameChecker {
 
+    public static final int MAX_SCORE = 1000;
+
     /**
      * Signale au GameManager que la partie est finie
      */
