@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity {
 
         //Affichage du menu principal
         FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
-        startTimer();
+       // startTimer();
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.back_music);
         mediaPlayer.setLooping(true);

@@ -30,9 +30,7 @@ public class EndGameFragment extends DialogFragment {
 
     private Button buttonHome;
 
-    private ImageView star1;
-    private ImageView star2;
-    private ImageView star3;
+    private ImageView star;
     private TextView textViewResult;
     private TextView textViewScore;
 
@@ -48,9 +46,7 @@ public class EndGameFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_end_game, container, false);
 
         buttonHome = view.findViewById(R.id.buttonHome);
-        star1 = view.findViewById(R.id.imageViewStar1);
-        star2 = view.findViewById(R.id.imageViewStar2);
-        star3 = view.findViewById(R.id.imageViewStar3);
+        star = view.findViewById(R.id.imageViewStars);
         textViewScore = view.findViewById(R.id.textViewScore);
         textViewResult = view.findViewById(R.id.textViewResult);
 
@@ -76,22 +72,17 @@ public class EndGameFragment extends DialogFragment {
             textViewScore.setText("" + score);
 
             if(score > 700){
-                star1.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.VISIBLE);
+                star.setImageResource(R.drawable.star_1);
             }
             else if(score > 500){
-                star1.setVisibility(View.INVISIBLE);
-                star2.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.VISIBLE);
+                star.setImageResource(R.drawable.star_2);
             }
             else if(score > 200){
-                star1.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.INVISIBLE);
-                star2.setVisibility(View.INVISIBLE);
+                star.setImageResource(R.drawable.star_3);
             }
         }
         else{
+            star.setImageResource(R.drawable.star_4);
             textViewResult.setText(R.string.defeat);
             textViewScore.setText("0");
         }

@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         app:columnCount="4"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGrid"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightHome"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftTemps"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightGrid"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftGrid"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopGrid">
 
     </android.support.v7.widget.GridLayout>
@@ -48,73 +48,100 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineRightCoups"
+        android:id="@+id/guidelineTopHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideLeftTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.11" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineRightHome"
+        android:id="@+id/guidelineTopMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftCoups"
+        android:id="@+id/guidelineLeftMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineLeftTemps"
+        android:id="@+id/guidelineRightHit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineRightTemps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineTopItems"
+        android:id="@+id/guidelineBottomMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeftTimeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineBottomItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRightTimeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <ImageView
+        android:id="@+id/imageViewHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/up"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTopHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textViewTime"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/roboto_bold"
+        android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
         app:autoSizeTextType="uniform"
+        app:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomItems"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightTemps"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftTemps"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopItems" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftGrid"
+        app:layout_constraintStart_toStartOf="@+id/guideLeftTime"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopMenu" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textViewNbPairFound"
@@ -124,21 +151,33 @@
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         app:autoSizeTextType="uniform"
+        app:fontFamily="@font/fredoka_one"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomItems"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightCoups"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftCoups"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopItems" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightHit"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightGrid"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopMenu" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/buttonMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/green_button_14"
+        android:background="@drawable/btn"
+        android:fontFamily="@font/fredoka_one"
         android:text="Menu"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomMenu"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightMenu"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftMenu"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopMenu" />
+
+    <ImageView
+        android:id="@+id/imageViewClock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/clock"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomItems"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightHome"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftHome"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopItems" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightTimeIcon"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftTimeIcon"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopMenu" />
 
 </android.support.constraint.ConstraintLayout>

@@ -221,12 +221,15 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/settings_uppercase"
         android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto_bold"
         app:layout_constraintBottom_toTopOf="@+id/guidelineTitleBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightArrowEnd"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftArrowStart"
