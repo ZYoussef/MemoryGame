@@ -21,6 +21,7 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 public class MainActivity extends FragmentActivity {
 
     private MediaPlayer mediaPlayer;
+    private Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,11 @@ public class MainActivity extends FragmentActivity {
 
         //Affichage du menu principal
         FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
-
+        startTimer();
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.back_music);
         mediaPlayer.setLooping(true);
+
 
         //Musique
         if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true)){
@@ -58,6 +60,25 @@ public class MainActivity extends FragmentActivity {
             mediaPlayer.pause();
         }
 
+    }
+
+    public void startTimer() {
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                    // NOTIFICATION
+                    }
+                });
+            }
+        };
+        // 1800000 milliseconds = 30minutes
+        timer.scheduleAtFixedRate(timerTask, 1800000, 1800000);
     }
 
     @Override
