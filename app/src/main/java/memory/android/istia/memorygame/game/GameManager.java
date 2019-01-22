@@ -34,12 +34,16 @@ public class GameManager implements IGameManager {
     private CardFragment mLastCard;
     private CardFragment mBeforeLastCard; //l'avant dernière
 
+    private boolean gameIsRunning;
+
     public GameManager(int cardsPair){
         mCardsPair = cardsPair;
         mCardsPairFound = 0;
 
         mEndGameCheckers = new ArrayList<>();
         mCardFragments = new ArrayList<>();
+
+        this.gameIsRunning = true;
 
         //Création de l'observateur pour la victoire et on l'attache au GameManager
         IEndGameChecker victoryChecker = new VictoryEndGameChecker(this);
@@ -164,21 +168,21 @@ public class GameManager implements IGameManager {
 
     /**
      * Rajoute une condition de défaite pour le jeu avec une limite de temps
-     * @param timeLimit limite de temps en seconde
+     * @param difficulty limite de temps en seconde
      */
-    public void setTimeLimit(int timeLimit, TextView timeUI){
-        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, timeLimit, timeUI);
+    public void setTimeLimit(String difficulty, TextView timeUI){
+        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, difficulty, timeUI);
         attach(timeChecker);
         ((TimeDefeatEndGameChecker) timeChecker).execute();
     }
 
     /**
      * Rajoute une condition de défaite suivant un nombre de coups limite à jouer
-     * @param movesLimit Limite du nombre de coup
+     * @param difficulty Limite du nombre de coup
      * @param movesLeftUI
      */
-    public void setMovesLimit(int movesLimit, TextView movesLeftUI){
-        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, movesLimit, movesLeftUI);
+    public void setMovesLimit(String difficulty, TextView movesLeftUI){
+        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, difficulty, movesLeftUI);
         attach(moveLimit);
     }
 
@@ -186,13 +190,33 @@ public class GameManager implements IGameManager {
      * Sera appelée par un des EndGameChecker pour spécifier la fin de la partie
      * @param victory
      */
-    public void endOfGame(boolean victory, int score){
-        Log.d("TEST", "END OF GAME - VICTOIRE="+victory+", score="+score);
-        Bundle bundle = new Bundle();
-        bundle.putInt("score", 450);
-        bundle.putInt("nbStar", 2);
-        bundle.putBoolean("victory", true);
-        FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, bundle);
+    public void endOfGame(boolean victory){
+        if(gameIsRunning){
+            Bundle bundle = new Bundle();
+            bundle.putInt("score", calculateScore());
+            bundle.putBoolean("victory", victory);
+            gameIsRunning = false;
+
+            for(IEndGameChecker egc : mEndGameCheckers){
+                if(egc instanceof TimeDefeatEndGameChecker){
+                    ((TimeDefeatEndGameChecker) egc).setGameIsRunning(false);
+                }
+            }
+
+            FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, bundle);
+        }
+    }
+
+    private int calculateScore(){
+        int score = 0;
+        for(IEndGameChecker egc : mEndGameCheckers){
+            int x = egc.calculateScore();
+            Log.e("test", "Calcul score " + x);
+            score += x;
+        }
+
+        score /= mEndGameCheckers.size();
+        return score;
     }
 
     ////////////////////////////////////////////////////////////

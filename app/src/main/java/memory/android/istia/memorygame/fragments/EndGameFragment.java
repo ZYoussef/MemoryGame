@@ -72,29 +72,28 @@ public class EndGameFragment extends DialogFragment {
     private void setData() {
         if(getArguments().getBoolean("victory")){
             textViewResult.setText(R.string.Victory);
-        }
-        else{
-            textViewResult.setText(R.string.defeat);
-        }
+            int score = getArguments().getInt("score");
+            textViewScore.setText("" + score);
 
-        textViewScore.setText("" + getArguments().getInt("score"));
-
-        switch(getArguments().getInt("nbStar")){
-            case 1:
+            if(score > 700){
                 star1.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.INVISIBLE);
-                star2.setVisibility(View.INVISIBLE);
-                break;
-            case 2:
+                star2.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+            }
+            else if(score > 500){
                 star1.setVisibility(View.INVISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
-                break;
-            case 3:
+            }
+            else if(score > 200){
                 star1.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.VISIBLE);
-                star2.setVisibility(View.VISIBLE);
-                break;
+                star2.setVisibility(View.INVISIBLE);
+                star2.setVisibility(View.INVISIBLE);
+            }
+        }
+        else{
+            textViewResult.setText(R.string.defeat);
+            textViewScore.setText("0");
         }
     }
 

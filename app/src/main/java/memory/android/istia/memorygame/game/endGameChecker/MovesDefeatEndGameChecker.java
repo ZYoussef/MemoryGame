@@ -14,7 +14,7 @@ import memory.android.istia.memorygame.game.GameManager;
  */
 public class MovesDefeatEndGameChecker implements IEndGameChecker {
 
-    public static final int MAX_SCORE = 50;
+
     private GameManager mGameManager;
     /**
      * Nombre de coups max à jouer
@@ -26,13 +26,27 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
      */
     private int mMovesPlayed;
 
+    private String difficulty;
+
     private TextView movesLeftUI;
 
-    public MovesDefeatEndGameChecker(GameManager gameManager, int movesLimit, TextView movesLeftUI){
+    public MovesDefeatEndGameChecker(GameManager gameManager, String difficulty, TextView movesLeftUI){
         this.mGameManager = gameManager;
-        this.mMovesLimit = movesLimit;
         this.mMovesPlayed = 0;
         this.movesLeftUI = movesLeftUI;
+        this.difficulty = difficulty;
+
+        switch(difficulty){
+            case "easy":
+                this.mMovesLimit = 4 * 3;
+                break;
+            case "medium":
+                this.mMovesLimit = 8 * 3;
+                break;
+            case "hard":
+                this.mMovesLimit = 16 * 3;
+                break;
+        }
 
         this.movesLeftUI.setText("Coups restants : " + (this.mMovesLimit - this.mMovesPlayed));
     }
@@ -40,7 +54,7 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
     @Override
     public void notifyGameManager() {
         //Défaite
-        this.mGameManager.endOfGame(false, calculateScore());
+        this.mGameManager.endOfGame(false);
     }
 
     @Override
@@ -57,6 +71,14 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
     @Override
     public int calculateScore()
     {
-        return (this.mMovesPlayed * MAX_SCORE)/this.mMovesLimit;
+        switch(this.difficulty){
+            case "easy":
+                return MAX_SCORE - ((this.mMovesPlayed - 4) * 100);
+            case "medium":
+                return MAX_SCORE - ((this.mMovesPlayed - 8) * 75);
+            case "hard":
+                return MAX_SCORE - ((this.mMovesPlayed - 32) * 25);
+            default: return MAX_SCORE;
+        }
     }
 }
