@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
 
@@ -27,6 +29,12 @@ public class EndGameFragment extends DialogFragment {
 
 
     private Button buttonHome;
+
+    private ImageView star1;
+    private ImageView star2;
+    private ImageView star3;
+    private TextView textViewResult;
+    private TextView textViewScore;
 
     public EndGameFragment() {
         // Required empty public constructor
@@ -40,6 +48,15 @@ public class EndGameFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_end_game, container, false);
 
         buttonHome = view.findViewById(R.id.buttonHome);
+        star1 = view.findViewById(R.id.imageViewStar1);
+        star2 = view.findViewById(R.id.imageViewStar2);
+        star3 = view.findViewById(R.id.imageViewStar3);
+        textViewScore = view.findViewById(R.id.textViewScore);
+        textViewResult = view.findViewById(R.id.textViewResult);
+
+        setData();
+
+
         buttonHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +67,35 @@ public class EndGameFragment extends DialogFragment {
         setCancelable(false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return view;
+    }
+
+    private void setData() {
+        if(getArguments().getBoolean("victory")){
+            textViewResult.setText(R.string.Victory);
+        }
+        else{
+            textViewResult.setText(R.string.defeat);
+        }
+
+        textViewScore.setText("" + getArguments().getInt("score"));
+
+        switch(getArguments().getInt("nbStar")){
+            case 1:
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.INVISIBLE);
+                star2.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                star1.setVisibility(View.INVISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     @Override

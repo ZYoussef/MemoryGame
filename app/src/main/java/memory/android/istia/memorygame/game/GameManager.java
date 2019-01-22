@@ -1,5 +1,6 @@
 package memory.android.istia.memorygame.game;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -67,6 +68,9 @@ public class GameManager implements IGameManager {
     public int getBackCard(){
         if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "incredibles"){
             return R.drawable.incredible_back;
+        }
+        else if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "kid"){
+            return R.drawable.kid_back;
         }
 
         return R.drawable.incredible_back;
@@ -184,7 +188,11 @@ public class GameManager implements IGameManager {
      */
     public void endOfGame(boolean victory, int score){
         Log.d("TEST", "END OF GAME - VICTOIRE="+victory+", score="+score);
-        FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, null);
+        Bundle bundle = new Bundle();
+        bundle.putInt("score", 450);
+        bundle.putInt("nbStar", 2);
+        bundle.putBoolean("victory", true);
+        FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, bundle);
     }
 
     ////////////////////////////////////////////////////////////

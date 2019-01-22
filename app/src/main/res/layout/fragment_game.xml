@@ -7,20 +7,15 @@
     android:background="@drawable/main_background"
     tools:context=".fragments.GameFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.v7.widget.GridLayout
         android:id="@+id/gridLayoutGame"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        app:alignmentMode="alignBounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:columnCount="4"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomGrid"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightGrid"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftGrid"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTopGrid"
-        app:useDefaultMargins="false">
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightHome"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeftTemps"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopGrid">
 
     </android.support.v7.widget.GridLayout>
 
