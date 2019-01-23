@@ -70,7 +70,7 @@ public class MainActivity extends FragmentActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        NotificationServiceManager.getInstance().sendNewNotification(getString(R.string.timer),getString(R.string.notif_timer), R.drawable.timer_icon);
+                        NotificationServiceManager.getInstance().sendNewNotification(getString(R.string.timer),getString(R.string.notif_timer), R.drawable.clock);
                     }
                 });
             }
