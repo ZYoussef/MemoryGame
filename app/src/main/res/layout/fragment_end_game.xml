@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.EndGameFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.constraint.Guideline
         android:id="@+id/guidelineTitleLeft"
         android:layout_width="wrap_content"

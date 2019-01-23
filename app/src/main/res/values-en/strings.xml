@@ -17,4 +17,6 @@
     <string name="defeat">DEFAITE</string>
     <string name="timer">Not tired yet?</string>
     <string name="notif_timer">You play for 30min, think about taking a break!</string>
+    <string name="sound">Son</string>
+    <string name="vibration">Vibration</string>
 </resources>

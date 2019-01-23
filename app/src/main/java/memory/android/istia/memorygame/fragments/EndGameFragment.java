@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.game.ScoreManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +81,8 @@ public class EndGameFragment extends DialogFragment {
             else if(score > 200){
                 star.setImageResource(R.drawable.star_3);
             }
+
+            ScoreManager.getInstance().addToScore(score);
         }
         else{
             star.setImageResource(R.drawable.star_4);

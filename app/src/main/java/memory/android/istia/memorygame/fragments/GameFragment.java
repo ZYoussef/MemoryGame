@@ -11,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.game.GameManager;
+import memory.android.istia.memorygame.utils.FragmentController;
 
 
 public class GameFragment extends Fragment {
@@ -23,6 +25,7 @@ public class GameFragment extends Fragment {
     private GameManager mGameManager;
     private TextView mTextViewTime;
     private TextView mTextViewNbPairFound;
+    private Button buttonMenu;
 
 
     public GameFragment() {
@@ -53,15 +56,23 @@ public class GameFragment extends Fragment {
         mGridLayout = view.findViewById(R.id.gridLayoutGame);
         mTextViewTime = view.findViewById(R.id.textViewTime);
         mTextViewNbPairFound = view.findViewById(R.id.textViewNbPairFound);
+        buttonMenu = view.findViewById(R.id.buttonMenu);
+
+        buttonMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+            }
+        });
 
 
         setGridSize(getArguments().getString("difficulty"));
         Point cardSize = getCardSize(getArguments().getString("difficulty"));
-        Log.d("test", "taille calculée : " + cardSize.x + " / " + cardSize.y);
         fillGridWithCards(cardSize);
 
         if(getArguments().getBoolean("timeLimit")){
             mGameManager.setTimeLimit(difficulty, mTextViewTime);
+            view.findViewById(R.id.imageViewClock).setVisibility(View.VISIBLE);
         }
 
         if(getArguments().getBoolean("hitLimit")){

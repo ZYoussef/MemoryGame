@@ -183,11 +183,11 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         String currentLanguage = SharedPreferenceManager.read(SharedPreferenceManager.Settings.LANGUAGE_SELECTED, "fr");
 
         switch(currentLanguage){
-            case "en": imageViewFlag.setImageResource(R.drawable.flag_en);
+            case "en": imageViewFlag.setImageResource(R.drawable.english_flag);
             break;
-            case "fr": imageViewFlag.setImageResource(R.drawable.flag_fr);
+            case "fr": imageViewFlag.setImageResource(R.drawable.french_flag);
             break;
-            case "ru": imageViewFlag.setImageResource(R.drawable.flag_ru);
+            case "ru": imageViewFlag.setImageResource(R.drawable.russia_flag);
             break;
         }
             Locale locale = new Locale(currentLanguage);

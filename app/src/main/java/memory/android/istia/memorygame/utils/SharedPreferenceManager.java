@@ -3,6 +3,10 @@ package memory.android.istia.memorygame.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.ArraySet;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * SharedPreferenceManager--- Gestion des données de l'application
@@ -44,6 +48,12 @@ public class SharedPreferenceManager {
             public String toString() {
                 return "DECK_SELECTED";
             }
+        },
+        SCORES{
+            @Override
+            public String toString() {
+                return "SCORES";
+            }
         }
     }
 
@@ -75,6 +85,7 @@ public class SharedPreferenceManager {
         write(Settings.VIBRATION_IS_ON, true);
         write(Settings.DECK_SELECTED, "incredibles");
         write(Settings.LANGUAGE_SELECTED, "fr");
+        write(Settings.SCORES, new ArraySet<String>());
     }
 
 
@@ -106,6 +117,16 @@ public class SharedPreferenceManager {
     public static void write(Settings key, Boolean value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putBoolean(key.toString(), value);
+        prefsEditor.apply();
+    }
+
+    public static Set<String> read(Settings key, Set<String> defValue) {
+        return mSharedPreference.getStringSet(key.toString(), defValue);
+    }
+
+    public static void write(Settings key, Set<String> value) {
+        SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
+        prefsEditor.putStringSet(key.toString(), value);
         prefsEditor.apply();
     }
 }

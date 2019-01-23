@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
     tools:context=".fragments.GameParametersFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -77,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineRightTitle"
@@ -189,14 +188,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.27" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineItemFirstLineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.42" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineSecondLineTop"
@@ -266,11 +279,12 @@
         android:id="@+id/checkBoxHitLimit"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/custom_checkbox"
+        android:button="@null"
         android:fontFamily="@font/fredoka_one"
-        android:text="@string/move_limit"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toTopOf="@+id/guidelineSecondLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftTitle"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightCheckbox"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftStart"
         app:layout_constraintTop_toTopOf="@+id/guidelineSecondLineTop" />
 
@@ -278,11 +292,12 @@
         android:id="@+id/checkBoxTimeLimit"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/custom_checkbox"
+        android:button="@null"
         android:fontFamily="@font/fredoka_one"
-        android:text="@string/time_limit"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toTopOf="@+id/guidelineItemFirstLineBottom"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftTitle"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRightCheckbox"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftStart"
         app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
 
@@ -290,15 +305,15 @@
         android:id="@+id/buttonGameParameterPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/btn"
+        android:background="@drawable/btn_1"
         android:fontFamily="@font/fredoka_one"
+        app:autoSizeTextType="uniform"
         android:text="@string/play_uppercase"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottomValidate"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRightTitle"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeftText2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopValidate" />
 
     <Button
@@ -346,6 +361,36 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineRightTitle"
         app:layout_constraintTop_toTopOf="@+id/guidelineSecondLineTop" />
 
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/time_limit"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/fredoka_one"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineItemFirstLineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftTitle"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightCheckbox"
+        app:layout_constraintTop_toTopOf="@+id/guidelineItemFirstLineTop" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textViewCoups"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/time_limit"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/fredoka_one"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineSecondLineBottom"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeftTitle"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRightCheckbox"
+        app:layout_constraintTop_toTopOf="@+id/guidelineSecondLineTop" />
+
     <Button
         android:id="@+id/buttonDeckNext"
         android:layout_width="0dp"
@@ -382,17 +427,24 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineSecondLineTop" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guidelineRightCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.27" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
 
 </android.support.constraint.ConstraintLayout>

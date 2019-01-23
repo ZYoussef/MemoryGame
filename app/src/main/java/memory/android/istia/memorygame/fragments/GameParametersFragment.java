@@ -34,6 +34,8 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     private boolean timeLimitSet;
     private boolean hitLimitSet;
 
+    private MediaPlayer mp;
+
     public GameParametersFragment() {
         // Required empty public constructor
     }
@@ -59,6 +61,13 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         checkBoxHitLimit = view.findViewById(R.id.checkBoxHitLimit);
         checkBoxTimeLimit = view.findViewById(R.id.checkBoxTimeLimit);
 
+        mp = MediaPlayer.create(getContext(), R.raw.button_click);
+
+        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
+            case "incredibles": imageViewDeck.setImageResource(R.drawable.deck_card_incredible);
+            case "kid":  imageViewDeck.setImageResource(R.drawable.deck_card_kid);
+        }
+
 
         mButtonPlay.setOnClickListener(this);
         buttonPreviousDeck.setOnClickListener(this);
@@ -75,7 +84,6 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.button_click);
         mp.start();
         switch(v.getId()){
             case R.id.buttonGameParameterPlay:
