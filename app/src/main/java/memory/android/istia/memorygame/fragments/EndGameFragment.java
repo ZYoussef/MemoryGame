@@ -81,8 +81,6 @@ public class EndGameFragment extends DialogFragment {
             else if(score > 200){
                 star.setImageResource(R.drawable.star_3);
             }
-
-            ScoreManager.getInstance().addToScore(score);
         }
         else{
             star.setImageResource(R.drawable.star_4);

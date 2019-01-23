@@ -1,7 +1,6 @@
 package memory.android.istia.memorygame.game;
 
 import android.util.ArraySet;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,23 +11,37 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 public class ScoreManager {
 
     private static ScoreManager instance =null;
-    private ArrayList<Integer> scores;
+
+    private ArrayList<Integer> scores_easy;
+    private ArrayList<Integer> scores_medium;
+    private ArrayList<Integer> scores_hard;
 
     private ScoreManager()
     {
-        this.scores = new ArrayList<>();
+        this.scores_easy = new ArrayList<>();
+        this.scores_medium = new ArrayList<>();
+        this.scores_hard = new ArrayList<>();
+
         loadScoresFromSharedPreference();
     }
 
     private void loadScoresFromSharedPreference() {
         Set<String> set = null;
-        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES, set);
 
+        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_EASY, set);
         for(String str : set){
-            this.scores.add(Integer.parseInt(str));
+            this.scores_easy.add(Integer.parseInt(str));
         }
 
-        Log.d("test", scores.size() +  " scores loaded");
+        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_MEDIUM, set);
+        for(String str : set){
+            this.scores_medium.add(Integer.parseInt(str));
+        }
+
+        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_HARD, set);
+        for(String str : set){
+            this.scores_hard.add(Integer.parseInt(str));
+        }
 
     }
 
@@ -41,41 +54,68 @@ public class ScoreManager {
         return instance;
     }
 
-    public void addToScore(int score){
+    public void addToScore(int score, String difficulty){
 
-        if( this.scores.size() < 10){
-            this.scores.add(score);
+        ArrayList<Integer> scores = null;
+        switch(difficulty){
+            case "easy": scores = this.scores_easy; break;
+            case "medium": scores = this.scores_medium; break;
+            case "hard": scores = this.scores_hard; break;
+            default: scores = this.scores_easy;
+        }
+
+        if( scores.size() < 10){
+            scores.add(score);
             return;
         }
 
-        int index =  this.scores.size() + 1;
-        for(int i = 0; i <  this.scores.size(); i++){
-            if( score >  this.scores.get(i)) index = i;
+        int index =  scores.size() + 1;
+        for(int i = 0; i <  scores.size(); i++){
+            if( score >  scores.get(i)) index = i;
         }
 
-        if(index <=  this.scores.size()){
-            this.scores.add(score);
-            this.scores.remove(index);
+        if(index <=  scores.size()){
+            scores.add(score);
+            scores.remove(index);
         }
     }
 
     private void saveScores(){
-        Collections.sort( this.scores);
+        Collections.sort( this.scores_easy);
+        Collections.sort( this.scores_medium);
+        Collections.sort( this.scores_hard);
 
         ArraySet<String> set = new ArraySet<>();
-
-        for(int score :  this.scores){
+        for(int score :  this.scores_easy){
             set.add(String.valueOf(score));
-            Log.d("test", "saving " + score);
         }
+        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_EASY, set);
 
-        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES, set);
-        Log.d("test", set.size() + " scores saved");
+        set = new ArraySet<>();
+        for(int score :  this.scores_medium){
+            set.add(String.valueOf(score));
+        }
+        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_MEDIUM, set);
+
+        set = new ArraySet<>();
+        for(int score :  this.scores_hard){
+            set.add(String.valueOf(score));
+        }
+        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_HARD, set);
     }
 
-    public ArrayList<Integer> getScores() {
+    public ArrayList<Integer> getScores_easy() {
         loadScoresFromSharedPreference();
-        Log.d("test",  this.scores+ " here");
-        return this.scores;
+        return this.scores_easy;
+    }
+
+    public ArrayList<Integer> getScores_medium() {
+        loadScoresFromSharedPreference();
+        return this.scores_medium;
+    }
+
+    public ArrayList<Integer> getScores_hard() {
+        loadScoresFromSharedPreference();
+        return this.scores_hard;
     }
 }

@@ -49,10 +49,22 @@ public class SharedPreferenceManager {
                 return "DECK_SELECTED";
             }
         },
-        SCORES{
+        SCORES_EASY{
             @Override
             public String toString() {
-                return "SCORES";
+                return "SCORES_EASY";
+            }
+        },
+        SCORES_MEDIUM{
+            @Override
+            public String toString() {
+                return "SCORES_MEDIUM";
+            }
+        },
+        SCORES_HARD{
+            @Override
+            public String toString() {
+                return "SCORES_HARD";
             }
         }
     }
@@ -85,7 +97,9 @@ public class SharedPreferenceManager {
         write(Settings.VIBRATION_IS_ON, true);
         write(Settings.DECK_SELECTED, "incredibles");
         write(Settings.LANGUAGE_SELECTED, "fr");
-        write(Settings.SCORES, new ArraySet<String>());
+        write(Settings.SCORES_EASY, new ArraySet<String>());
+        write(Settings.SCORES_MEDIUM, new ArraySet<String>());
+        write(Settings.SCORES_HARD, new ArraySet<String>());
     }
 
 

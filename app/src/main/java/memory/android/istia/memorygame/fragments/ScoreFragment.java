@@ -36,11 +36,7 @@ public class ScoreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        TextView tv = view.findViewById(R.id.textViewTest);
 
-        for(int score : ScoreManager.getInstance().getScores()){
-            tv.setText(tv.getText() + " " + score);
-        }
         return view;
     }
 
