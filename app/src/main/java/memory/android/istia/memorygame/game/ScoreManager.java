@@ -1,6 +1,7 @@
 package memory.android.istia.memorygame.game;
 
 import android.util.ArraySet;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,8 @@ import java.util.Set;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 public class ScoreManager {
+
+    private static int score_to_save = 3;
 
     private static ScoreManager instance =null;
 
@@ -64,7 +67,7 @@ public class ScoreManager {
             default: scores = this.scores_easy;
         }
 
-        if( scores.size() < 10){
+        if( scores.size() < score_to_save){
             scores.add(score);
             return;
         }

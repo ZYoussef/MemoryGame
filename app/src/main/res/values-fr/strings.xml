@@ -19,4 +19,6 @@
     <string name="notif_timer">Vous jouez depuis 30min, pensez à faire une pause !</string>
     <string name="sound">Son</string>
     <string name="vibration">Vibration</string>
+    <string name="retour">Retour</string>
+    <string name="credits">Application développée au sein de Polytech Angers par Sébastien Pascault, Thomas Bernard et Youssef Ziyyat dans le cadre du module Programmation Mobile.</string>
 </resources>

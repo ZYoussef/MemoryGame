@@ -47,7 +47,7 @@ public class GameFragment extends Fragment {
             case "medium": nbPair = 4; break;
             case "hard": nbPair = 8; break;
         }
-        mGameManager = new GameManager(nbPair);
+        mGameManager = new GameManager(nbPair, difficulty);
 
 
 

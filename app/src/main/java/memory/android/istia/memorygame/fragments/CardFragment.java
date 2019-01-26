@@ -89,7 +89,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
 
     public void setCardVisibility(final boolean visible){
         ObjectAnimator animation = ObjectAnimator.ofFloat(mCardImage, "rotationY", 0f, 90f);
-        animation.setDuration(180);
+        animation.setDuration(360);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.start();
 
@@ -107,7 +107,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
                 }
 
                 ObjectAnimator animation2 = ObjectAnimator.ofFloat(mCardImage, "rotationY", 90f, 0f);
-                animation2.setDuration(180);
+                animation2.setDuration(360);
                 animation2.setInterpolator(new AccelerateDecelerateInterpolator());
                 animation2.start();
             }

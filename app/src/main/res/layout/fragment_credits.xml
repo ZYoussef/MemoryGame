@@ -86,7 +86,7 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/leftHeader"
+        android:id="@+id/leftRank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -150,7 +150,7 @@
         android:src="@drawable/header"
         app:layout_constraintBottom_toTopOf="@+id/bottomHeader"
         app:layout_constraintEnd_toStartOf="@+id/rightHeader"
-        app:layout_constraintStart_toStartOf="@+id/leftHeader"
+        app:layout_constraintStart_toStartOf="@+id/leftRank"
         app:layout_constraintTop_toTopOf="@+id/topHeader" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -166,4 +166,92 @@
         app:layout_constraintEnd_toStartOf="@+id/rightTitle"
         app:layout_constraintStart_toStartOf="@+id/leftTitle"
         app:layout_constraintTop_toTopOf="@+id/topTitle" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/credits"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/credits"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        app:autoSizeMaxTextSize="30dp"
+        app:autoSizeMinTextSize="5dp"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/roboto"
+        app:layout_constraintBottom_toTopOf="@+id/bottomText"
+        app:layout_constraintEnd_toStartOf="@+id/rightHeader"
+        app:layout_constraintStart_toStartOf="@+id/leftButton"
+        app:layout_constraintTop_toTopOf="@+id/topText" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <Button
+        android:id="@+id/buttonMenuCredit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/btn_1"
+        android:fontFamily="@font/fredoka_one"
+        android:text="@string/retour"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/bottomButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightButton"
+        app:layout_constraintStart_toStartOf="@+id/leftButton"
+        app:layout_constraintTop_toTopOf="@+id/topButton" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.67" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/polytech_angers"
+        app:layout_constraintBottom_toTopOf="@+id/bottomText"
+        app:layout_constraintEnd_toStartOf="@+id/leftTitle"
+        app:layout_constraintStart_toStartOf="@+id/leftRank"
+        app:layout_constraintTop_toTopOf="@+id/topText" />
 </android.support.constraint.ConstraintLayout>

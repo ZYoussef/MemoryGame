@@ -97,9 +97,12 @@ public class SharedPreferenceManager {
         write(Settings.VIBRATION_IS_ON, true);
         write(Settings.DECK_SELECTED, "incredibles");
         write(Settings.LANGUAGE_SELECTED, "fr");
-        write(Settings.SCORES_EASY, new ArraySet<String>());
-        write(Settings.SCORES_MEDIUM, new ArraySet<String>());
-        write(Settings.SCORES_HARD, new ArraySet<String>());
+
+        ArraySet<String> default_Score = new ArraySet<>();
+
+        write(Settings.SCORES_EASY, default_Score);
+        write(Settings.SCORES_MEDIUM, default_Score);
+        write(Settings.SCORES_HARD, default_Score);
     }
 
 

@@ -27,6 +27,7 @@ public class GameManager implements IGameManager {
 
     private int mCardsPair;
     private int mCardsPairFound;
+    private String difficulty;
 
     private List<IEndGameChecker> mEndGameCheckers;
     private List<CardFragment> mCardFragments;
@@ -36,9 +37,10 @@ public class GameManager implements IGameManager {
 
     private boolean gameIsRunning;
 
-    public GameManager(int cardsPair){
+    public GameManager(int cardsPair, String difficulty){
         mCardsPair = cardsPair;
         mCardsPairFound = 0;
+        this.difficulty = difficulty;
 
         mEndGameCheckers = new ArrayList<>();
         mCardFragments = new ArrayList<>();
@@ -193,9 +195,12 @@ public class GameManager implements IGameManager {
     public void endOfGame(boolean victory){
         if(gameIsRunning){
             Bundle bundle = new Bundle();
-            bundle.putInt("score", calculateScore());
+            int score = calculateScore();
+            bundle.putInt("score", score);
             bundle.putBoolean("victory", victory);
             gameIsRunning = false;
+
+            ScoreManager.getInstance().addToScore(score, this.difficulty);
 
             for(IEndGameChecker egc : mEndGameCheckers){
                 if(egc instanceof TimeDefeatEndGameChecker){
