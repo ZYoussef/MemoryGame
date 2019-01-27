@@ -45,7 +45,6 @@ public class SharedPreferenceManager {
      * Ecriture des préférences par défaut, exécuter seulement lors du premier lancement
      * ou si aucune donnée n'a été trouvée dans SharedPreference
      *
-     * TODO - Application mise en fr par défaut, à voir pour mettre suivant la langue du téléphone
      */
     private static void writeDefaultSettings(){
         write(EnumSharedPreferences.FIRST_START, false);

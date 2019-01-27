@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GameParametersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.constraint.Guideline
         android:id="@+id/guidelineBottomText2"
         android:layout_width="wrap_content"

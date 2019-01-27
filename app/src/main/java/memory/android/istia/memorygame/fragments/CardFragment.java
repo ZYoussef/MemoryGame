@@ -137,10 +137,6 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         this.width = newWidth;
     }
 
-    public boolean isCardVisible(){
-        return this.mCardVisible;
-    }
-
     public int getCardID(){
         return this.mID;
     }

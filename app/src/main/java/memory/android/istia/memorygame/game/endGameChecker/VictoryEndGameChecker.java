@@ -1,15 +1,11 @@
 package memory.android.istia.memorygame.game.endGameChecker;
 
-import android.util.Log;
-
 import memory.android.istia.memorygame.game.GameManager;
 
 /**
  * VictoryEndGameChecker--- implémente IEndGameChecker
  *  Condition de victoire pour le jeu (lorsque toutes les paires sont trouvées
  *
- *
- *  TODO : A lancer dans un nouveau service + lancer le chronomètre, voir pour l'affichage
  *  (avertir GameManager ou créer un fragment ici et l'ajouter ?)
  *
  * @author Sébastien, Thomas, Youssef
