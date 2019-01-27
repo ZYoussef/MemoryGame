@@ -28,6 +28,8 @@ import java.util.Locale;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.SelectionOptions.LanguageSelection;
+import memory.android.istia.memorygame.SelectionOptions.StateSelection;
 import memory.android.istia.memorygame.enums.EnumLanguage;
 import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 import memory.android.istia.memorygame.utils.FragmentController;
@@ -43,6 +45,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     private Button buttonLanguageNext;
     private Button buttonLanguagePrevious;
     private ImageView imageViewFlag;
+
+    private LanguageSelection languageSelection;
 
 
     public SettingsFragment() {
@@ -78,6 +82,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         mButtonValidate.setOnClickListener(this);
         buttonLanguagePrevious.setOnClickListener(this);
         buttonLanguageNext.setOnClickListener(this);
+
+        languageSelection = new LanguageSelection();
 
         if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)){
             mCheckBoxSound.setChecked(true);
@@ -116,8 +122,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     /**
      * Listener pour les checkbox (son et vibration)
-     * @param buttonView
-     * @param isChecked
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -130,14 +134,20 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 switchVibration();
                 break;
         }
-        ((MainActivity) getActivity()).playClickSound();
+
+        if(getActivity() != null && getActivity() instanceof MainActivity){
+            ((MainActivity) getActivity()).playClickSound();
+        }
+
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button_settings_validate:
-                ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true));
+                if(getActivity() != null && getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true));
+                }
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
                 break;
             case R.id.buttonLanguageNext:
@@ -151,37 +161,13 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     private void selectNextLanguage() {
         EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
-
-        switch(currentLanguage){
-            case FRENCH:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.ENGLISH.ordinal());
-                break;
-            case ENGLISH:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.RUSSIAN.ordinal());
-                break;
-            case RUSSIAN:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.FRENCH.ordinal());
-                break;
-        }
-
+        languageSelection.next(currentLanguage);
         updateLanguage();
     }
 
     private void selectPreviousLanguage() {
         EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
-
-        switch(currentLanguage){
-            case FRENCH:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.RUSSIAN.ordinal());
-                break;
-            case ENGLISH:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.FRENCH.ordinal());
-                break;
-            case RUSSIAN:
-                SharedPreferenceManager.write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.ENGLISH.ordinal());
-                break;
-        }
-
+        languageSelection.previous(currentLanguage);
         updateLanguage();
     }
 
@@ -196,12 +182,16 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
             case RUSSIAN: imageViewFlag.setImageResource(R.drawable.russia_flag);
             break;
         }
-            Locale locale = new Locale(currentLanguage.toString());
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getActivity().getBaseContext().getResources().updateConfiguration(config,
-                    getActivity().getBaseContext().getResources().getDisplayMetrics());
+
+        Locale locale = new Locale(currentLanguage.toString());
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        if(getActivity() != null){
+            getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        }
+
 
     }
 }
