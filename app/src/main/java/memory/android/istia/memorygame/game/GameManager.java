@@ -1,7 +1,7 @@
 package memory.android.istia.memorygame.game;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.enums.EnumDeck;
+import memory.android.istia.memorygame.enums.EnumDifficulty;
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 import memory.android.istia.memorygame.fragments.CardFragment;
 import memory.android.istia.memorygame.game.endGameChecker.IEndGameChecker;
 import memory.android.istia.memorygame.game.endGameChecker.MovesDefeatEndGameChecker;
@@ -27,7 +30,7 @@ public class GameManager implements IGameManager {
 
     private int mCardsPair;
     private int mCardsPairFound;
-    private String difficulty;
+    private EnumDifficulty difficulty;
 
     private List<IEndGameChecker> mEndGameCheckers;
     private List<CardFragment> mCardFragments;
@@ -37,7 +40,7 @@ public class GameManager implements IGameManager {
 
     private boolean gameIsRunning;
 
-    public GameManager(int cardsPair, String difficulty){
+    public GameManager(int cardsPair, EnumDifficulty difficulty){
         mCardsPair = cardsPair;
         mCardsPairFound = 0;
         this.difficulty = difficulty;
@@ -72,18 +75,21 @@ public class GameManager implements IGameManager {
     }
 
     public int getBackCard(){
-        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "incredibles"){
+        if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
             return R.drawable.incredible_back;
         }
-        else if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "kid"){
+        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
             return R.drawable.kid_back;
+        }
+        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
+            return R.drawable.fruit_back;
         }
 
         return R.drawable.incredible_back;
     }
 
     public int getCardImage(int nb){
-        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "incredibles"){
+        if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
             switch(nb){
                 case 0:return R.drawable.card_incredible_frozone;
                 case 1: return R.drawable.card_incredible_kid;
@@ -97,7 +103,7 @@ public class GameManager implements IGameManager {
                 default: return R.drawable.card_indredible_syndrome;
             }
         }
-        else if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "") == "kid"){
+        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
             switch(nb){
                 case 0:return R.drawable.card_kid_angry;
                 case 1: return R.drawable.card_kid_full_stretch;
@@ -109,6 +115,20 @@ public class GameManager implements IGameManager {
                 case 7: return R.drawable.card_kid_worry;
                 case 8: return R.drawable.card_kid_stretch;
                 default: return R.drawable.card_kid_stretch;
+            }
+        }
+        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
+            switch(nb){
+                case 0:return R.drawable.card_fruit_avocado;
+                case 1: return R.drawable.card_fruit_carambola;
+                case 2: return R.drawable.card_fruit_kiwi;
+                case 3: return R.drawable.card_fruit_orange;
+                case 4: return R.drawable.card_fruit_lemon;
+                case 5: return R.drawable.card_fruit_peach;
+                case 6: return R.drawable.card_fruit_pommegranate;
+                case 7: return R.drawable.card_fruit_fig;
+                case 8: return R.drawable.card_fruit_ananas;
+                default: return R.drawable.card_fruit_avocado;
             }
         }
         else{
@@ -172,7 +192,7 @@ public class GameManager implements IGameManager {
      * Rajoute une condition de défaite pour le jeu avec une limite de temps
      * @param difficulty limite de temps en seconde
      */
-    public void setTimeLimit(String difficulty, TextView timeUI){
+    public void setTimeLimit(EnumDifficulty difficulty, TextView timeUI){
         IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, difficulty, timeUI);
         attach(timeChecker);
         ((TimeDefeatEndGameChecker) timeChecker).execute();
@@ -183,8 +203,8 @@ public class GameManager implements IGameManager {
      * @param difficulty Limite du nombre de coup
      * @param movesLeftUI
      */
-    public void setMovesLimit(String difficulty, TextView movesLeftUI){
-        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, difficulty, movesLeftUI);
+    public void setMovesLimit(EnumDifficulty difficulty, TextView movesLeftUI, Context context){
+        IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, difficulty, movesLeftUI, context);
         attach(moveLimit);
     }
 
@@ -216,7 +236,6 @@ public class GameManager implements IGameManager {
         int score = 0;
         for(IEndGameChecker egc : mEndGameCheckers){
             int x = egc.calculateScore();
-            Log.e("test", "Calcul score " + x);
             score += x;
         }
 

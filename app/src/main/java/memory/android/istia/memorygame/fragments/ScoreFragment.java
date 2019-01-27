@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Set;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.game.ScoreManager;
 import memory.android.istia.memorygame.utils.FragmentController;
@@ -83,7 +84,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setscoreMedium(){
-        ArrayList<Integer> score = ScoreManager.getInstance().getScores_easy();
+        ArrayList<Integer> score = ScoreManager.getInstance().getScores_medium();
         if(score.size() > 0){
             TextView score_1 = getView().findViewById(R.id.score_medium_1);
             score_1.setText(String.valueOf(score.get(0)));
@@ -101,7 +102,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setScoreHard(){
-        ArrayList<Integer> score = ScoreManager.getInstance().getScores_easy();
+        ArrayList<Integer> score = ScoreManager.getInstance().getScores_hard();
         if(score.size() > 0){
             TextView score_1 = getView().findViewById(R.id.score_hard_1);
             score_1.setText(String.valueOf(score.get(0)));
@@ -121,6 +122,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonMenu){
+            ((MainActivity) getActivity()).playClickSound();
             FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
         }
     }

@@ -3,7 +3,11 @@ package memory.android.istia.memorygame.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +18,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,8 +79,6 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         mCardImage.setImageResource(this.mBackImageId);
         mCardImage.setOnClickListener(this);
 
-
-
         this.mCardImage.getLayoutParams().height = this.height;
         this.mCardImage.getLayoutParams().width = this.width;
 
@@ -83,7 +87,21 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == mCardImage.getId()){
+            vibrate();
             ( (GameFragment) getParentFragment() ).clickOnCard(this.mID);
+        }
+    }
+
+    private void vibrate(){
+        if(SharedPreferenceManager.read(EnumSharedPreferences.VIBRATION_IS_ON, false)){
+            Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                //deprecated in API 26
+                vibrator.vibrate(100);
+            }
         }
     }
 

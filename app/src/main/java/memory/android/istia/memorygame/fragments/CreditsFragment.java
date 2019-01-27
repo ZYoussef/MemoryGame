@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.utils.FragmentController;
 
@@ -21,8 +22,6 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     public CreditsFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,7 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonMenuCredit){
+            ((MainActivity) getActivity()).playClickSound();
             FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
         }
     }

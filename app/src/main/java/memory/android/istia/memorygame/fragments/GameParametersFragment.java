@@ -2,6 +2,8 @@ package memory.android.istia.memorygame.fragments;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,11 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.enums.EnumDeck;
+import memory.android.istia.memorygame.enums.EnumDifficulty;
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
@@ -22,7 +28,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     private Button mButtonPlay;
     private Button buttonNextDeck;
     private Button buttonPreviousDeck;
-    private Button buttonNextDificulty;
+    private Button buttonNextDifficulty;
     private Button buttonPreviousDifficulty;
     private CheckBox checkBoxTimeLimit;
     private CheckBox checkBoxHitLimit;
@@ -30,11 +36,9 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     private ImageView imageViewDeck;
     private TextView textViewDifficulty;
 
-    private String selectedDifficulty;
+    private EnumDifficulty selectedDifficulty;
     private boolean timeLimitSet;
     private boolean hitLimitSet;
-
-    private MediaPlayer mp;
 
     public GameParametersFragment() {
         // Required empty public constructor
@@ -49,46 +53,16 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_game_parameters, container, false);
-
-        mButtonPlay = view.findViewById(R.id.buttonGameParameterPlay);
-        buttonNextDeck = view.findViewById(R.id.buttonDeckNext);
-        buttonPreviousDeck = view.findViewById(R.id.buttonDeckPrevious);
-        imageViewDeck = view.findViewById(R.id.imageViewDeck);
-        buttonNextDificulty = view.findViewById(R.id.buttonNextDifficulty);
-        buttonPreviousDifficulty = view.findViewById(R.id.buttonPreviousDifficulty);
-        textViewDifficulty = view.findViewById(R.id.textViewDifficulty);
-        checkBoxHitLimit = view.findViewById(R.id.checkBoxHitLimit);
-        checkBoxTimeLimit = view.findViewById(R.id.checkBoxTimeLimit);
-
-        mp = MediaPlayer.create(getContext(), R.raw.button_click);
-
-        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
-            case "incredibles": imageViewDeck.setImageResource(R.drawable.deck_card_incredible);
-            case "kid":  imageViewDeck.setImageResource(R.drawable.deck_card_kid);
-        }
-
-
-        mButtonPlay.setOnClickListener(this);
-        buttonPreviousDeck.setOnClickListener(this);
-        buttonNextDeck.setOnClickListener(this);
-        buttonPreviousDifficulty.setOnClickListener(this);
-        buttonNextDificulty.setOnClickListener(this);
-
-        checkBoxTimeLimit.setOnCheckedChangeListener(this);
-        checkBoxHitLimit.setOnCheckedChangeListener(this);
-
-        selectedDifficulty = "easy";
-        return view;
+        return inflater.inflate(R.layout.fragment_game_parameters, container, false);
     }
 
     @Override
     public void onClick(View v) {
-        mp.start();
+        ((MainActivity) getActivity()).playClickSound();
         switch(v.getId()){
             case R.id.buttonGameParameterPlay:
                 Bundle args = new Bundle();
-                args.putString("difficulty", selectedDifficulty);
+                args.putInt("difficulty", selectedDifficulty.ordinal());
                 args.putBoolean("timeLimit", timeLimitSet);
                 args.putBoolean("hitLimit", hitLimitSet);
 
@@ -109,14 +83,47 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         }
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mButtonPlay = view.findViewById(R.id.buttonGameParameterPlay);
+        buttonNextDeck = view.findViewById(R.id.buttonDeckNext);
+        buttonPreviousDeck = view.findViewById(R.id.buttonDeckPrevious);
+        imageViewDeck = view.findViewById(R.id.imageViewDeck);
+        buttonNextDifficulty = view.findViewById(R.id.buttonNextDifficulty);
+        buttonPreviousDifficulty = view.findViewById(R.id.buttonPreviousDifficulty);
+        textViewDifficulty = view.findViewById(R.id.textViewDifficulty);
+        checkBoxHitLimit = view.findViewById(R.id.checkBoxHitLimit);
+        checkBoxTimeLimit = view.findViewById(R.id.checkBoxTimeLimit);
+
+        EnumDeck deckSelected = EnumDeck.values()[SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0)];
+        switch(deckSelected){
+            case INCREDIBLES: imageViewDeck.setImageResource(R.drawable.deck_card_incredible); break;
+            case KIDS:  imageViewDeck.setImageResource(R.drawable.deck_card_kid); break;
+            case FRUITS: imageViewDeck.setImageResource(R.drawable.deck_card_fruit); break;
+        }
+
+        this.selectedDifficulty = EnumDifficulty.EASY;
+
+
+        mButtonPlay.setOnClickListener(this);
+        buttonPreviousDeck.setOnClickListener(this);
+        buttonNextDeck.setOnClickListener(this);
+        buttonPreviousDifficulty.setOnClickListener(this);
+        buttonNextDifficulty.setOnClickListener(this);
+
+        checkBoxTimeLimit.setOnCheckedChangeListener(this);
+        checkBoxHitLimit.setOnCheckedChangeListener(this);
+    }
+
     private void setNextDifficulty(){
         switch(selectedDifficulty){
-            case "easy":
-                selectedDifficulty = "medium";
+            case EASY:
+                selectedDifficulty = EnumDifficulty.MEDIUM;
                 textViewDifficulty.setText(R.string.medium);
                 break;
-            case "medium":
-                selectedDifficulty = "hard";
+            case MEDIUM:
+                selectedDifficulty = EnumDifficulty.HARD;
                 textViewDifficulty.setText(R.string.hard);
                 break;
         }
@@ -124,24 +131,29 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
 
     private void setPreviousDifficulty(){
         switch(selectedDifficulty){
-            case "hard":
-                selectedDifficulty = "medium";
+            case HARD:
+                selectedDifficulty = EnumDifficulty.MEDIUM;
                 textViewDifficulty.setText(R.string.medium);
                 break;
-            case "medium":
-                selectedDifficulty = "easy";
+            case MEDIUM:
+                selectedDifficulty = EnumDifficulty.EASY;
                 textViewDifficulty.setText(R.string.easy);
                 break;
         }
     }
 
     private void setNextDeck(){
-        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
-            case "incredibles" :
-                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "kid");
+        EnumDeck deckSelected = EnumDeck.values()[SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0)];
+
+        switch(deckSelected){
+            case INCREDIBLES:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.KIDS.ordinal());
                 break;
-            case "kid" :
-                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "incredibles");
+            case KIDS:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.FRUITS.ordinal());
+                break;
+            case FRUITS:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.INCREDIBLES.ordinal());
                 break;
         }
 
@@ -149,23 +161,33 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
     }
 
     private void updateDeckImageView(){
-        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
-            case "incredibles" :
+        EnumDeck deckSelected = EnumDeck.values()[SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0)];
+
+        switch(deckSelected){
+            case INCREDIBLES:
                 imageViewDeck.setImageResource(R.drawable.deck_card_incredible);
                 break;
-            case "kid" :
+            case KIDS:
                 imageViewDeck.setImageResource(R.drawable.deck_card_kid);
+                break;
+            case FRUITS:
+                imageViewDeck.setImageResource(R.drawable.deck_card_fruit);
                 break;
         }
     }
 
     private void setPreviousDeck(){
-        switch(SharedPreferenceManager.read(SharedPreferenceManager.Settings.DECK_SELECTED, "")){
-            case "incredibles" :
-                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "kid");
+        EnumDeck deckSelected = EnumDeck.values()[SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0)];
+
+        switch(deckSelected){
+            case INCREDIBLES:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.FRUITS.ordinal());
                 break;
-            case "kid" :
-                SharedPreferenceManager.write(SharedPreferenceManager.Settings.DECK_SELECTED, "incredibles");
+            case KIDS:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.INCREDIBLES.ordinal());
+                break;
+            case FRUITS:
+                SharedPreferenceManager.write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.KIDS.ordinal());
                 break;
         }
 

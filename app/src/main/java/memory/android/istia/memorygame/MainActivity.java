@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
@@ -20,7 +21,12 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
  */
 public class MainActivity extends FragmentActivity {
 
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayerMusic;
+    private MediaPlayer mediaPlayerClick;
+
+    private boolean timerNotifIsRunning;
+
+
     private Timer timer = new Timer();
 
     @Override
@@ -39,14 +45,18 @@ public class MainActivity extends FragmentActivity {
 
         //Affichage du menu principal
         FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
-       // startTimer();
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(this, R.raw.back_music);
-        mediaPlayer.setLooping(true);
+
+        if(!timerNotifIsRunning)
+            startTimer();
+
+        mediaPlayerMusic = MediaPlayer.create(this, R.raw.back_music);
+        mediaPlayerMusic.setLooping(true);
+
+        mediaPlayerClick = MediaPlayer.create(this, R.raw.button_click);
 
 
         //Musique
-        if(SharedPreferenceManager.read(SharedPreferenceManager.Settings.SOUND_IS_ON, true)){
+        if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)){
             setMusic(true);
         }
     }
@@ -54,30 +64,24 @@ public class MainActivity extends FragmentActivity {
     public void setMusic(boolean state){
 
         if(state){
-            mediaPlayer.start();
+            mediaPlayerMusic.start();
         }
         else{
-            mediaPlayer.pause();
+            mediaPlayerMusic.pause();
+        }
+    }
+
+    public void playClickSound(){
+        if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)) {
+            mediaPlayerClick.start();
         }
     }
 
     public void startTimer() {
-        timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        timerNotifIsRunning = true;
 
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        NotificationServiceManager.getInstance().sendNewNotification(getString(R.string.timer),getString(R.string.notif_timer), R.drawable.clock);
-                    }
-                });
-            }
-        };
-        // 1800000 milliseconds = 30minutes
-//        timer.scheduleAtFixedRate(timerTask, 1800000, 1800000);
-        timer.scheduleAtFixedRate(timerTask, 1000, 100000);
+        Thread t = new Thread(new TimerNotification(this));
+        t.start();
     }
 
     @Override

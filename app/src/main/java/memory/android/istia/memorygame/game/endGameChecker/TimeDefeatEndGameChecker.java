@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.game.GameManager;
 
 /**
@@ -30,25 +31,25 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
      */
     private int mCountDown;
 
-    private String difficulty;
+    private EnumDifficulty difficulty;
     private boolean gameIsRunning;
 
     private TextView editTextTime;
 
-    public TimeDefeatEndGameChecker(GameManager gm, String difficulty, TextView editTextTime){
+    public TimeDefeatEndGameChecker(GameManager gm, EnumDifficulty difficulty, TextView editTextTime){
         this.mGameManager = gm;
         this.gameIsRunning = true;
 
         switch(difficulty){
-            case "easy":
+            case EASY:
                 this.mTimeLimit = 20;
                 this.mCountDown = 20;
                 break;
-            case "medium":
+            case MEDIUM:
                 this.mTimeLimit = 50;
                 this.mCountDown = 50;
                 break;
-            case "hard":
+            case HARD:
                 this.mTimeLimit = 80;
                 this.mCountDown = 80;
                 break;
@@ -71,11 +72,11 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
     @Override
     public int calculateScore() {
         switch(difficulty){
-            case "easy":
+            case EASY:
                 return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 5) * 50);
-            case "medium":
+            case MEDIUM:
                 return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 15) * 40);
-            case "hard":
+            case HARD:
                 return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 35) * 30);
             default: return MAX_SCORE;
         }

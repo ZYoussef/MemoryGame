@@ -4,9 +4,9 @@
     <string name="settings_uppercase">PARAMETRES</string>
     <string name="score_uppercase">SCORE</string>
     <string name="credits_uppercase">CREDITS</string>
-    <string name="sound_settings">Activer le son</string>
-    <string name="vibration_settings">Activer le vibreur</string>
     <string name="validate">Valider</string>
+    <string name="timer">Pas encore fatigué ?</string>
+    <string name="notif_timer">Vous jouez depuis 30min, pensez à faire une pause !</string>
     <string name="easy">Facile</string>
     <string name="medium">Normal</string>
     <string name="hard">Difficile</string>
@@ -15,10 +15,9 @@
     <string name="appName">Memory Game</string>
     <string name="Victory">VICTOIRE</string>
     <string name="defeat">DEFAITE</string>
-    <string name="timer">Not tired yet?</string>
-    <string name="notif_timer">Vous jouez depuis 30min, pensez à faire une pause !</string>
     <string name="sound">Son</string>
     <string name="vibration">Vibration</string>
     <string name="retour">Retour</string>
     <string name="credits">Application développée au sein de Polytech Angers par Sébastien Pascault, Thomas Bernard et Youssef Ziyyat dans le cadre du module Programmation Mobile.</string>
+    <string name="remainingMoves">Coups restants : </string>
 </resources>

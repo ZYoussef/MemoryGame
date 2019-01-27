@@ -3,30 +3,32 @@ package memory.android.istia.memorygame.fragments;
 
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.game.GameManager;
 import memory.android.istia.memorygame.utils.FragmentController;
 
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements View.OnClickListener {
 
     private GridLayout mGridLayout;
     private GameManager mGameManager;
     private TextView mTextViewTime;
     private TextView mTextViewNbPairFound;
     private Button buttonMenu;
-
 
     public GameFragment() {
 
@@ -39,35 +41,47 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        return inflater.inflate(R.layout.fragment_game, container, false);
+    }
 
-        int nbPair = 0;
-        String difficulty = getArguments().getString("difficulty");
+    private Point getCardSize(EnumDifficulty difficulty) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
         switch(difficulty){
-            case "easy": nbPair = 2; break;
-            case "medium": nbPair = 4; break;
-            case "hard": nbPair = 8; break;
+            case EASY: return new Point(width / 3, height / 3);
+            case MEDIUM: return new Point(width / 5, height / 3);
+            case HARD: return new Point(width / 5, height / 6);
+            default: return new Point(width / 3, height / 3);
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        int nbPair = 0;
+        EnumDifficulty difficulty = EnumDifficulty.values()[getArguments().getInt("difficulty")];
+        switch(difficulty){
+            case EASY: nbPair = 2; break;
+            case MEDIUM: nbPair = 4; break;
+            case HARD: nbPair = 8; break;
+        }
+
         mGameManager = new GameManager(nbPair, difficulty);
-
-
-
-        View view =  inflater.inflate(R.layout.fragment_game, container, false);
 
         mGridLayout = view.findViewById(R.id.gridLayoutGame);
         mTextViewTime = view.findViewById(R.id.textViewTime);
         mTextViewNbPairFound = view.findViewById(R.id.textViewNbPairFound);
         buttonMenu = view.findViewById(R.id.buttonMenu);
 
-        buttonMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
-            }
-        });
+        buttonMenu.setOnClickListener(this);
 
 
-        setGridSize(getArguments().getString("difficulty"));
-        Point cardSize = getCardSize(getArguments().getString("difficulty"));
+        setGridSize(difficulty);
+        Point cardSize = getCardSize(difficulty);
         fillGridWithCards(cardSize);
 
         if(getArguments().getBoolean("timeLimit")){
@@ -76,43 +90,23 @@ public class GameFragment extends Fragment {
         }
 
         if(getArguments().getBoolean("hitLimit")){
-            mGameManager.setMovesLimit(difficulty, mTextViewNbPairFound);
-        }
-
-        return view;
-    }
-
-    private Point getCardSize(String difficulty) {
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-        if(difficulty == "easy"){
-            return new Point(width / 3, height / 3);
-        }
-        else if(difficulty == "medium"){
-            return new Point(width / 5, height / 3);
-        }
-        else{
-            return new Point(width / 5, height / 6);
+            mGameManager.setMovesLimit(difficulty, mTextViewNbPairFound, getContext());
         }
     }
 
-    private void setGridSize(String difficulty){
+    private void setGridSize(EnumDifficulty difficulty){
         switch(difficulty){
-            case "easy":
+            case EASY:
                 // 2 paires
                 mGridLayout.setColumnCount(2);
                 mGridLayout.setRowCount(2);
                 break;
-            case "medium":
+            case MEDIUM:
                 // 4 paires
                 mGridLayout.setColumnCount(4);
                 mGridLayout.setRowCount(2);
                 break;
-            case "hard":
+            case HARD:
                 // 8 paires
                 mGridLayout.setColumnCount(4);
                 mGridLayout.setRowCount(4);
@@ -134,6 +128,14 @@ public class GameFragment extends Fragment {
 
 
     public void clickOnCard(int mID) {
+        ((MainActivity) getActivity()).playClickSound();
         mGameManager.cardClicked(mID);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.buttonMenu){
+            FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+        }
     }
 }

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.utils.FragmentController;
 
 import memory.android.istia.memorygame.R;
@@ -37,8 +40,13 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        return inflater.inflate(R.layout.fragment_main_menu, container, false);
+    }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mPlayButton = view.findViewById(R.id.buttonPlay);
         mSettingButton = view.findViewById(R.id.buttonSettings);
         mScoreButton = view.findViewById(R.id.buttonRank);
@@ -48,17 +56,11 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
         mSettingButton.setOnClickListener(this);
         mScoreButton.setOnClickListener(this);
         mCreditButton.setOnClickListener(this);
-
-        return view;
     }
-
-
-
 
     @Override
     public void onClick(View v) {
-        final MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.button_click);
-        mp.start();
+        ((MainActivity) getActivity()).playClickSound();
         switch (v.getId()) {
             case R.id.buttonPlay:
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);

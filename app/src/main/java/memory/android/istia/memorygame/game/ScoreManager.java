@@ -1,12 +1,13 @@
 package memory.android.istia.memorygame.game;
 
 import android.util.ArraySet;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
+import memory.android.istia.memorygame.enums.EnumDifficulty;
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 public class ScoreManager {
@@ -31,17 +32,17 @@ public class ScoreManager {
     private void loadScoresFromSharedPreference() {
         Set<String> set = null;
 
-        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_EASY, set);
+        set = SharedPreferenceManager.read(EnumSharedPreferences.SCORES_EASY, set);
         for(String str : set){
             this.scores_easy.add(Integer.parseInt(str));
         }
 
-        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_MEDIUM, set);
+        set = SharedPreferenceManager.read(EnumSharedPreferences.SCORES_MEDIUM, set);
         for(String str : set){
             this.scores_medium.add(Integer.parseInt(str));
         }
 
-        set = SharedPreferenceManager.read(SharedPreferenceManager.Settings.SCORES_HARD, set);
+        set = SharedPreferenceManager.read(EnumSharedPreferences.SCORES_HARD, set);
         for(String str : set){
             this.scores_hard.add(Integer.parseInt(str));
         }
@@ -57,18 +58,18 @@ public class ScoreManager {
         return instance;
     }
 
-    public void addToScore(int score, String difficulty){
-
-        ArrayList<Integer> scores = null;
+    public void addToScore(int score, EnumDifficulty difficulty){
+        ArrayList<Integer> scores;
         switch(difficulty){
-            case "easy": scores = this.scores_easy; break;
-            case "medium": scores = this.scores_medium; break;
-            case "hard": scores = this.scores_hard; break;
+            case EASY: scores = this.scores_easy; break;
+            case MEDIUM: scores = this.scores_medium; break;
+            case HARD: scores = this.scores_hard; break;
             default: scores = this.scores_easy;
         }
 
         if( scores.size() < score_to_save){
             scores.add(score);
+            saveScores();
             return;
         }
 
@@ -81,6 +82,8 @@ public class ScoreManager {
             scores.add(score);
             scores.remove(index);
         }
+
+        saveScores();
     }
 
     private void saveScores(){
@@ -92,19 +95,19 @@ public class ScoreManager {
         for(int score :  this.scores_easy){
             set.add(String.valueOf(score));
         }
-        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_EASY, set);
+        SharedPreferenceManager.write(EnumSharedPreferences.SCORES_EASY, set);
 
         set = new ArraySet<>();
         for(int score :  this.scores_medium){
             set.add(String.valueOf(score));
         }
-        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_MEDIUM, set);
+        SharedPreferenceManager.write(EnumSharedPreferences.SCORES_MEDIUM, set);
 
         set = new ArraySet<>();
         for(int score :  this.scores_hard){
             set.add(String.valueOf(score));
         }
-        SharedPreferenceManager.write(SharedPreferenceManager.Settings.SCORES_HARD, set);
+        SharedPreferenceManager.write(EnumSharedPreferences.SCORES_HARD, set);
     }
 
     public ArrayList<Integer> getScores_easy() {

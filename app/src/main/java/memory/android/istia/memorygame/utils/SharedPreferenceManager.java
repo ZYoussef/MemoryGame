@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.ArraySet;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import memory.android.istia.memorygame.enums.EnumDeck;
+import memory.android.istia.memorygame.enums.EnumLanguage;
+import memory.android.istia.memorygame.enums.EnumSharedPreferences;
 
 /**
  * SharedPreferenceManager--- Gestion des données de l'application
@@ -17,57 +22,8 @@ import java.util.Set;
 public class SharedPreferenceManager {
 
     private static SharedPreferences mSharedPreference;
+
     //Données disponible dans le SharedPreference
-    public enum Settings {
-        FIRST_START{
-            @Override
-            public String toString() {
-                return "FIRST_START";
-            }
-        },
-        SOUND_IS_ON{
-            @Override
-            public String toString() {
-                return "SOUND_IS_ON";
-            }
-        },
-        VIBRATION_IS_ON{
-            @Override
-            public String toString() {
-                return "VIBRATION_IS_ON";
-            }
-        },
-        LANGUAGE_SELECTED{
-            @Override
-            public String toString() {
-                return "LANGUAGE_SELECTED";
-            }
-        },
-        DECK_SELECTED{
-            @Override
-            public String toString() {
-                return "DECK_SELECTED";
-            }
-        },
-        SCORES_EASY{
-            @Override
-            public String toString() {
-                return "SCORES_EASY";
-            }
-        },
-        SCORES_MEDIUM{
-            @Override
-            public String toString() {
-                return "SCORES_MEDIUM";
-            }
-        },
-        SCORES_HARD{
-            @Override
-            public String toString() {
-                return "SCORES_HARD";
-            }
-        }
-    }
 
     private SharedPreferenceManager() {}
 
@@ -81,7 +37,7 @@ public class SharedPreferenceManager {
             mSharedPreference = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
 
         //Si premier lancement de l'application, on met les valeurs par défaut pour certaines options
-        if(!mSharedPreference.contains(Settings.FIRST_START.toString()))
+        if(!mSharedPreference.contains(EnumSharedPreferences.FIRST_START.toString()))
             writeDefaultSettings();
     }
 
@@ -92,17 +48,17 @@ public class SharedPreferenceManager {
      * TODO - Application mise en fr par défaut, à voir pour mettre suivant la langue du téléphone
      */
     private static void writeDefaultSettings(){
-        write(Settings.FIRST_START, false);
-        write(Settings.SOUND_IS_ON, true);
-        write(Settings.VIBRATION_IS_ON, true);
-        write(Settings.DECK_SELECTED, "incredibles");
-        write(Settings.LANGUAGE_SELECTED, "fr");
+        write(EnumSharedPreferences.FIRST_START, false);
+        write(EnumSharedPreferences.SOUND_IS_ON, true);
+        write(EnumSharedPreferences.VIBRATION_IS_ON, true);
+        write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.INCREDIBLES.ordinal());
+        write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.FRENCH.ordinal());
 
         ArraySet<String> default_Score = new ArraySet<>();
 
-        write(Settings.SCORES_EASY, default_Score);
-        write(Settings.SCORES_MEDIUM, default_Score);
-        write(Settings.SCORES_HARD, default_Score);
+        write(EnumSharedPreferences.SCORES_EASY, default_Score);
+        write(EnumSharedPreferences.SCORES_MEDIUM, default_Score);
+        write(EnumSharedPreferences.SCORES_HARD, default_Score);
     }
 
 
@@ -112,7 +68,7 @@ public class SharedPreferenceManager {
      * @param defValue Valeur par défaut si la clé n'est pas trouvée
      * @return Valeur recherché
      */
-    public static String read(Settings key, String defValue) {
+    public static String read(EnumSharedPreferences key, String defValue) {
         return mSharedPreference.getString(key.toString(), defValue);
     }
 
@@ -121,29 +77,40 @@ public class SharedPreferenceManager {
      * @param key  Clé sur laquelle on veut écrire
      * @param value  Valeur à écrire
      */
-    public static void write(Settings key, String value) {
+    public static void write(EnumSharedPreferences key, String value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putString(key.toString(), value);
         prefsEditor.apply();
     }
 
-    public static boolean read(Settings key, boolean defValue) {
+    public static boolean read(EnumSharedPreferences key, boolean defValue) {
         return mSharedPreference.getBoolean(key.toString(), defValue);
     }
 
-    public static void write(Settings key, Boolean value) {
+    public static void write(EnumSharedPreferences key, Boolean value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putBoolean(key.toString(), value);
         prefsEditor.apply();
     }
 
-    public static Set<String> read(Settings key, Set<String> defValue) {
+    public static Set<String> read(EnumSharedPreferences key, Set<String> defValue) {
         return mSharedPreference.getStringSet(key.toString(), defValue);
     }
 
-    public static void write(Settings key, Set<String> value) {
+    public static void write(EnumSharedPreferences key, Set<String> value) {
+        Log.d("test", "SAVE SCORE");
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putStringSet(key.toString(), value);
+        prefsEditor.apply();
+    }
+
+    public static int read(EnumSharedPreferences key, int defValue) {
+        return mSharedPreference.getInt(key.toString(), defValue);
+    }
+
+    public static void write(EnumSharedPreferences key, int value) {
+        SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
+        prefsEditor.putInt(key.toString(), value);
         prefsEditor.apply();
     }
 }
