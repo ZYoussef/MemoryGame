@@ -19,5 +19,5 @@
     <string name="vibration">Вибрация</string>
     <string name="retour">Назад</string>
     <string name="credits">Приложение, разработанное в Polytech Angers Себастьеном Паско, Томасом Бернардом и Юссефом Зиятом в рамках модуля мобильного программирования.</string>
-    <string name="remainingMoves">Оставшиеся совпадения: </string>
+    <string name="remainingMoves">Оставшиеся совпадения: %2$d</string>
 </resources>

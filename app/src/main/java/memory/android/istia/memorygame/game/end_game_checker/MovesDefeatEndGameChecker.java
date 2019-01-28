@@ -1,9 +1,10 @@
-package memory.android.istia.memorygame.game.endGameChecker;
+package memory.android.istia.memorygame.game.end_game_checker;
 
 import android.content.Context;
 import android.widget.TextView;
 
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.constantes.Constantes;
 import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.game.GameManager;
 
@@ -19,20 +20,10 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
 
 
     private GameManager mGameManager;
-    /**
-     * Nombre de coups max à jouer
-     */
     private int mMovesLimit;
-
-    /**
-     * Nombre de coups joués
-     */
     private int mMovesPlayed;
-
     private EnumDifficulty difficulty;
-
     private TextView movesLeftUI;
-
     private Context context;
 
     public MovesDefeatEndGameChecker(GameManager gameManager, EnumDifficulty difficulty, TextView movesLeftUI, Context context){
@@ -54,7 +45,8 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
                 break;
         }
 
-        this.movesLeftUI.setText(context.getString(R.string.remainingMoves)  + (this.mMovesLimit - this.mMovesPlayed));
+        String text = String.format(context.getString(R.string.remainingMoves), "", (this.mMovesLimit - this.mMovesPlayed));
+        this.movesLeftUI.setText(text);
     }
 
     @Override
@@ -67,7 +59,8 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
     public void update() {
         //Rajoute un coup joué + vérification victoire ou défaite
         this.mMovesPlayed++;
-        this.movesLeftUI.setText(context.getString(R.string.remainingMoves) + (this.mMovesLimit - this.mMovesPlayed));
+        String text = String.format(context.getString(R.string.remainingMoves), "", (this.mMovesLimit - this.mMovesPlayed));
+        this.movesLeftUI.setText(text);
 
         if(this.mMovesPlayed >= this.mMovesLimit){
             notifyGameManager();
@@ -79,12 +72,12 @@ public class MovesDefeatEndGameChecker implements IEndGameChecker {
     {
         switch(this.difficulty){
             case EASY:
-                return MAX_SCORE - ((this.mMovesPlayed - 4) * 100);
+                return Constantes.MAXSCORE - ((this.mMovesPlayed - 4) * 100);
             case MEDIUM:
-                return MAX_SCORE - ((this.mMovesPlayed - 8) * 75);
+                return Constantes.MAXSCORE - ((this.mMovesPlayed - 8) * 75);
             case HARD:
-                return MAX_SCORE - ((this.mMovesPlayed - 32) * 25);
-            default: return MAX_SCORE;
+                return Constantes.MAXSCORE - ((this.mMovesPlayed - 32) * 25);
+            default: return Constantes.MAXSCORE;
         }
     }
 }

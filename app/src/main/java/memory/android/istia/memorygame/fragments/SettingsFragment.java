@@ -1,37 +1,22 @@
 package memory.android.istia.memorygame.fragments;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import java.nio.InvalidMarkException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.SelectionOptions.LanguageSelection;
-import memory.android.istia.memorygame.SelectionOptions.StateSelection;
+import memory.android.istia.memorygame.selections_options.LanguageSelection;
 import memory.android.istia.memorygame.enums.EnumLanguage;
-import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.enums.EnumSettings;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
@@ -41,9 +26,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
     private CheckBox mCheckBoxSound;
     private CheckBox mCheckBoxVibration;
-    private Button mButtonValidate;
-    private Button buttonLanguageNext;
-    private Button buttonLanguagePrevious;
     private ImageView imageViewFlag;
 
     private LanguageSelection languageSelection;
@@ -53,14 +35,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         // Required empty public constructor
     }
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
@@ -71,9 +47,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         super.onViewCreated(view, savedInstanceState);
         mCheckBoxSound = view.findViewById(R.id.checkBoxSound);
         mCheckBoxVibration = view.findViewById(R.id.checkBoxVibration);
-        mButtonValidate = view.findViewById(R.id.button_settings_validate);
-        buttonLanguageNext = view.findViewById(R.id.buttonLanguageNext);
-        buttonLanguagePrevious = view.findViewById(R.id.buttonLanguagePrevious);
+        Button mButtonValidate = view.findViewById(R.id.button_settings_validate);
+        Button buttonLanguageNext = view.findViewById(R.id.buttonLanguageNext);
+        Button buttonLanguagePrevious = view.findViewById(R.id.buttonLanguagePrevious);
         imageViewFlag = view.findViewById(R.id.imageViewFlag);
 
 
@@ -83,13 +59,13 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         buttonLanguagePrevious.setOnClickListener(this);
         buttonLanguageNext.setOnClickListener(this);
 
-        languageSelection = new LanguageSelection();
+        languageSelection = new LanguageSelection(getContext());
 
-        if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)){
+        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true)){
             mCheckBoxSound.setChecked(true);
         }
 
-        if(SharedPreferenceManager.read(EnumSharedPreferences.VIBRATION_IS_ON, true)){
+        if(SharedPreferenceManager.read(EnumSettings.VIBRATION_IS_ON, true)){
             mCheckBoxVibration.setChecked(true);
         }
 
@@ -100,24 +76,14 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
      * Activer/désactiver le son
      */
     private void switchSound(){
-        if(mCheckBoxSound.isChecked()){
-            SharedPreferenceManager.write(EnumSharedPreferences.SOUND_IS_ON, true);
-        }
-        else{
-            SharedPreferenceManager.write(EnumSharedPreferences.SOUND_IS_ON, false);
-        }
+        SharedPreferenceManager.write(EnumSettings.SOUND_IS_ON, mCheckBoxSound.isChecked());
     }
 
     /**
      * Activer/désactiver les vibrations
      */
     private void switchVibration(){
-        if(mCheckBoxVibration.isChecked()){
-            SharedPreferenceManager.write(EnumSharedPreferences.VIBRATION_IS_ON, true);
-        }
-        else{
-            SharedPreferenceManager.write(EnumSharedPreferences.VIBRATION_IS_ON, false);
-        }
+        SharedPreferenceManager.write(EnumSettings.VIBRATION_IS_ON, mCheckBoxVibration.isChecked());
     }
 
     /**
@@ -125,17 +91,14 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        switch(buttonView.getId()){
-            case R.id.checkBoxSound:
-                switchSound();
-                break;
-            case R.id.checkBoxVibration:
-                switchVibration();
-                break;
+        if(buttonView.getId() == R.id.checkBoxSound){
+            switchSound();
+        }
+        else if(buttonView.getId() == R.id.checkBoxVibration){
+            switchVibration();
         }
 
-        if(getActivity() != null && getActivity() instanceof MainActivity){
+        if(getActivity() instanceof MainActivity){
             ((MainActivity) getActivity()).playClickSound();
         }
 
@@ -145,8 +108,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button_settings_validate:
-                if(getActivity() != null && getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true));
+                if(getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true));
                 }
                 FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
                 break;
@@ -155,43 +118,27 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 break;
             case R.id.buttonLanguagePrevious:
                 selectPreviousLanguage();
+                break;
+            default:
+                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+                break;
         }
         ((MainActivity) getActivity()).playClickSound();
     }
 
     private void selectNextLanguage() {
-        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
+        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSettings.LANGUAGE_SELECTED, 0)];
         languageSelection.next(currentLanguage);
-        updateLanguage();
+        languageSelection.updateView(imageViewFlag);
     }
 
     private void selectPreviousLanguage() {
-        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
+        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSettings.LANGUAGE_SELECTED, 0)];
         languageSelection.previous(currentLanguage);
-        updateLanguage();
+        languageSelection.updateView(imageViewFlag);
     }
 
     private void updateLanguage() {
-        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
-
-        switch(currentLanguage){
-            case ENGLISH: imageViewFlag.setImageResource(R.drawable.english_flag);
-            break;
-            case FRENCH: imageViewFlag.setImageResource(R.drawable.french_flag);
-            break;
-            case RUSSIAN: imageViewFlag.setImageResource(R.drawable.russia_flag);
-            break;
-        }
-
-        Locale locale = new Locale(currentLanguage.toString());
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-
-        if(getActivity() != null){
-            getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
-        }
-
-
+        languageSelection.updateView(imageViewFlag);
     }
 }

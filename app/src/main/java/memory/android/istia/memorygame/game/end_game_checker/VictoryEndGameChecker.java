@@ -1,5 +1,6 @@
-package memory.android.istia.memorygame.game.endGameChecker;
+package memory.android.istia.memorygame.game.end_game_checker;
 
+import memory.android.istia.memorygame.constantes.Constantes;
 import memory.android.istia.memorygame.game.GameManager;
 
 /**
@@ -35,6 +36,6 @@ public class VictoryEndGameChecker implements IEndGameChecker {
 
     @Override
     public int calculateScore() {
-        return MAX_SCORE;
+        return Constantes.MAXSCORE;
     }
 }

@@ -11,12 +11,12 @@ import java.util.List;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.enums.EnumDeck;
 import memory.android.istia.memorygame.enums.EnumDifficulty;
-import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.enums.EnumSettings;
 import memory.android.istia.memorygame.fragments.CardFragment;
-import memory.android.istia.memorygame.game.endGameChecker.IEndGameChecker;
-import memory.android.istia.memorygame.game.endGameChecker.MovesDefeatEndGameChecker;
-import memory.android.istia.memorygame.game.endGameChecker.TimeDefeatEndGameChecker;
-import memory.android.istia.memorygame.game.endGameChecker.VictoryEndGameChecker;
+import memory.android.istia.memorygame.game.end_game_checker.IEndGameChecker;
+import memory.android.istia.memorygame.game.end_game_checker.MovesDefeatEndGameChecker;
+import memory.android.istia.memorygame.game.end_game_checker.TimeDefeatEndGameChecker;
+import memory.android.istia.memorygame.game.end_game_checker.VictoryEndGameChecker;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
@@ -74,22 +74,22 @@ public class GameManager implements IGameManager {
 
     }
 
-    public int getBackCard(){
-        if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
+    private int getBackCard(){
+        if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
             return R.drawable.incredible_back;
         }
-        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
+        else if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
             return R.drawable.kid_back;
         }
-        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
+        else if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
             return R.drawable.fruit_back;
         }
 
         return R.drawable.incredible_back;
     }
 
-    public int getCardImage(int nb){
-        if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
+    private int getCardImage(int nb){
+        if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.INCREDIBLES.ordinal()){
             switch(nb){
                 case 0:return R.drawable.card_incredible_frozone;
                 case 1: return R.drawable.card_incredible_kid;
@@ -103,7 +103,7 @@ public class GameManager implements IGameManager {
                 default: return R.drawable.card_indredible_syndrome;
             }
         }
-        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
+        else if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.KIDS.ordinal()){
             switch(nb){
                 case 0:return R.drawable.card_kid_angry;
                 case 1: return R.drawable.card_kid_full_stretch;
@@ -117,7 +117,7 @@ public class GameManager implements IGameManager {
                 default: return R.drawable.card_kid_stretch;
             }
         }
-        else if(SharedPreferenceManager.read(EnumSharedPreferences.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
+        else if(SharedPreferenceManager.read(EnumSettings.DECK_SELECTED, 0) == EnumDeck.FRUITS.ordinal()){
             switch(nb){
                 case 0:return R.drawable.card_fruit_avocado;
                 case 1: return R.drawable.card_fruit_carambola;
@@ -153,16 +153,20 @@ public class GameManager implements IGameManager {
         //1ère carte, on enregistre et met visible
         if(this.mBeforeLastCard == null){
             mBeforeLastCard = newCard;
-            mBeforeLastCard.setCardVisibility(true);
+
+            if(mBeforeLastCard != null)
+                mBeforeLastCard.setCardVisibility(true);
+
             return;
         }
         //2nd carte, pareil + vérif des paires
         else if(this.mLastCard == null){
             this.mLastCard = newCard;
 
-            this.mLastCard.setCardVisibility(true);
+            if(mLastCard != null)
+                this.mLastCard.setCardVisibility(true);
 
-            if(mLastCard.getPairNumber() == mBeforeLastCard.getPairNumber()){
+            if(mLastCard != null && mLastCard.getPairNumber() == mBeforeLastCard.getPairNumber()){
                 mLastCard.setPairFound(true);
                 mBeforeLastCard.setPairFound(true);
                 mCardsPairFound++;
@@ -181,7 +185,8 @@ public class GameManager implements IGameManager {
             this.mLastCard = null;
 
             //Qu'on met visible
-            this.mBeforeLastCard.setCardVisibility(true);
+            if(mBeforeLastCard != null)
+                this.mBeforeLastCard.setCardVisibility(true);
         }
 
         //Signaler à tous les endGameChecker qu'un coup a été joué
@@ -192,8 +197,8 @@ public class GameManager implements IGameManager {
      * Rajoute une condition de défaite pour le jeu avec une limite de temps
      * @param difficulty limite de temps en seconde
      */
-    public void setTimeLimit(EnumDifficulty difficulty, TextView timeUI){
-        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, difficulty, timeUI);
+    public void setTimeLimit(EnumDifficulty difficulty, TextView timeUI, Context context){
+        IEndGameChecker timeChecker = new TimeDefeatEndGameChecker(this, difficulty, timeUI, context);
         attach(timeChecker);
         ((TimeDefeatEndGameChecker) timeChecker).execute();
     }
@@ -201,7 +206,7 @@ public class GameManager implements IGameManager {
     /**
      * Rajoute une condition de défaite suivant un nombre de coups limite à jouer
      * @param difficulty Limite du nombre de coup
-     * @param movesLeftUI
+     * @param movesLeftUI textView
      */
     public void setMovesLimit(EnumDifficulty difficulty, TextView movesLeftUI, Context context){
         IEndGameChecker moveLimit = new MovesDefeatEndGameChecker(this, difficulty, movesLeftUI, context);
@@ -210,7 +215,7 @@ public class GameManager implements IGameManager {
 
     /**
      * Sera appelée par un des EndGameChecker pour spécifier la fin de la partie
-     * @param victory
+     * @param victory victoire si true
      */
     public void endOfGame(boolean victory){
         if(gameIsRunning){
@@ -232,6 +237,10 @@ public class GameManager implements IGameManager {
         }
     }
 
+    /**
+     * Appelle chaque EndGameChecker et calcule son score
+     * @return Moyenne de tous les scores
+     */
     private int calculateScore(){
         int score = 0;
         for(IEndGameChecker egc : mEndGameCheckers){
@@ -258,9 +267,9 @@ public class GameManager implements IGameManager {
         return this.mCardFragments;
     }
 
-    public CardFragment getCardByID(int ID){
+    private CardFragment getCardByID(int id){
         for(CardFragment cf : mCardFragments){
-            if(cf.getCardID() == ID) return cf;
+            if(cf.getCardID() == id) return cf;
         }
         return null;
     }
@@ -271,11 +280,6 @@ public class GameManager implements IGameManager {
     @Override
     public void attach(IEndGameChecker endGameChecker) {
         this.mEndGameCheckers.add(endGameChecker);
-    }
-
-    @Override
-    public void detach(IEndGameChecker endGameChecker) {
-        this.mEndGameCheckers.remove(endGameChecker);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class FragmentController {
     private FragmentManager mFragmentManager;
     private List<Fragments> openedFragments;
 
-    public static enum Fragments
+    public enum Fragments
     {
         MAIN_MENU,
         SETTINGS,
@@ -44,7 +44,7 @@ public class FragmentController {
         END_GAME
     }
 
-    public void setFragmentManager(FragmentManager fm){
+    private void setFragmentManager(FragmentManager fm){
         this.mFragmentManager = fm;
     }
 
@@ -72,25 +72,31 @@ public class FragmentController {
      */
     public void openFragment(Fragments screen) {
         Fragment fragment = getFragment(screen);
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-        openedFragments.add(screen);
+        if(fragment != null){
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            openedFragments.add(screen);
+        }
     }
 
     public void openFragmentWithData(Fragments screen, Bundle bundle){
         Fragment fragment = getFragment(screen);
-        fragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-        openedFragments.add(screen);
+        if(fragment != null){
+            fragment.setArguments(bundle);
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            openedFragments.add(screen);
+        }
     }
 
     public void openFragmentAsPopup(Fragments screen, Bundle bundle){
         EndGameFragment fragment = (EndGameFragment) getFragment(screen);
-        fragment.setArguments(bundle);
-        fragment.show(mFragmentManager, "test");
+        if(fragment != null){
+            fragment.setArguments(bundle);
+            fragment.show(mFragmentManager, "test");
+        }
     }
 
     /**
@@ -98,12 +104,12 @@ public class FragmentController {
      * Permet d'afficher l'ancien fragment
      * (Par exemple en plein jeu, on pourrait afficher un "êtes vous sûr de vouloir quitter" au lieu
      * de simplement revenir à l'activité précédente
-     * @return
+     * @return true/false
      */
     public boolean onBack() {
-        if (openedFragments.size() > 0) {
+        if (!openedFragments.isEmpty()) {
             openedFragments.remove(openedFragments.size() - 1);
-            if (openedFragments.size() == 0) {
+            if (openedFragments.isEmpty()) {
                 return true;
             }
             Fragments screen = openedFragments.get(openedFragments.size() - 1);

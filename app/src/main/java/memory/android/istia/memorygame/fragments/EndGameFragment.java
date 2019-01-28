@@ -8,35 +8,28 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentController;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.game.ScoreManager;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment pour l'affichage de la popUp de fin de partie
+ * Gère l'affichage du nombre d'étoiles et des scores
  */
 public class EndGameFragment extends DialogFragment implements View.OnClickListener {
 
-
-    private Button buttonHome;
-
-    private ImageView star;
-    private TextView textViewResult;
-    private TextView textViewScore;
+    private ImageView mStar;
+    private TextView mTextViewResult;
+    private TextView mTextViewScore;
 
     public EndGameFragment() {
         // Required empty public constructor
@@ -44,7 +37,7 @@ public class EndGameFragment extends DialogFragment implements View.OnClickListe
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_end_game, container, false);
@@ -52,39 +45,48 @@ public class EndGameFragment extends DialogFragment implements View.OnClickListe
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        buttonHome = view.findViewById(R.id.buttonHome);
-        star = view.findViewById(R.id.imageViewStars);
-        textViewScore = view.findViewById(R.id.textViewScore);
-        textViewResult = view.findViewById(R.id.textViewResult);
+        Button buttonHome = view.findViewById(R.id.buttonHome);
+        mStar = view.findViewById(R.id.imageViewStars);
+        mTextViewScore = view.findViewById(R.id.textViewScore);
+        mTextViewResult = view.findViewById(R.id.textViewResult);
 
         setData();
 
         buttonHome.setOnClickListener(this);
         setCancelable(false);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        if(getDialog() != null && getDialog().getWindow() != null){
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
         super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     * Attribue les arguments (victory, score, nombre d'étoiles) aux views correspondantes
+     */
     private void setData() {
-        if(getArguments().getBoolean("victory")){
-            textViewResult.setText(R.string.Victory);
-            int score = getArguments().getInt("score");
-            textViewScore.setText("" + score);
-
-            if(score > 800){
-                star.setImageResource(R.drawable.star_1);
+        if(getArguments() != null){
+            if(getArguments().getBoolean("victory")){
+                mTextViewResult.setText(R.string.Victory);
+                int score = getArguments().getInt("score");
+                mTextViewScore.setText(String.format(getResources().getConfiguration().locale, "%d", score));
+                
+                if(score > 800){
+                    mStar.setImageResource(R.drawable.star_1);
+                }
+                else if(score > 600){
+                    mStar.setImageResource(R.drawable.star_2);
+                }
+                else if(score > 300){
+                    mStar.setImageResource(R.drawable.star_3);
+                }
             }
-            else if(score > 600){
-                star.setImageResource(R.drawable.star_2);
+            else{
+                mStar.setImageResource(R.drawable.star_4);
+                mTextViewResult.setText(R.string.defeat);
+                mTextViewScore.setText("0");
             }
-            else if(score > 300){
-                star.setImageResource(R.drawable.star_3);
-            }
-        }
-        else{
-            star.setImageResource(R.drawable.star_4);
-            textViewResult.setText(R.string.defeat);
-            textViewScore.setText("0");
         }
     }
 
@@ -95,20 +97,30 @@ public class EndGameFragment extends DialogFragment implements View.OnClickListe
         Window window = getDialog().getWindow();
         Point size = new Point();
 
-        Display display = window.getWindowManager().getDefaultDisplay();
-        display.getSize(size);
+        if(window != null && window.getWindowManager() != null){
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
 
-        int width = size.x;
-        int height = size.y;
+            int width = size.x;
+            int height = size.y;
 
-        window.setLayout((int) (width * 0.75), (int) (height * 0.75));
-        window.setGravity(Gravity.CENTER);
+            window.setLayout((int) (width * 0.75), (int) (height * 0.75));
+            window.setGravity(Gravity.CENTER);
+        }
     }
 
+    /**
+     * Retour au menu principal
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonHome){
-            ((MainActivity) getActivity()).playClickSound();
+
+            if(getActivity() instanceof MainActivity){
+                ((MainActivity) getActivity()).playClickSound();
+            }
+
             getDialog().cancel();
             memory.android.istia.memorygame.utils.FragmentController.getInstance().openFragment(memory.android.istia.memorygame.utils.FragmentController.Fragments.MAIN_MENU);
         }

@@ -1,6 +1,6 @@
 package memory.android.istia.memorygame.game;
 
-import memory.android.istia.memorygame.game.endGameChecker.IEndGameChecker;
+import memory.android.istia.memorygame.game.end_game_checker.IEndGameChecker;
 
 /**Interface pour le GameManager, implémentation du DP Observer (sujet)
  *
@@ -14,11 +14,6 @@ interface IGameManager {
      * @param endGameChecker Nouveau observer à attacher
      */
     void attach(IEndGameChecker endGameChecker);
-
-    /** Permet de retirer un vérificateur de fin de partie
-     * @param endGameChecker Nouveau observer à retirer
-     */
-    void detach(IEndGameChecker endGameChecker);
 
     /**
      * Notifier tous les vérificateurs de fin de partie lorsqu'une action est effectué

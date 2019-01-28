@@ -1,10 +1,11 @@
-package memory.android.istia.memorygame.game.endGameChecker;
+package memory.android.istia.memorygame.game.end_game_checker;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import memory.android.istia.memorygame.constantes.Constantes;
 import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.game.GameManager;
 
@@ -18,27 +19,20 @@ import memory.android.istia.memorygame.game.GameManager;
  */
 public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> implements IEndGameChecker {
 
-    /**
-     * Score max possible
-     */
     private GameManager mGameManager;
-    /**
-     * La limite du temps en seconde
-     */
     private int mTimeLimit;
-    /**
-     * Décompteur
-     */
     private int mCountDown;
-
-    private EnumDifficulty difficulty;
+    private EnumDifficulty mDifficulty;
     private boolean gameIsRunning;
+    private Context mContext;
+    private TextView mEditTextTime;
 
-    private TextView editTextTime;
-
-    public TimeDefeatEndGameChecker(GameManager gm, EnumDifficulty difficulty, TextView editTextTime){
+    public TimeDefeatEndGameChecker(GameManager gm, EnumDifficulty difficulty, TextView editTextTime, Context context){
         this.mGameManager = gm;
         this.gameIsRunning = true;
+        this.mDifficulty = difficulty;
+        this.mEditTextTime = editTextTime;
+        this.mContext = context;
 
         switch(difficulty){
             case EASY:
@@ -55,8 +49,7 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
                 break;
         }
 
-        this.difficulty = difficulty;
-        this.editTextTime = editTextTime;
+
     }
 
     @Override
@@ -71,23 +64,21 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
 
     @Override
     public int calculateScore() {
-        switch(difficulty){
+        switch(mDifficulty){
             case EASY:
-                return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 5) * 50);
+                return Constantes.MAXSCORE - ((this.mTimeLimit - this.mCountDown - 5) * 50);
             case MEDIUM:
-                return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 15) * 40);
+                return Constantes.MAXSCORE - ((this.mTimeLimit - this.mCountDown - 15) * 40);
             case HARD:
-                return MAX_SCORE - ((this.mTimeLimit - this.mCountDown - 35) * 30);
-            default: return MAX_SCORE;
+                return Constantes.MAXSCORE - ((this.mTimeLimit - this.mCountDown - 35) * 30);
+            default: return Constantes.MAXSCORE;
         }
-
-
     }
 
     /**
      * Lance un chronomère en background qui avertira le GameManager quand le temps
      * sera écoulé
-     * @param voids
+     * @param voids voids
      * @return Null
      */
     @Override
@@ -100,7 +91,8 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
                 this.mCountDown-= 1;
                 publishProgress(this.mCountDown);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.e("error", e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
         notifyGameManager();
@@ -114,8 +106,6 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        this.editTextTime.setText("" + this.mCountDown);
+        this.mEditTextTime.setText(String.format(mContext.getResources().getConfiguration().locale, "%d", this.mCountDown));
     }
-
-
 }

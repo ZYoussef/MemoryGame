@@ -19,5 +19,5 @@
     <string name="vibration">Vibration</string>
     <string name="retour">Back</string>
     <string name="credits">Application developed within Polytech Angers by Sébastien Pascault, Thomas Bernard and Youssef Ziyyat as part of the Mobile Programming module.</string>
-    <string name="remainingMoves">Remaining hits : </string>
+    <string name="remainingMoves">Remaining hits : %2$d</string>
 </resources>

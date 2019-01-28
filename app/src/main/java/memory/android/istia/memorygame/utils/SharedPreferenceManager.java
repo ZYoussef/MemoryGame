@@ -6,12 +6,11 @@ import android.content.SharedPreferences;
 import android.util.ArraySet;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 import memory.android.istia.memorygame.enums.EnumDeck;
 import memory.android.istia.memorygame.enums.EnumLanguage;
-import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.enums.EnumSettings;
 
 /**
  * SharedPreferenceManager--- Gestion des données de l'application
@@ -37,7 +36,7 @@ public class SharedPreferenceManager {
             mSharedPreference = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
 
         //Si premier lancement de l'application, on met les valeurs par défaut pour certaines options
-        if(!mSharedPreference.contains(EnumSharedPreferences.FIRST_START.toString()))
+        if(!mSharedPreference.contains(EnumSettings.FIRST_START.toString()))
             writeDefaultSettings();
     }
 
@@ -47,17 +46,17 @@ public class SharedPreferenceManager {
      *
      */
     private static void writeDefaultSettings(){
-        write(EnumSharedPreferences.FIRST_START, false);
-        write(EnumSharedPreferences.SOUND_IS_ON, true);
-        write(EnumSharedPreferences.VIBRATION_IS_ON, true);
-        write(EnumSharedPreferences.DECK_SELECTED, EnumDeck.INCREDIBLES.ordinal());
-        write(EnumSharedPreferences.LANGUAGE_SELECTED, EnumLanguage.FRENCH.ordinal());
+        write(EnumSettings.FIRST_START, false);
+        write(EnumSettings.SOUND_IS_ON, true);
+        write(EnumSettings.VIBRATION_IS_ON, false);
+        write(EnumSettings.DECK_SELECTED, EnumDeck.INCREDIBLES.ordinal());
+        write(EnumSettings.LANGUAGE_SELECTED, EnumLanguage.FRENCH.ordinal());
 
-        ArraySet<String> default_Score = new ArraySet<>();
+        ArraySet<String> defaultScore = new ArraySet<>();
 
-        write(EnumSharedPreferences.SCORES_EASY, default_Score);
-        write(EnumSharedPreferences.SCORES_MEDIUM, default_Score);
-        write(EnumSharedPreferences.SCORES_HARD, default_Score);
+        write(EnumSettings.SCORES_EASY, defaultScore);
+        write(EnumSettings.SCORES_MEDIUM, defaultScore);
+        write(EnumSettings.SCORES_HARD, defaultScore);
     }
 
 
@@ -67,7 +66,7 @@ public class SharedPreferenceManager {
      * @param defValue Valeur par défaut si la clé n'est pas trouvée
      * @return Valeur recherché
      */
-    public static String read(EnumSharedPreferences key, String defValue) {
+    public static String read(EnumSettings key, String defValue) {
         return mSharedPreference.getString(key.toString(), defValue);
     }
 
@@ -76,38 +75,38 @@ public class SharedPreferenceManager {
      * @param key  Clé sur laquelle on veut écrire
      * @param value  Valeur à écrire
      */
-    public static void write(EnumSharedPreferences key, String value) {
+    public static void write(EnumSettings key, String value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putString(key.toString(), value);
         prefsEditor.apply();
     }
 
-    public static boolean read(EnumSharedPreferences key, boolean defValue) {
+    public static boolean read(EnumSettings key, boolean defValue) {
         return mSharedPreference.getBoolean(key.toString(), defValue);
     }
 
-    public static void write(EnumSharedPreferences key, Boolean value) {
+    public static void write(EnumSettings key, Boolean value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putBoolean(key.toString(), value);
         prefsEditor.apply();
     }
 
-    public static Set<String> read(EnumSharedPreferences key, Set<String> defValue) {
+    public static Set<String> read(EnumSettings key, Set<String> defValue) {
         return mSharedPreference.getStringSet(key.toString(), defValue);
     }
 
-    public static void write(EnumSharedPreferences key, Set<String> value) {
+    public static void write(EnumSettings key, Set<String> value) {
         Log.d("test", "SAVE SCORE");
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putStringSet(key.toString(), value);
         prefsEditor.apply();
     }
 
-    public static int read(EnumSharedPreferences key, int defValue) {
+    public static int read(EnumSettings key, int defValue) {
         return mSharedPreference.getInt(key.toString(), defValue);
     }
 
-    public static void write(EnumSharedPreferences key, int value) {
+    public static void write(EnumSettings key, int value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putInt(key.toString(), value);
         prefsEditor.apply();

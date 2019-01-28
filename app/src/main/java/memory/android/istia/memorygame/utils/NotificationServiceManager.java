@@ -27,7 +27,7 @@ public class NotificationServiceManager {
 
     private int mNotifyId;
 
-    private static NotificationServiceManager mNotificationServiceManager;
+    private static NotificationServiceManager instance;
 
     private NotificationServiceManager(Context context){
         mContext = context;
@@ -36,15 +36,15 @@ public class NotificationServiceManager {
     }
 
     public static void init(Context context){
-        mNotificationServiceManager = new NotificationServiceManager(context);
+        instance = new NotificationServiceManager(context);
     }
 
     public static NotificationServiceManager getInstance(){
-        if(mNotificationServiceManager == null){
+        if(instance == null){
             throw new IllegalStateException("NotificationManager has not been initialised");
         }
 
-        return mNotificationServiceManager;
+        return instance;
     }
 
     /**
@@ -57,7 +57,7 @@ public class NotificationServiceManager {
 
         String id = "channel_default_id";
         Intent intent = new Intent(mContext, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);;
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, id);
 
         builder.setContentTitle(notificationTitle)

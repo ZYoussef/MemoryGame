@@ -1,17 +1,17 @@
 package memory.android.istia.memorygame;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import memory.android.istia.memorygame.enums.EnumLanguage;
-import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.enums.EnumSettings;
+import memory.android.istia.memorygame.services.AudioService;
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
 import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
@@ -25,13 +25,10 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
  */
 public class MainActivity extends FragmentActivity {
 
-    private MediaPlayer mediaPlayerMusic;
     private MediaPlayer mediaPlayerClick;
 
     private boolean timerNotifIsRunning;
 
-
-    private Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,47 +49,54 @@ public class MainActivity extends FragmentActivity {
 
         setLanguage();
 
+        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, false)){
+            Intent svc= new Intent(this, AudioService.class);
+            startService(svc);
+        }
+
+
         if(!timerNotifIsRunning)
             startTimer();
 
-        mediaPlayerMusic = MediaPlayer.create(this, R.raw.back_music);
-        mediaPlayerMusic.setLooping(true);
-
         mediaPlayerClick = MediaPlayer.create(this, R.raw.button_click);
 
-
-        //Musique
-        if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)){
-            setMusic(true);
-        }
     }
 
     public void setMusic(boolean state){
 
-        if(state){
-            mediaPlayerMusic.start();
+        if(state && !isMyServiceRunning(AudioService.class)){
+            Intent svc= new Intent(this, AudioService.class);
+            startService(svc);
         }
         else{
-            mediaPlayerMusic.pause();
+            Intent svc= new Intent(this, AudioService.class);
+            stopService(svc);
         }
     }
 
     public void playClickSound(){
-        if(SharedPreferenceManager.read(EnumSharedPreferences.SOUND_IS_ON, true)) {
+        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true)) {
             mediaPlayerClick.start();
         }
     }
 
+    /**
+     * Timer de notifications
+     * Envois une notification toutes les 30 minutes
+     */
     private void startTimer() {
         timerNotifIsRunning = true;
 
-        Thread t = new Thread(new TimerNotification(this));
+        Thread t = new Thread(new TimerNotification(this, 18000000));
         t.start();
     }
 
+    /**
+     * Modifie la langue de l'application si celle enregistré n'est pas celle par défaut
+     */
     private void setLanguage(){
         Locale current = getResources().getConfiguration().locale;
-        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSharedPreferences.LANGUAGE_SELECTED, 0)];
+        EnumLanguage currentLanguage = EnumLanguage.values()[SharedPreferenceManager.read(EnumSettings.LANGUAGE_SELECTED, 0)];
 
         if(!current.toString().equals(currentLanguage.toString())){
             Locale locale = new Locale(currentLanguage.toString());
@@ -111,5 +115,15 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         FragmentController.getInstance().onBack();
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

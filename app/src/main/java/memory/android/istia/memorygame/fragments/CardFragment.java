@@ -18,11 +18,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.enums.EnumSharedPreferences;
+import memory.android.istia.memorygame.enums.EnumSettings;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment responsable des cartes de jeu, gère le click + le retournement de carte
  */
 public class CardFragment extends Fragment implements View.OnClickListener {
 
@@ -30,19 +30,11 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     private int mPairNumber;
     private int mImageId;
     private int mBackImageId;
-    private boolean mCardVisible;
     private boolean mPairFound;
-
-    private int width;
-    private int height;
+    private int mWidth;
+    private int mHeight;
 
     private ImageView mCardImage;
-
-
-
-
-    public CardFragment() {
-    }
 
     public static CardFragment newInstance(int id, int pairNumber, int image, int backImage) {
         CardFragment myFragment = new CardFragment();
@@ -57,15 +49,17 @@ public class CardFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_card, container, false);
 
-        this.mID = getArguments().getInt("id");
-        this.mBackImageId = getArguments().getInt("backImage");
-        this.mImageId = getArguments().getInt("image");
-        this.mPairNumber = getArguments().getInt("pairNumber");
+        if(getArguments() != null){
+            this.mID = getArguments().getInt("id");
+            this.mBackImageId = getArguments().getInt("backImage");
+            this.mImageId = getArguments().getInt("image");
+            this.mPairNumber = getArguments().getInt("pairNumber");
+        }
 
         return view;
     }
@@ -79,21 +73,30 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         mCardImage.setImageResource(this.mBackImageId);
         mCardImage.setOnClickListener(this);
 
-        this.mCardImage.getLayoutParams().height = this.height;
-        this.mCardImage.getLayoutParams().width = this.width;
-
+        this.mCardImage.getLayoutParams().height = this.mHeight;
+        this.mCardImage.getLayoutParams().width = this.mWidth;
     }
 
+    /**
+     * Transmet l'information du click au GameFragment
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         if(v.getId() == mCardImage.getId()){
             vibrate();
-            ( (GameFragment) getParentFragment() ).clickOnCard(this.mID);
+            if(getParentFragment() instanceof GameFragment){
+                ((GameFragment) getParentFragment()).clickOnCard(this.mID);
+            }
         }
     }
 
+    /**
+     * Permet de faire vibrer le téléphone si l'option est activée
+     */
     private void vibrate(){
-        if(SharedPreferenceManager.read(EnumSharedPreferences.VIBRATION_IS_ON, false)){
+        if(SharedPreferenceManager.read(EnumSettings.VIBRATION_IS_ON, false)
+                && getActivity() != null){
             Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -105,6 +108,11 @@ public class CardFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Effectue une animation de rotation sur mCardImage et change l'image selon visible
+     * L'image est changée entre deux animations lorsque la carte n'est plus visible
+     * @param visible carte visible ou non
+     */
     public void setCardVisibility(final boolean visible){
         ObjectAnimator animation = ObjectAnimator.ofFloat(mCardImage, "rotationY", 0f, 90f);
         animation.setDuration(360);
@@ -117,11 +125,9 @@ public class CardFragment extends Fragment implements View.OnClickListener {
                 super.onAnimationEnd(animation);
                 if(visible){
                     mCardImage.setImageResource(mImageId);
-                    mCardVisible = true;
                 }
                 else{
                     mCardImage.setImageResource(mBackImageId);
-                    mCardVisible = false;
                 }
 
                 ObjectAnimator animation2 = ObjectAnimator.ofFloat(mCardImage, "rotationY", 90f, 0f);
@@ -133,8 +139,8 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     }
 
     public void resizeCard(int newWidth, int newHeight) {
-        this.height = newHeight;
-        this.width = newWidth;
+        this.mHeight = newHeight;
+        this.mWidth = newWidth;
     }
 
     public int getCardID(){
