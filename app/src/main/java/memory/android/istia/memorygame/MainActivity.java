@@ -116,6 +116,19 @@ public class MainActivity extends FragmentActivity {
     public void onBackPressed() {
         FragmentController.getInstance().onBack();
     }
+    
+    /*
+    * On coupe le service de musique quand l'application passe en pause
+    */
+    @Override
+    public void onPause(){
+        setMusic(false);
+    }
+    
+    @Override
+    public void onResume(){
+        setMusic(true);
+    }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
