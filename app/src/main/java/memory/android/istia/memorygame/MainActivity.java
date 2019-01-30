@@ -122,11 +122,13 @@ public class MainActivity extends FragmentActivity {
     */
     @Override
     public void onPause(){
+        super.onPause();
         setMusic(false);
     }
     
     @Override
     public void onResume(){
+        super.onResume();
         setMusic(true);
     }
 

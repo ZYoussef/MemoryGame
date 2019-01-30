@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MemoryGame</string>
+    <string name="app_name">Memory Game</string>
     <string name="play_uppercase">JOUER</string>
     <string name="settings_uppercase">PARAMETRES</string>
     <string name="score_uppercase">SCORE</string>
