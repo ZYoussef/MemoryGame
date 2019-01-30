@@ -25,7 +25,10 @@ public class TimerNotification implements Runnable {
                 Log.e("error", e.getMessage());
                 Thread.currentThread().interrupt();
             }
-            NotificationServiceManager.getInstance().sendNewNotification(context.getString(R.string.timer), context.getString(R.string.notif_timer), R.drawable.clock);
+
+            if(MainActivity.isVisible){
+                NotificationServiceManager.getInstance().sendNewNotification(context.getString(R.string.timer), context.getString(R.string.notif_timer), R.drawable.clock);
+            }
         }
     }
 
