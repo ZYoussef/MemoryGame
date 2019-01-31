@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import java.util.Locale;
 
+import memory.android.istia.memorygame.constantes.Constantes;
 import memory.android.istia.memorygame.enums.EnumLanguage;
 import memory.android.istia.memorygame.enums.EnumSettings;
 import memory.android.istia.memorygame.services.AudioService;
@@ -25,8 +26,10 @@ import memory.android.istia.memorygame.utils.SharedPreferenceManager;
  */
 public class MainActivity extends FragmentActivity {
 
-    private MediaPlayer mediaPlayerClick;
+    //Permet de savoir si l'application est stoppé ou non
+    protected static boolean isVisible = false;
 
+    private MediaPlayer mediaPlayerClick;
     private boolean timerNotifIsRunning;
 
 
@@ -87,7 +90,7 @@ public class MainActivity extends FragmentActivity {
     private void startTimer() {
         timerNotifIsRunning = true;
 
-        Thread t = new Thread(new TimerNotification(this, 18000000));
+        Thread t = new Thread(new TimerNotification(this, Constantes.TEMPSNOTIFICATION));
         t.start();
     }
 
@@ -115,6 +118,23 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         FragmentController.getInstance().onBack();
+    }
+    
+    /*
+    * On coupe le service de musique quand l'application passe en pause
+    */
+    @Override
+    public void onPause(){
+        super.onPause();
+        setMusic(false);
+        isVisible = false;
+    }
+    
+    @Override
+    public void onResume(){
+        super.onResume();
+        setMusic(true);
+        isVisible = true;
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
