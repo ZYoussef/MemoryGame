@@ -1,9 +1,11 @@
 package memory.android.istia.memorygame.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,8 @@ import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.selections_options.LanguageSelection;
 import memory.android.istia.memorygame.enums.EnumLanguage;
 import memory.android.istia.memorygame.enums.EnumSettings;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.services.AudioService;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
@@ -29,6 +32,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     private ImageView imageViewFlag;
 
     private LanguageSelection languageSelection;
+
+    //Pour ne pas avoir le son du click quand on modifie les checkbox à l'initialisation
+    private boolean allowSound = false;
 
 
     public SettingsFragment() {
@@ -61,15 +67,16 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
 
         languageSelection = new LanguageSelection(getContext());
 
-        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true)){
+        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, false)){
             mCheckBoxSound.setChecked(true);
         }
 
-        if(SharedPreferenceManager.read(EnumSettings.VIBRATION_IS_ON, true)){
+        if(SharedPreferenceManager.read(EnumSettings.VIBRATION_IS_ON, false)){
             mCheckBoxVibration.setChecked(true);
         }
 
         updateLanguage();
+        allowSound = true;
     }
 
     /**
@@ -98,7 +105,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
             switchVibration();
         }
 
-        if(getActivity() instanceof MainActivity){
+        if(getActivity() instanceof MainActivity && this.allowSound){
             ((MainActivity) getActivity()).playClickSound();
         }
 
@@ -111,7 +118,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 if(getActivity() instanceof MainActivity) {
                     ((MainActivity) getActivity()).setMusic(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true));
                 }
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
                 break;
             case R.id.buttonLanguageNext:
                 selectNextLanguage();
@@ -120,7 +127,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 selectPreviousLanguage();
                 break;
             default:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
                 break;
         }
         ((MainActivity) getActivity()).playClickSound();

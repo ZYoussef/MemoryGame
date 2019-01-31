@@ -18,7 +18,7 @@ import memory.android.istia.memorygame.fragments.ScoreFragment;
 import memory.android.istia.memorygame.fragments.SettingsFragment;
 
 /**
- * FragmentController--- Gère l'ensemble des fragment du jeu (Singleton)
+ * CustomFragmentManager--- Gère l'ensemble des fragment du jeu (Singleton)
  *  S'occupe d'afficher les fragments sur l'activité
  *
  *  Source : https://github.com/sromku/memory-game/blob/master/app/src/main/java/com/snatik/matches/engine/ScreenController.java
@@ -27,9 +27,9 @@ import memory.android.istia.memorygame.fragments.SettingsFragment;
  *
  * @version 1.0
  */
-public class FragmentController {
+public class CustomFragmentManager {
 
-    private static FragmentController mInstance;
+    private static CustomFragmentManager mInstance;
     private FragmentManager mFragmentManager;
     private List<Fragments> openedFragments;
 
@@ -48,19 +48,19 @@ public class FragmentController {
         this.mFragmentManager = fm;
     }
 
-    private FragmentController(FragmentManager fm){
+    private CustomFragmentManager(FragmentManager fm){
         this.setFragmentManager(fm);
         openedFragments = new ArrayList<>();
     }
 
     public static void init(FragmentManager fragmentManager){
-        mInstance = new FragmentController(fragmentManager);
+        mInstance = new CustomFragmentManager(fragmentManager);
     }
 
 
-    public static FragmentController getInstance(){
+    public static CustomFragmentManager getInstance(){
         if(mInstance == null){
-            throw new IllegalStateException("FragmentController has not been initialised");
+            throw new IllegalStateException("CustomFragmentManager has not been initialised");
         }
 
         return mInstance;

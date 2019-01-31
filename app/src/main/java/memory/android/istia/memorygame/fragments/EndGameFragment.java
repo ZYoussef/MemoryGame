@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 
 /**
  * Fragment pour l'affichage de la popUp de fin de partie
@@ -122,7 +123,7 @@ public class EndGameFragment extends DialogFragment implements View.OnClickListe
             }
 
             getDialog().cancel();
-            memory.android.istia.memorygame.utils.FragmentController.getInstance().openFragment(memory.android.istia.memorygame.utils.FragmentController.Fragments.MAIN_MENU);
+            CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
         }
     }
 }

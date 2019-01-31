@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 
 /**
  * Frageent du menu principal
@@ -54,19 +54,19 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.buttonPlay:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.GAME_PARAMETERS);
                 break;
             case R.id.buttonSettings:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.SETTINGS);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.SETTINGS);
                 break;
             case R.id.buttonRank:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.SCORES);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.SCORES);
                 break;
             case R.id.buttonCredit:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.CREDITS);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.CREDITS);
                 break;
             default:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.GAME_PARAMETERS);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.GAME_PARAMETERS);
                 break;
         }
     }

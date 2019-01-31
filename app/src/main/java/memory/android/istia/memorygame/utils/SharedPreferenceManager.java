@@ -36,8 +36,11 @@ public class SharedPreferenceManager {
             mSharedPreference = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
 
         //Si premier lancement de l'application, on met les valeurs par défaut pour certaines options
-        if(!mSharedPreference.contains(EnumSettings.FIRST_START.toString()))
+        if(mSharedPreference.contains(EnumSettings.FIRST_START.toString()))
             writeDefaultSettings();
+        else{
+            Log.e("test", "fuck it");
+        }
     }
 
     /**
@@ -66,8 +69,9 @@ public class SharedPreferenceManager {
      * @param defValue Valeur par défaut si la clé n'est pas trouvée
      * @return Valeur recherché
      */
-    public static String read(EnumSettings key, String defValue) {
-        return mSharedPreference.getString(key.toString(), defValue);
+
+    public static boolean read(EnumSettings key, boolean defValue) {
+        return mSharedPreference.getBoolean(key.toString(), defValue);
     }
 
     /**
@@ -75,16 +79,6 @@ public class SharedPreferenceManager {
      * @param key  Clé sur laquelle on veut écrire
      * @param value  Valeur à écrire
      */
-    public static void write(EnumSettings key, String value) {
-        SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
-        prefsEditor.putString(key.toString(), value);
-        prefsEditor.apply();
-    }
-
-    public static boolean read(EnumSettings key, boolean defValue) {
-        return mSharedPreference.getBoolean(key.toString(), defValue);
-    }
-
     public static void write(EnumSettings key, Boolean value) {
         SharedPreferences.Editor prefsEditor = mSharedPreference.edit();
         prefsEditor.putBoolean(key.toString(), value);

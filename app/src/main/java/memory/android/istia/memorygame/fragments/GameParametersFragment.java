@@ -20,7 +20,7 @@ import memory.android.istia.memorygame.selections_options.DifficultySelection;
 import memory.android.istia.memorygame.enums.EnumDeck;
 import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.enums.EnumSettings;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
@@ -113,7 +113,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
                 play();
                 break;
             case R.id.buttonClose:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
                 break;
             case R.id.buttonDeckNext:
                 setNextDeck();
@@ -128,7 +128,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
                 setPreviousDifficulty();
                 break;
             default:
-                FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+                CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
                 break;
         }
     }
@@ -153,7 +153,7 @@ public class GameParametersFragment extends Fragment implements View.OnClickList
         args.putBoolean("timeLimit", timeLimitSet);
         args.putBoolean("hitLimit", hitLimitSet);
 
-        FragmentController.getInstance().openFragmentWithData(FragmentController.Fragments.GAME, args);
+        CustomFragmentManager.getInstance().openFragmentWithData(CustomFragmentManager.Fragments.GAME, args);
     }
 
     private void setNextDifficulty(){

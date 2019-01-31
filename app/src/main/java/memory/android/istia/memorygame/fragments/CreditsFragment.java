@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 
 /**
  * Fragment pour les crédits
@@ -48,7 +48,7 @@ public class CreditsFragment extends Fragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).playClickSound();
             }
 
-            FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+            CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
         }
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import memory.android.istia.memorygame.MainActivity;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.game.ScoreManager;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 
 /**
  * Affichage des scores
@@ -116,7 +117,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).playClickSound();
             }
 
-            FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+            CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
         }
     }
 }

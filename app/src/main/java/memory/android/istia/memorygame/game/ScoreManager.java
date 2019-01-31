@@ -1,6 +1,7 @@
 package memory.android.istia.memorygame.game;
 
 import android.util.ArraySet;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,18 +37,28 @@ public class ScoreManager {
         Set<String> set = null;
 
         set = SharedPreferenceManager.read(EnumSettings.SCORES_EASY, set);
-        for(String str : set){
-            this.scoresEasy.add(Integer.parseInt(str));
+        if(set != null && !set.isEmpty()){
+            this.scoresEasy = new ArrayList<>();
+            for(String str : set){
+                this.scoresEasy.add(Integer.parseInt(str));
+            }
         }
 
+
         set = SharedPreferenceManager.read(EnumSettings.SCORES_MEDIUM, set);
-        for(String str : set){
-            this.scoresMedium.add(Integer.parseInt(str));
+        if(set != null && !set.isEmpty()) {
+            this.scoresMedium = new ArrayList<>();
+            for (String str : set) {
+                this.scoresMedium.add(Integer.parseInt(str));
+            }
         }
 
         set = SharedPreferenceManager.read(EnumSettings.SCORES_HARD, set);
-        for(String str : set){
-            this.scoresHard.add(Integer.parseInt(str));
+        if(set != null && !set.isEmpty()) {
+            this.scoresHard = new ArrayList<>();
+            for (String str : set) {
+                this.scoresHard.add(Integer.parseInt(str));
+            }
         }
 
     }
@@ -70,6 +81,7 @@ public class ScoreManager {
             default: scores = this.scoresEasy;
         }
 
+
         int scoreToSave = 3;
         if( scores.size() < scoreToSave){
             scores.add(score);
@@ -91,9 +103,6 @@ public class ScoreManager {
     }
 
     private void saveScores(){
-        Collections.sort( this.scoresEasy);
-        Collections.sort( this.scoresMedium);
-        Collections.sort( this.scoresHard);
 
         ArraySet<String> set = new ArraySet<>();
         for(int score :  this.scoresEasy){
@@ -116,16 +125,19 @@ public class ScoreManager {
 
     public List<Integer> getScoresEasy() {
         loadScoresFromSharedPreference();
+        Collections.sort( this.scoresEasy, Collections.reverseOrder());
         return this.scoresEasy;
     }
 
     public List<Integer> getScoresMedium() {
         loadScoresFromSharedPreference();
+        Collections.sort( this.scoresMedium,Collections.reverseOrder());
         return this.scoresMedium;
     }
 
     public List<Integer> getScoresHard() {
         loadScoresFromSharedPreference();
+        Collections.sort( this.scoresHard,Collections.reverseOrder());
         return this.scoresHard;
     }
 }

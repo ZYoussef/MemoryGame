@@ -7,19 +7,21 @@ import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+
 import java.util.Locale;
 
 import memory.android.istia.memorygame.constantes.Constantes;
 import memory.android.istia.memorygame.enums.EnumLanguage;
 import memory.android.istia.memorygame.enums.EnumSettings;
 import memory.android.istia.memorygame.services.AudioService;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 import memory.android.istia.memorygame.utils.NotificationServiceManager;
-import memory.android.istia.memorygame.utils.FragmentController;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
  * MainActivity--- Activité de l'application (UNIQUE)
- * Initialisation du SharedPreferenceManager et du FragmentController
+ * Initialisation du SharedPreferenceManager et du CustomFragmentManager
  *
  * @author Sébastien, Thomas, Youssef
  * @version 1.0
@@ -41,21 +43,20 @@ public class MainActivity extends FragmentActivity {
         //Initialisation du SharedPreference qui sera globale pour toute l'application
         SharedPreferenceManager.init(getApplicationContext());
 
-        //Initialisation du FragmentController
-        FragmentController.init(getSupportFragmentManager());
+        //Initialisation du CustomFragmentManager
+        CustomFragmentManager.init(getSupportFragmentManager());
 
         //Initialisation du notificationsManager
         NotificationServiceManager.init(getApplicationContext());
 
         //Affichage du menu principal
-        FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+        CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
+
+        Log.e("test", "Valeur sound_is_on : " + SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true));
 
         setLanguage();
 
-        if(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, false)){
-            Intent svc= new Intent(this, AudioService.class);
-            startService(svc);
-        }
+        setMusic(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true));
 
 
         if(!timerNotifIsRunning)
@@ -71,7 +72,7 @@ public class MainActivity extends FragmentActivity {
             Intent svc= new Intent(this, AudioService.class);
             startService(svc);
         }
-        else{
+        else if(!state && isMyServiceRunning(AudioService.class)){
             Intent svc= new Intent(this, AudioService.class);
             stopService(svc);
         }
@@ -117,7 +118,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentController.getInstance().onBack();
+        CustomFragmentManager.getInstance().onBack();
     }
     
     /*
@@ -133,7 +134,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        setMusic(true);
+        setMusic(SharedPreferenceManager.read(EnumSettings.SOUND_IS_ON, true));
         isVisible = true;
     }
 

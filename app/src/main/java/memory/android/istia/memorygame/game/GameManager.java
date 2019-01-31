@@ -17,7 +17,7 @@ import memory.android.istia.memorygame.game.end_game_checker.IEndGameChecker;
 import memory.android.istia.memorygame.game.end_game_checker.MovesDefeatEndGameChecker;
 import memory.android.istia.memorygame.game.end_game_checker.TimeDefeatEndGameChecker;
 import memory.android.istia.memorygame.game.end_game_checker.VictoryEndGameChecker;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 import memory.android.istia.memorygame.utils.SharedPreferenceManager;
 
 /**
@@ -233,7 +233,7 @@ public class GameManager implements IGameManager {
                 }
             }
 
-            FragmentController.getInstance().openFragmentAsPopup(FragmentController.Fragments.END_GAME, bundle);
+            CustomFragmentManager.getInstance().openFragmentAsPopup(CustomFragmentManager.Fragments.END_GAME, bundle);
         }
     }
 

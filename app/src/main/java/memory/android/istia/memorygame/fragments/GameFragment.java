@@ -18,7 +18,7 @@ import android.widget.TextView;
 import memory.android.istia.memorygame.R;
 import memory.android.istia.memorygame.enums.EnumDifficulty;
 import memory.android.istia.memorygame.game.GameManager;
-import memory.android.istia.memorygame.utils.FragmentController;
+import memory.android.istia.memorygame.utils.CustomFragmentManager;
 
 /**
  * Gère l'affichage du jeu
@@ -160,7 +160,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonMenu){
-            FragmentController.getInstance().openFragment(FragmentController.Fragments.MAIN_MENU);
+            CustomFragmentManager.getInstance().openFragment(CustomFragmentManager.Fragments.MAIN_MENU);
         }
     }
 }
