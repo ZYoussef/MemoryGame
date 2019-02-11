@@ -33,6 +33,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
     private boolean mPairFound;
     private int mWidth;
     private int mHeight;
+    private boolean isVisible;
 
     private ImageView mCardImage;
 
@@ -83,7 +84,7 @@ public class CardFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-        if(v.getId() == mCardImage.getId()){
+        if(v.getId() == mCardImage.getId() && !isVisible){
             vibrate();
             if(getParentFragment() instanceof GameFragment){
                 ((GameFragment) getParentFragment()).clickOnCard(this.mID);
@@ -114,6 +115,8 @@ public class CardFragment extends Fragment implements View.OnClickListener {
      * @param visible carte visible ou non
      */
     public void setCardVisibility(final boolean visible){
+        this.isVisible = visible;
+
         ObjectAnimator animation = ObjectAnimator.ofFloat(mCardImage, "rotationY", 0f, 90f);
         animation.setDuration(250);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
