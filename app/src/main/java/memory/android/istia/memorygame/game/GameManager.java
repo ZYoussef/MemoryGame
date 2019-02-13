@@ -220,7 +220,7 @@ public class GameManager implements IGameManager {
     public void endOfGame(boolean victory){
         if(gameIsRunning){
             Bundle bundle = new Bundle();
-            int score = calculateScore();
+            int score = victory ? calculateScore() : 0;
             bundle.putInt("score", score);
             bundle.putBoolean("victory", victory);
             gameIsRunning = false;

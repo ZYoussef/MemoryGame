@@ -87,14 +87,15 @@ public class TimeDefeatEndGameChecker extends AsyncTask<Void, Integer, Void> imp
         //Chronomètre
         while(this.mCountDown> 0 && gameIsRunning){
             try {
+                publishProgress(this.mCountDown);
                 Thread.sleep(1000);
                 this.mCountDown-= 1;
-                publishProgress(this.mCountDown);
             } catch (InterruptedException e) {
                 Log.e("error", e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }
+        publishProgress(this.mCountDown);
         notifyGameManager();
         return null;
     }

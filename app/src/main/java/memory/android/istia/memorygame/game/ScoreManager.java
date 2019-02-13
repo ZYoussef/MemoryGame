@@ -73,33 +73,35 @@ public class ScoreManager {
     }
 
     void addToScore(int score, EnumDifficulty difficulty){
-        ArrayList<Integer> scores;
-        switch(difficulty){
-            case EASY: scores = this.scoresEasy; break;
-            case MEDIUM: scores = this.scoresMedium; break;
-            case HARD: scores = this.scoresHard; break;
-            default: scores = this.scoresEasy;
-        }
+        if(score > 0){
+            ArrayList<Integer> scores;
+            switch(difficulty){
+                case EASY: scores = this.scoresEasy; break;
+                case MEDIUM: scores = this.scoresMedium; break;
+                case HARD: scores = this.scoresHard; break;
+                default: scores = this.scoresEasy;
+            }
 
 
-        int scoreToSave = 3;
-        if( scores.size() < scoreToSave){
-            scores.add(score);
+            int scoreToSave = 3;
+            if( scores.size() < scoreToSave){
+                scores.add(score);
+                saveScores();
+                return;
+            }
+
+            int index =  scores.size() + 1;
+            for(int i = 0; i <  scores.size(); i++){
+                if( score >  scores.get(i)) index = i;
+            }
+
+            if(index <=  scores.size()){
+                scores.add(score);
+                scores.remove(index);
+            }
+
             saveScores();
-            return;
         }
-
-        int index =  scores.size() + 1;
-        for(int i = 0; i <  scores.size(); i++){
-            if( score >  scores.get(i)) index = i;
-        }
-
-        if(index <=  scores.size()){
-            scores.add(score);
-            scores.remove(index);
-        }
-
-        saveScores();
     }
 
     private void saveScores(){

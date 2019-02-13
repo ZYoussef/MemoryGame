@@ -130,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="173dp" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineLeftScore"
@@ -144,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="153dp" />
+        app:layout_constraintGuide_percent="0.62" />
 
     <ImageView
         android:id="@+id/background"
@@ -215,7 +215,7 @@
         android:textColor="@android:color/background_dark"
         app:autoSizeTextType="uniform"
         app:fontFamily="@font/fredoka_one"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottomScore"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTopHome"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRightScore"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeftScore"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopScore" />
