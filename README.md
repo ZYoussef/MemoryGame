@@ -10,6 +10,8 @@ Fonctionnalités:
 - Customisation du deck de carte
 - Scores & classement
 
+Source des assets graphiques : https://craftpix.net/freebies/free-jungle-cartoon-2d-game-ui/
+
 ## Installation
 
 Ouvrez le projet avec Android Studio (ou tout autre IDE Android souhaité) puis exécuter le projet
